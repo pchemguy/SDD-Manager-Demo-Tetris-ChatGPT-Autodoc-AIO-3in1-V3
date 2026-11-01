@@ -63,11 +63,11 @@ function down(g: Draft, settings: Settings, events: GameEvent[], soft = false): 
 const copyPiece = (p: Piece) => ({ ...p, origin: { ...p.origin } });
 
 /** Create an empty idle state or a seeded running game; seeds are nonzero uint32. */
-export function createGame(seed: number, runId: string, settings: Settings, _capabilities: Capabilities, initialStatus: 'idle' | 'running'): GameState {
+export function createGame(seed: number, runId: string, settings: Settings, capabilities: Capabilities, initialStatus: 'idle' | 'running'): GameState {
   if (!Number.isInteger(seed) || seed < 1 || seed > 4294967295) throw new RangeError('Seed must be a nonzero uint32');
   const g: Draft = {
     runId, status: initialStatus, board: Array.from({ length: 20 }, () => Array<Cell>(10).fill(null)),
-    active: null, held: null, holdUsed: false, sequence: { rng: seed, mode: 'uniform', pending: [] },
+    active: null, held: null, holdUsed: false, sequence: { rng: seed, mode: capabilities.has('modern')?'bag7':'uniform', pending: [] },
     score: 0, lines: 0, level: 1, bonuses: 0,
     timers: { gravityRemainingMs: 1000, lockRemainingMs: null, grounded: false },
     piecePolicy: { lockPolicy: settings.lockPolicy, hardDropLock: settings.hardDropLock }
@@ -117,6 +117,6 @@ export function advanceGame(state: GameState, elapsedMs: number, settings: Setti
 }
 
 /** Baseline projections expose no undelivered modern controls. */
-export function projectGame(_state: GameState, _settings: Settings, _capabilities: Capabilities): Readonly<{ ghost: Piece | null; next: PieceKind | null; held: PieceKind | null }> {
-  return { ghost: null, next: null, held: null };
+export function projectGame(state: GameState, settings: Settings, capabilities: Capabilities): Readonly<{ ghost: Piece | null; next: PieceKind | null; held: PieceKind | null }> {
+  return { ghost: null, next: capabilities.has('modern')&&settings.nextPreview ? state.sequence.pending[0]??null : null, held: null };
 }

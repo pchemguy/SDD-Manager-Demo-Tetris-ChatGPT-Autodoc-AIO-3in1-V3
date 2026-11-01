@@ -78,11 +78,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 - [ ] Phase 2 — Modern piece controls
     - [ ] Milestone 2.1 — Sequence and piece controls
-        - [ ] T-011 — Implement seven-bag sequence and next preview
+        - [x] T-011 — Implement seven-bag sequence and next preview
             Scope: src/domain/sequence.ts, projections and focused tests. Contract: R2; C2.
             Depends on: T-010.
             Evidence: Check nonbiased seeded bag shuffling, every bag containing all seven kinds, refill boundaries and preview reads without consumption. Preserve serializable generator state and baseline play.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
+            Verification: Verified predecessor v0.1.0 integration/release, all hosted bytes and Phase 2 tracking before work. Two intended modern factory/preview failures preceded implementation. Final 47 unit tests, type check and build pass: four complete bags for three seeds, immutable preview/next-spawn agreement across refill boundaries, serializable determinism, disabled preview and retained unbiased baseline uniform sequence. v0.2.0/capability metadata and phase branch-off checkpoint included.
         - [ ] T-012 — Implement once-per-piece hold
             Scope: src/domain/engine.ts and controller views/tests. Contract: R2/R3; C2/C3.
             Depends on: T-011.
