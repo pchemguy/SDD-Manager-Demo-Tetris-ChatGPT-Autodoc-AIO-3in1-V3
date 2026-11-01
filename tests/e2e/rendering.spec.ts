@@ -21,3 +21,11 @@ for(const width of [320,768,1440])test(`baseline remains legible without overflo
   await expect(page.locator('canvas')).toBeVisible();await expect(page.locator('#restart')).toBeVisible();await expect(page.locator('#pause')).toBeVisible();
   await page.screenshot({path:test.info().outputPath(`baseline-${width}.png`),fullPage:true});
 });
+test('Start and resume bring the complete desktop board into view',async({page},testInfo)=>{
+  await page.setViewportSize({width:1280,height:900});await page.goto('/');
+  for(const button of ['#restart','#pause','#pause']){
+    await page.locator(button).click();const board=(await page.locator('canvas').boundingBox())!;
+    expect(board.y).toBeGreaterThanOrEqual(0);expect(board.y+board.height).toBeLessThanOrEqual(900);await expect(page.locator('canvas')).toBeFocused();
+  }
+  await page.screenshot({path:testInfo.outputPath('board-focused.png')});
+});

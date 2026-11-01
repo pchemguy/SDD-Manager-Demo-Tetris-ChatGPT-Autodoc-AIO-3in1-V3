@@ -140,7 +140,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Check non-overlapping final placement, no destruction by traversal, four-line earn-one, cap-three, spend/re-earn and no refunds. Verify hold prohibition, hard-drop/ghost landing agreement and active interval behavior.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/3/3.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Three intended bonus/re-earn/white-lock failures preceded implementation. Final 78 unit tests, check/build pass. Verified exact four-line earn-one/cap-three, no awards for 1–3 rows or absent capability, spend/re-earn, no refund, ghost/drop equality and traversed-distance points, preserved delayed lock and no settled-cell destruction. Invalid overlapping final lock safely ends without writing. Whole mechanics review/report/HANDOFF included; no scoped TODO.
-    - [ ] Milestone 3.2 — Visibility and bonus experience
+    - [x] Milestone 3.2 — Visibility and bonus experience
         - [x] T-021 — Render white penetrators and matching ghost
             Scope: src/ui/board.ts and projection/render checks. Contract: R4; C4.
             Depends on: T-020.
@@ -151,11 +151,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-021.
             Evidence: Show one lightning symbol per bonus; update on spend/award. Exercise the P hotkey, exhausted inventory and active hold prohibition with clear help and no added gameplay button.
             Verification: Four intended inventory/help browser failures preceded implementation. Final type check/build, 78 unit tests and 26 Chromium/Firefox browser cases pass. Inventory renders 3→2 lightning symbols after native P, repeated activation cannot cancel/spend, C preserves held/next state while active, hold status/help explain prohibition, and ordinary packaged-capable entry ignores exhausted P without changing Canvas. Exactly two gameplay buttons remain; full-page active/bonus screenshot inspected. Authored-state fixtures are excluded from production.
-        - [ ] T-023 — Verify penetrator play and cumulative browser artifact
+        - [x] T-023 — Verify penetrator play and cumulative browser artifact
             Scope: tests/e2e, domain integration fixtures and browser packaging/docs. Contract: R4/R12; C1-C4/C8.
             Depends on: T-021, T-022.
             Evidence: Demonstrate a four-line award, activation through a stack and valid lock. Compare ghost/drop and bonus rendering, check ordinary controls regressions and verify the extracted browser package. Do not claim dynamic visibility before its Phase 4 selector.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/3/3.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Native-keyboard public-component four-line award/spend/overlap/pass-through/white-lock scenario passes with literal score 832 and retained barrier assertions. Review found board clipping after low gameplay-button focus: both browser tests failed before bounded focus/scroll repair. Final check/build, current 78 units, 30 source/public-component browser cases and 22 extracted-package entry cases pass (8 explicit source-only exclusions). Fixtures excluded, screenshots inspected, stable package checks pass. Milestone 3.2 report/HANDOFF included; no dynamic-visibility or native platform claim.
     - [ ] Milestone 3.3 — Phase review
         - [ ] T-024 — Review test and report Phase 3
             Depends on: T-020, T-023 and verified completion/closure of every delivery milestone in this phase.

@@ -27,7 +27,7 @@ export function mount(root:HTMLElement, controller:Controller, mode:'wide'|'side
     if(penetrator){set('bonus-count',g.bonuses);set('bonuses','⚡'.repeat(g.bonuses));const inventory=root.querySelector('[data-testid=bonuses]')!;const label=`${g.bonuses} penetrator bonuses`;if(inventory.getAttribute('aria-label')!==label)inventory.setAttribute('aria-label',label);}
     drawBoard(view);
   };
-  const focus=()=>canvas.focus({preventScroll:true});
+  const focus=()=>{canvas.focus({preventScroll:true});canvas.scrollIntoView({block:'center',inline:'nearest'});};
   root.querySelector('#restart')!.addEventListener('click',()=>{controller.start();focus();});
   root.querySelector('#pause')!.addEventListener('click',()=>{const status=controller.view().state.game.status;if(status==='running')controller.pause();else if(status==='paused')controller.resume();else controller.start();focus();});
   const input=bindInput(canvas,action=>controller.action(action),()=>{const s=controller.view().state.game.status;if(s==='running')controller.pause();else if(s==='paused')controller.resume();});
