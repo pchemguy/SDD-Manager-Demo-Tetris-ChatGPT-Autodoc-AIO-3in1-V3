@@ -2,7 +2,7 @@
 
 A Tetris development project targeting a static browser application, a Windows Electron application and desktop Chromium/Firefox sidebar extensions. Delivery begins with a playable classic browser baseline and adds the requested capabilities through bounded increments.
 
-Implementation is underway. The classic engine, scoring, controller and playable Canvas browser UI are present. A verified browser ZIP candidate can be built locally; a published release remains pending phase review/integration.
+Implementation is underway. The classic engine, scoring, controller and playable Canvas browser UI are present. Phase 1 is verified and integrated. Browser release downloads and installation instructions are available from the [latest release](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/releases/latest). Later phases remain in progress.
 
 ## Project documents
 
