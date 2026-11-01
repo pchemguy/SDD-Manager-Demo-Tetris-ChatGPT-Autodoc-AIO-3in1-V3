@@ -59,3 +59,5 @@ The project targets shared TypeScript gameplay/UI for browser, Windows Electron 
 [TASKS](docs/dev/TASKS.md) is the sole implementation task owner; its adjacent review report assesses derivation. The current autodoc stopping boundary and any later grants remain in DOCS_PREPARATION/HANDOFF. Phase 1 is activated; recover the current task from TASKS/Git and HANDOFF.
 
 The managed Linux test host requires `TETRIS_FIREFOX_SANDBOX_WORKAROUND=1` for trusted local Firefox checks after a diagnosed content-process namespace failure. It is opt-in and must not be applied to arbitrary pages. Use the absolute project-owned browser root established by Playwright configuration.
+
+`npm run test:unit` is validated for the current public geometry/landing tests. Domain consumers import `src/domain/index.ts`; private shape data stays within the domain owner.
