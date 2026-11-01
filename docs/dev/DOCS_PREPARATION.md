@@ -8,7 +8,7 @@
 - Tracking: enabled for documentation preparation and implementation by root AGENTS.md. GitHub milestone 1 (`sdd-docs-main`) and issues 1–9 match the pinned definitions, with every association read back before repository writes.
 - Publication: each owned commit is pushed and read back before further work. Repository operations within the requested project are authorized by the development request and supplied repository credentials.
 - Reporting: Standard after Explicit bootstrap; Minimal and Explicit remain selectable.
-- Next boundary: complete DOCS-003 publication/issue closure; then DOCS-004. Autodoc stops after DOCS-008.
+- Next boundary: complete DOCS-004 publication/issue closure; then DOCS-005. Autodoc stops after DOCS-008.
 
 ## Scope source
 
@@ -21,7 +21,7 @@ One pass covers the user's complete 2026-11-01 project request: classic baseline
 | DOCS-001 | Complete at `d5f876ec4743832d91c06671774b417f67fb9b96`; supervised exact remote readback passed. Issue 1 is closed as completed, with association and state read back. |
 | DOCS-002 | Onepass PROJECT proposal SHA-256 `b7a026207dced33bdb2f6867d4b830f0fd640e3518bd5a4ddac392095e257a15`. Purpose, full scope, platform order and consequential recommendations checked against the user request; no product verification claimed. Human approval: the user’s “k” response accepted the published proposal at `0a1dcb82993be5d84eeb31b3d20dcc911813ac29`, including its consequential choices. DOCS-002 is complete in this approval commit. |
 | DOCS-003 | Autodoc scoped preapproval following accepted PROJECT. Define shared runtime and platform architecture. Exact artifact states: `docs/dev/ARCHITECTURE.md` SHA-256 `8694fb9226255cb635399aa683828bb40e7ca48c8338318c7ee424a0fc69abbd`. |
-| DOCS-004 | Not authored; document checkpoint preapproved by autodoc mode. |
+| DOCS-004 | Autodoc scoped preapproval following accepted PROJECT. Define component APIs and canonical models. Exact artifact states: `docs/dev/DECOMPOSITION.md` SHA-256 `08ea3b921375fed503617e1635644f2897fa3c7680d7222955fafe6d52609ef5`; `docs/dev/MODELS.md` SHA-256 `003883fcc48fa5d4142078a8a4e6f4857dc8cf62a936c07443ef2d9c3e9a4eef`; `docs/dev/API-DESIGN.md` SHA-256 `93aff72efc21209e9395cf225c887e441cdc25d2a5ef9a0c68598d9a9e4107f9`. |
 | DOCS-005 | Not authored; document checkpoint preapproved by autodoc mode. |
 | DOCS-006 | Not authored; document checkpoint preapproved by autodoc mode. |
 | DOCS-007 | Not authored; document checkpoint preapproved by autodoc mode. |
@@ -42,7 +42,7 @@ One pass covers the user's complete 2026-11-01 project request: classic baseline
 
 ## Pending transitions
 
-Publish/read back DOCS-003 and close/read back issue 3. Proceed to DOCS-004 only after those effects are verified. Earlier required closures were read back.
+Publish/read back DOCS-004 and close/read back issue 4. Proceed to DOCS-005 only after those effects are verified. Earlier required closures were read back.
 
 ## Accepted product decisions
 
