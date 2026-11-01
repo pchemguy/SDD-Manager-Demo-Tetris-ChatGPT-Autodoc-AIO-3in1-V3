@@ -50,3 +50,7 @@ The 21 delivery milestones plus nine phase reviews retain their initial count ra
 ## Revision 2
 
 Reviewed the SPEC Revision 2 focus clarification against Phase 1 keyboard integration and Phase 7 focus/accessibility exits. Root SPEC SHA-256: `552dfbc94a9f387b4fa0ed3c5168571c15984ed2a062d35ff8354b040bf28f44`; platform contract SHA-256: `67dab801de812545165057541d93f6b55bee9a1d95914c888ba6b158942e143a`. PLAN/layout hashes remain those in Revision 1. The existing outcomes already require keyboard play and correct form focus, so the clarification needs no strategy or placement change. TASKS assigns explicit Start/resume focus evidence to the baseline lifecycle task. Combined readiness remains Ready; no confirmed finding is deferred.
+
+## Revision 3 — Clock-interface conformance
+
+Reviewed SPEC/API-DESIGN Revision 3's single-clock tick refinement. T-005 already owns serial command/time dispatch through clock ports, T-006 owns animation-frame integration and T-007 owns lifecycle behavior. Existing PLAN/layout/task boundaries and IDs remain sufficient. No delivery, dependency or scope change is needed; the affected consumer checks must verify interleaved frame/input time and pause/resume. Current governing SPEC SHA-256: `fc1f3a9632935fce0c85b949efbb045a8e4b6ac2f98bc00be0a01d8fd8a997a8`; API-DESIGN SHA-256: `287c4ae148b9398e252f87c09bd9a5269b86f4d77a40f167d17b0102e5e92d32`. Unchanged strategy/task decomposition remains Ready within the reviewed scope.

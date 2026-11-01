@@ -34,7 +34,7 @@ interface Controller {
   pause(): void;
   resume(): void;
   action(action: GameAction): void;
-  advance(elapsedMs: number): void;
+  tick(): void;
   setSettings(patch: SettingPatch): Promise<Outcome<void>>;
   save(format: FileFormat): Promise<Outcome<void>>;
   restore(file: InputFile): Promise<Outcome<void>>;
@@ -48,7 +48,7 @@ mount(root: HTMLElement, controller: Controller,
   mode: 'wide' | 'sidebar'): () => void;
 ```
 
-Controller owns serialization and notifies subscribers only after a coherent transition. C4 owns DOM event listeners and input-repeat scheduling, invokes the controller and disposes listeners/resources through its returned function. UI code cannot call C1/C2 to mutate gameplay. Subscribe returns an idempotent unsubscribe; dispose is idempotent and rejects further effectful operations with a typed failure rather than leaking resources.
+Controller owns serialization and notifies subscribers only after a coherent transition. `tick()` polls PlatformPorts.now; the controller accounts each monotonic interval once and synchronizes that clock before every semantic input. The UI must not supply a second frame-delta clock. C2 advanceGame remains the explicit-elapsed pure boundary. C4 owns DOM event listeners and input-repeat scheduling, invokes the controller and disposes listeners/resources through its returned function. UI code cannot call C1/C2 to mutate gameplay. Subscribe returns an idempotent unsubscribe; dispose is idempotent and rejects further effectful operations with a typed failure rather than leaking resources.
 
 ## C5 pure rules and C6 codecs
 

@@ -39,10 +39,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-003.
             Evidence: Verify simultaneous one-to-four-row compaction, score before level changes, soft-drop points, safe-integer saturation and the gravity curve. Preserve timer/spawn behavior and exactly one game-over event.
             Verification: RED: all nine new public-engine scoring cases failed before implementation. GREEN: full unit suite passes 38/38, npm run check and npm run build pass. Verified one-to-four line bases, simultaneous row compaction and surviving-cell shifts, pre-clear level multiplication, next-spawn level/interval changes, soft-drop points only for actual movement, no gravity points and maximum-safe score saturation. Tests use literal independent board/score expectations; no new browser claim.
-        - [ ] T-005 — Integrate the application controller and browser ports
+        - [x] T-005 — Integrate the application controller and browser ports
             Scope: src/application and src/platform browser/ports, tests/unit/application. Contract: R1/R3; C3/C7.
             Depends on: T-004.
             Evidence: Compose fixed baseline defaults, serial command/time dispatch, run IDs, immutable views and subscription/disposal. Verify start/pause/resume/restart and clock-independent controller behavior with public domain operations.
+            Verification: Six controller behavioral tests failed against the unimplemented API, then all 44 unit tests passed. npm run check and npm run build pass. Verified one monotonic clock, input-before-frame accounting, pause freezing, lock-before-input order, isolated snapshots and lifecycle disposal. C3 tick API refinement recorded in focused specification/planning/task conformance revisions. Persistent settings and file operations remain unavailable until their assigned increments.
         - [ ] T-006 — Deliver playable Canvas keyboard and game information UI
             Scope: src/ui, src/entry/browser.ts, index.html and tests/e2e. Contract: R1/initial R9; C4.
             Depends on: T-004, T-005.
