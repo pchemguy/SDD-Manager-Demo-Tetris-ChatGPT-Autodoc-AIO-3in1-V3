@@ -1,7 +1,7 @@
 /** Midline acceptance uses literal board rows and the public landing/projection contract. */
 import {expect,test} from 'vitest';
 import {cells,createGame,dispatchGame,landing,projectGame} from '../../../src/domain';
-import {DEFAULT_SETTINGS} from '../../../src/rules/settings';
+import {DEFAULT_SETTINGS} from '../../../src/rules';
 import type {Capabilities,Cell,GameState} from '../../../src/models';
 const caps:Capabilities=new Set(['modern','penetrator','settings']);
 for(const penetrator of [false,true])for(const floor of [10,11,12])test(`dynamic ghost at floor ${floor}, penetrator ${penetrator}`,()=>{

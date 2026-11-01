@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Phase implementation/review is integrated into main; merge publication and v0.4.0 release remain pending effects.
+Checkpoint: Phase 4 initial implementation and verified T-031 public-boundary correction are integrated; merge publication and exact v0.4.0 release remain pending.
 
 ## Workflow and sources
 
@@ -12,12 +12,17 @@ The user's “Run QC and full implement” on 2026-11-01 authorizes T-001–T-07
 
 ## Branches and return
 
-Working branch: `main`, receiving completed `phase/4-session-configuration` at `bb84fff14a4a292d42b532abd114e352e9948b97`. Source creation parent/integration target was main at `98a542420026603160b734840be3d43765e06fae`. No suspended parent. Phase 3 integrated at `417fb6715148c86dccffa58010b36771ba248dc9`; all seven task issues 27–33 and milestones 9–11 are closed/read back.
+Working branch: `main`, receiving corrected `phase/4-session-configuration` at `5dcbc4b16569bb6f78a5b463d2dad9b460e541a0`. Original phase branch creation parent was main `98a542420026603160b734840be3d43765e06fae`; receiving main before this correction merge was `f88ca7119c65f8fa0f22d0ab0929c5b40bcf1eb7`. No suspended parent. Phase 3 integrated at `417fb6715148c86dccffa58010b36771ba248dc9`; all seven task issues 27–33 and milestones 9–11 are closed/read back.
 
 ## Pending work and next action
 
 [v0.3.0](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/releases/tag/v0.3.0) is published/latest; all three assets were re-downloaded and byte-matched. Browser ZIP SHA-256: `032722a6eebdc34706864a679a189b17b56f0e3009589d6173366d33ecb658df`. Exact tag/package source is the branch-off release commit above.
 
-Phase 4 label, milestones 12–14 and issues 34–40 are fully read-back verified before task edits/tests. Collection readback initially lagged acknowledged issues 38 and 40; read-only reconciliation verified existing identities and bounded creation reused prior objects without duplicates. T-025/T-026 are published with issues 34/35 closed. T-027 is published with issue 36/milestone 12 closed/read back. T-028/T-029 are published, issues 37/38 closed. T-030 is published; issue 39/milestone 13 are closed/read back. T-031 includes [Phase 4 review](reports/phases/4/PHASE-REPORT.md). T-031 is published and issue 40/milestone 14 are closed/read back. Publish/read back this explicit verified merge and complete v0.4.0 exact-source release/download verification. Only then activate Phase 5 and continue T-032–T-072. No additional human checkpoint is pending.
+Phase 4 label, milestones 12–14 and issues 34–40 are fully read-back verified before task edits/tests. Collection readback initially lagged acknowledged issues 38 and 40; read-only reconciliation verified existing identities and bounded creation reused prior objects without duplicates. T-025/T-026 are published with issues 34/35 closed. T-027 is published with issue 36/milestone 12 closed/read back. T-028/T-029 are published, issues 37/38 closed. T-030 is published; issue 39/milestone 13 are closed/read back. T-031 includes [Phase 4 review](reports/phases/4/PHASE-REPORT.md). T-031 initial closing and public-boundary correction commits are published/read back; review issue 40/milestone 14 are reclosed/read back. Publish/read back this explicit correction integration and complete v0.4.0 exact-source release/download verification. Only then activate Phase 5 and continue T-032–T-072. No additional human checkpoint is pending.
 
 Predecessor evidence: 78 units, check/build, 30 source/public-component browser cases and 22 packaged-entry cases pass (eight source-only exclusions). Exact release source was rebuilt, checked, tested and downloaded byte-matched. Current milestone verification: 95 units, check/build, 42 source/public-component and 32 packaged-entry Chromium/Firefox cases pass (10 source-only exclusions). Six controls/current/pending feedback, native disabled actions and ghost raster boundaries pass; restart/reload and storage/history spies prove session-only behavior. Clean candidate ZIP 97e915fab3c5da7bee99e77f72a179f65c220bd46776b76fe8157ef0c4ba5496 at T-030 source byte-matches tested runtime; exact T-030 Actions 41331208378 succeeded. Whole-phase review/task audit passes; no scoped TODO. Exact release rebuild remains subsequent. Optional comprehensive prerelease review reminder emitted once for v0.4.0; not a selected campaign. No reset or discarded work.
+
+
+## T-031 forward reassessment
+
+After main merge `f88ca7119c65f8fa0f22d0ab0929c5b40bcf1eb7` was published, the final layout re-read found direct C5 implementation imports instead of required `src/rules/index.ts`. No tag/release exists for v0.4.0. The original single-task closing composition remains intact; its no-layout-violation finding was unsupported and is corrected/verified in the current tree under the retained full grant. Work resumes on the existing Phase 4 branch from its original main creation parent above; receiving main remains the published merge. Review issue40/milestone14 were reopened for reassessment, then reclosed/read back after correction `5dcbc4b16569bb6f78a5b463d2dad9b460e541a0` was published. Public-entry and affected parent/consumer checks pass (check/build,95 units,42 source cases, identical package-tested runtime assets). This explicit second integration preserves the true source creation parent and published first integration; publish/read back this merge then continue exact-source release checks. Earlier reports remain historical evidence.
