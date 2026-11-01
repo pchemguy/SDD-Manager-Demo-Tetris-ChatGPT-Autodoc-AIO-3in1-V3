@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Milestone 3.2 implementation/review passed. T-023 publication, issue and milestone closure remain pending effects. Full implementation remains authorized.
+Checkpoint: Phase 3 implementation/review passed. T-024 publication, review milestone closure, integration and release remain pending effects. Full implementation remains authorized.
 
 ## Workflow and sources
 
@@ -20,6 +20,6 @@ Working branch: `phase/3-penetrator-bonuses`, created from actual default/creati
 
 Phase 3 label, milestones 9–11 and issues 27–33 with all associations are verified before task edits/tests. The initial projection could not see acknowledged issue 27 in collection readback; read-only reconciliation established that exact existing issue and six missing identities. The subsequent apply reused existing objects and verified the complete projection without duplicates.
 
-T-018–T-022 are published with closed issues; milestone 9 is closed/read back. T-023 includes complete native-keyboard public-component scenario, cumulative ZIP and [milestone 3.2 review](reports/phases/3/3.2.md). Publish/read back T-023, close issue 32 then milestone 10, execute T-024 and complete Phase 3 integration/release/download verification before later phases. No additional human checkpoint is pending.
+T-018–T-023 are published with closed issues; milestones 9 and 10 are closed/read back. T-024 includes [Phase 3 review](reports/phases/3/PHASE-REPORT.md). Publish/read back T-024, close issue 33 then milestone 11, explicitly integrate/publish main and complete v0.3.0 exact-source release/download verification. Only then activate Phase 4 and continue T-025–T-072. No additional human checkpoint is pending.
 
-Current evidence: 78 unit checks, type check/build, 30 source app/public-component browser cases and 22 packaged-entry cases pass; eight explicit source-only exclusions. Four-line award/spend/pass-through/white lock has literal score/board assertions. Fixed button-focus scrolling after both browsers reproduced board clipping. Screenshots inspected and fixtures excluded from ZIP. Candidate hash f94fe496386969bba1e9fae33b4f30a7c632492c9168046a8e92270d9b71f453; exact-source release rebuild remains pending. No scoped TODO, reset or discarded work.
+Current evidence: 78 unit checks, check/build, 30 source app/public-component browser cases and 22 packaged-entry cases pass (eight explicit source-only exclusions). Exact T-023 GitHub Actions run 41328256525 succeeded. Clean candidate hash 7ab087f71950ee7aa044b567ac0cb3ba60fc3a2310962006395d74e274624fb7 byte-matches tested runtime/instructions/notices. Whole-phase review/task persistence audit passes; no scoped TODO. Final release-source rebuild remains pending; no reset or discarded work.

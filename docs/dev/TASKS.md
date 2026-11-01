@@ -121,7 +121,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 3 — Penetrator bonuses
 
-- [ ] Phase 3 — Penetrator bonuses
+- [x] Phase 3 — Penetrator bonuses
     - [x] Milestone 3.1 — Penetrator mechanics
         - [x] T-018 — Implement lowest valid penetrator landing
             Scope: src/domain/landing.ts and tests/unit/domain. Contract: R4; C1.
@@ -157,11 +157,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Demonstrate a four-line award, activation through a stack and valid lock. Compare ghost/drop and bonus rendering, check ordinary controls regressions and verify the extracted browser package. Do not claim dynamic visibility before its Phase 4 selector.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/3/3.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Native-keyboard public-component four-line award/spend/overlap/pass-through/white-lock scenario passes with literal score 832 and retained barrier assertions. Review found board clipping after low gameplay-button focus: both browser tests failed before bounded focus/scroll repair. Final check/build, current 78 units, 30 source/public-component browser cases and 22 extracted-package entry cases pass (8 explicit source-only exclusions). Fixtures excluded, screenshots inspected, stable package checks pass. Milestone 3.2 report/HANDOFF included; no dynamic-visibility or native platform claim.
-    - [ ] Milestone 3.3 — Phase review
-        - [ ] T-024 — Review test and report Phase 3
+    - [x] Milestone 3.3 — Phase review
+        - [x] T-024 — Review test and report Phase 3
             Depends on: T-020, T-023 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/3/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
+            Verification: Whole-phase code/consumer review and task-commit audit pass; no scoped TODO. Current identical production evidence: 78 units, check/build, 30 source/public-component browser cases and 22 packaged-entry cases (8 explicit source-only exclusions). Clean candidate passes all checks and byte-matches tested runtime/instructions/notices; exact T-023 GitHub Actions 41328256525 succeeded. Phase report/HANDOFF and initial task/parent checkoffs included; integration/exact-source release remain subsequent gates.
 
 ## Phase 4 — Session configuration
 
