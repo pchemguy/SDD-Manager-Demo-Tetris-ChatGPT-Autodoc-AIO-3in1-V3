@@ -1,6 +1,6 @@
 {
   "name": "tetris-three-platforms",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "npm run build:assets && npm run build:schemas && vite --host 127.0.0.1",
-    "check": "npm run build:assets && npm run build:schemas && tsc --noEmit",
+    "check": "npm run build:assets && npm run build:schemas && tsc --noEmit && tsc -p tsconfig.electron.json --noEmit",
     "test:unit": "npm run build:assets && npm run build:schemas && vitest run",
     "test:e2e": "playwright test",
     "build": "npm run build:assets && npm run build:schemas && vite build",
@@ -25,6 +25,7 @@
     "@types/node": "24.19.2",
     "@types/sql.js": "1.4.11",
     "ajv": "8.20.0",
+    "electron": "45.2.1",
     "typescript": "7.0.2",
     "vite": "8.3.5",
     "vitest": "5.0.5"

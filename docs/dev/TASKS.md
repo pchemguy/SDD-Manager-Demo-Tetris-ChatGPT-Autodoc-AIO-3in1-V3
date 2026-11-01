@@ -366,11 +366,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 - [ ] Phase 8 — Windows desktop delivery
     - [ ] Milestone 8.1 — Local desktop runtime
-        - [ ] T-056 — Establish the isolated Electron local-origin shell
+        - [x] T-056 — Establish the isolated Electron local-origin shell
             Scope: src/platform/electron main/origin and pinned Electron configuration. Contract: R10; C7.
             Depends on: T-055.
             Evidence: Pin Electron and register standard secure app origin on its persistent session before loading the shared renderer. Disable renderer Node integration, retain isolation/sandbox and restrict asset paths/navigation without a server.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
+            Verification: R10 C7:2new protocol/host-consumer suites observed RED on absent modules(no scenarios executed); after implementation7actual filesystem/Response/native-host-recorder cases pass. Final check(including Node-only/no-DOM config),205deterministic,build and18Chromium/Firefox shared play/render/JSON smoke cases pass. PinElectron45.2.1 confirmed npmstable/official non-prerelease runtime; exact Windowsx64 URL,size158187314/SHA7c342aee45d5b4ccafe5dfe9037028796b082735a576e21e2b4e2d8422ebb727 recorded. Secure standard app scheme registered beforeReady on actual persist:tetris session, verified immutable asset cache/GETHEAD/CSP/WASM MIME, traversal/foreign/unknown/unsafe-method/hash/symlink failures. Native recorder verifies sandbox/isolation/Node-disabled/no preload,popup/nav/network/permission denial,closequit and clear corrupt-asset failure. CI skips unrelated host-binary download,never weakens security. Phaseentry0.8/predecessorv0.7release430899527/hostedbytes/Actions41356702664/integration+closures and allPhase8issues65–71/milestones25–27 verified. No scopedTODO; desktop renderer/build/native-host acceptance and Windowsartifact remain assigned subsequenttasks.
         - [ ] T-057 — Integrate desktop renderer persistence and file assets
             Scope: src/entry/desktop.ts, Electron adapter/build and platform tests. Contract: R10/R6/R8; C7/C8.
             Depends on: T-056.
