@@ -37,6 +37,10 @@ On this managed Linux host, Firefox content processes hit a diagnosed `/proc/sel
 
 The SQLite asset gate is available as `npm run probe:sqlite`: it rebuilds/extracts the real ZIP and probes its production worker in both browsers. sql.js 1.15.2 and its matching browser WASM are copied/fingerprinted by `build:assets`; no CDN or host SQLite is used. JSON does not fetch that binary. The native Save format choice and automatic Restore detection use the same complete snapshot validator. Both formats are processed locally in owned workers with no server or host SQLite. See the [asset gate evidence](docs/dev/reports/phases/6/SQLITE-ASSET-GATE.md).
 
+## Layout and controls
+
+The shared UI centers the board independently of leaderboard/settings/help visibility. Three Hide/Show controls sit above the two gameplay buttons; hiding settings also hides manual file controls. Canvas backing follows device pixels. See the [UI guide](docs/UI-GUIDE.md) for keyboard, focus, settings and manual snapshots. Wide order is verified from 1280px; compact information/board/auxiliary sections fit 320px and shared sidebar mode remains compact. Hidden controls leave keyboard/accessibility navigation, resize retains game/settings/results/focus, and file feedback stays accessible outside a hidden settings panel.
+
 ## Browser packaging
 
 `npm run package` builds `dist/release/tetris-browser.zip`, `INSTALL.md` and `SHA256SUMS.txt`. `npm run verify:package` checks the stable inventory, SHA-256 bytes, safe ZIP members, local assets, source/version, project/third-party license bytes and credential exclusions, then extracts to `dist/package-smoke`. Use `TETRIS_PACKAGED_TEST=1 npm run test:e2e` to test that extracted distribution. On the diagnosed Linux host, also set the Firefox workaround described above. Python 3.11+ is required for packaging/static smoke serving. See [installation instructions](INSTALL.md).

@@ -319,41 +319,48 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 7 — Centered panel layout
 
-- [ ] Phase 7 — Centered panel layout
-    - [ ] Milestone 7.1 — Centered wide panels
-        - [ ] T-049 — Implement centered five-panel wide geometry
+- [x] Phase 7 — Centered panel layout
+    - [x] Milestone 7.1 — Centered wide panels
+        - [x] T-049 — Implement centered five-panel wide geometry
             Scope: src/ui/styles.css/panels.ts and wide-layout checks. Contract: R9; C4.
             Depends on: T-048.
             Evidence: Place leaderboard/info/board/settings/help in required order with board anchoring independent of auxiliary visibility. Retain readable info and correct board aspect/device-pixel sizing.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
-        - [ ] T-050 — Integrate independent auxiliary toggles and control placement
+            Verification: R9 C4:8new Chromium/Firefox cases failed for absent help/backing resolution before implementation, then pass. Check/build,198 deterministic and164source browser cases(8build-only exclusions) pass. Wide1280/1440/1920 order/adjacent info/1CSSpx board-center bound survive hidden auxiliaries; board remains1:2. DPR2 backing600x1200, logical2x transform and painted lower edge pass. Wide screenshot inspected; keyboard/settings/files regressions pass. Phase entry0.7.0/panelLayout follows fully verified v0.6 source9c25ebb/release430877299/hosted bytes/Actions41353227227, two-parent integration/closures and read-back issues58–64/milestones22–24. No scoped TODO. Toggles/compact finalization remain mapped later tasks.
+        - [x] T-050 — Integrate independent auxiliary toggles and control placement
             Scope: src/ui/panels.ts and focus/visibility checks. Contract: R9; C4.
             Depends on: T-049.
             Evidence: Put three independent show/hide toggles above the bottom Start/Restart and Pause/Start row. Hide all settings file controls with their panel and remove hidden content from focus navigation.
-        - [ ] T-051 — Verify every wide panel visibility combination
+            Verification: R9 C4:4new browser cases observed RED for missing visibility controls. Final check/build,198 deterministic checks and24 explicit Chromium/Firefox input/file/layout/visibility case receipts plus passed last-run status succeed. Three named aria-expanded/aria-controls buttons precede the bottom two-button gameplay row. Hiding settings removes all its selects/file actions from role/focus navigation; panels remain independent and showing preserves selections. Twelve actual Tab transitions never enter hidden content; form/toggle keys do not dispatch game input, and gameplay buttons restore Canvas focus. URL/cookies/local/session stores remain byte-unchanged by visibility. One harness assumption corrected: Tab into browser chrome invokes the required blur pause, so independent button checks start a fresh run; no gameplay behavior changed. No scoped TODO.
+        - [x] T-051 — Verify every wide panel visibility combination
             Scope: tests/e2e layout/Canvas evidence and UI guide. Contract: R9; C4.
             Depends on: T-049, T-050.
             Evidence: Measure board center within one CSS pixel for all eight combinations at wide widths. Inspect rendered output, button order, info visibility and file-control hiding; fix geometry/focus regressions.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/7/7.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 7.2 — Compact accessible layout
-        - [ ] T-052 — Implement compact responsive layout
+            Verification: M7.1 whole-capability/public-consumer review passes;no scoped TODO. Check/build,198deterministic,172source(8build-only exclusions) and150explicit packaged pass receipts(30source-only exclusions,exit0,passed last-run) succeed. All8real-button masks at1280/1920 in both browsers preserve<=1CSSpx board center,16px info gap/no overflow;1440/DPR2/keyboard/focus/game/settings/JSON/SQLite regressions pass. Source all-visible/board-only and extracted Firefox screenshots inspected.10member ZIP5ef8c684504adde7dcfe753fbb9ce0891b12cfeaca0c13af81044aea3806314a honestly records dirty T050source. Exact T049/T050 Actions41354055936/41354296712success. UIguide/report/HANDOFF and initial milestone completion included; compact/final accessibility remain later tasks.
+    - [x] Milestone 7.2 — Compact accessible layout
+        - [x] T-052 — Implement compact responsive layout
             Scope: src/ui/styles.css/panels.ts and resize checks. Contract: R9; C4.
             Depends on: T-051.
             Evidence: Keep a centered board, essential info and accessible auxiliary sections at compact browser/sidebar sizes. Check 320/600/1024/1280/1920 CSS pixel targets, no horizontal clipping and state retention during resize.
-        - [ ] T-053 — Complete accessible keyboard and file-control navigation
+            Verification: R9 C4: new compact/resize/sidebar cases observed RED for prior DOM/layout order before implementation; final24focused layout cases pass in Chromium/Firefox. Check/build,198deterministic and184explicit full source pass receipts/8build-only skips with passed last-run and exit0 succeed.320/600/1024 compact DOM+visual info/board/leaderboard/settings/help order,center<=1CSSpx,1:2 board,nooverflow and complete controls pass. Resize through320/600/1024/1280/1920 retains exact paused Canvas/game,imported result identity,settings/current-policy pending marker,Saveformat,visibility,focus,cookies/rawURL; running status/score/focus also survive. Public sidebar-mode consumer stays compact at240/1440; it is source-only, not installed-extension evidence. Mounted matchMedia/ResizeObserver/resize listeners preserve existing nodes and clean up; Canvas redraws at resized bounds.320px screenshot inspected; no scoped TODO.
+        - [x] T-053 — Complete accessible keyboard and file-control navigation
             Scope: src/ui/input.ts/panels.ts and browser focus tests. Contract: R9/R8; C4.
             Depends on: T-052.
             Evidence: Check labels, aria-expanded, hidden-focus exclusion, normal input/select/button behavior, status/errors and no double-dispatch. Keep Save/Restore at settings bottom and other gameplay keyboard-only.
-        - [ ] T-054 — Verify final browser layout and cumulative artifact
+            Verification: R9/R8 C4:6new hidden-settings/delayed-read accessibility scenarios observed RED;2 label/live-status characterization scenarios already passed. After repair check/build,198deterministic,24focused and192explicit full source pass receipts(8build-only skips,exit0,passed last-run) succeed. Controller file errors remain accessible in info when settings hidden; only one visible alert when toggling, and the existing new-game error-clearing semantics remain unchanged. Owned operation-status live region announces pending/success/read/chooser failures outside hidden settings; local duplicate live region removed in final composition. Delayed native Blob read rejects after hiding with no state/persistence mutation. All7named comboboxes,file controls last,normal form/toggle keys,Enter focus/no double pause dispatch,hidden Tab exclusion and exactly2gameplay buttons pass. MutationObserver verifies one status update across frames, not repeated announcements. Test-only incorrect all-file-error sticky-on-Restart assumption corrected against existing C3; no gameplay/persistence contract changed. Native speech output not claimed. No scoped TODO.
+        - [x] T-054 — Verify final browser layout and cumulative artifact
             Scope: tests/e2e screenshots/measurements, browser packaging and user guidance. Contract: R9/R12; C4/C8.
             Depends on: T-052, T-053.
             Evidence: Inspect representative device-pixel Canvas output and compact/wide layouts, run input/settings/file regressions and verify the extracted browser build. Record the completed pre-Electron layout exit.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/7/7.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 7.3 — Phase review
-        - [ ] T-055 — Review test and report Phase 7
+            Verification: M7.2 whole-capability/public-consumer review and pre-Electron R9 exit pass;no scoped TODO. Check/build,198deterministic,194source/8build-only exclusions and168packaged/34source-only exclusions have complete explicit receipts,exit0,passed last-run. Full320/600/1024/1280/1920 geometry/DOM order/state+focus retention,8wide masks,compactDPR2 backing600x1200/exact paused pixels acrossresize and all input/settings/JSON/SQLite regressions pass. M7.2-F01 hidden-settings feedback repaired with6failed-before cases; one visible alert/operation live region and unchanged-frame status verified. Extracted ChromiumDPR2/1280wide and Firefox320screenshots inspected. Exact T052/T053 Actions41355144358/41355579858success.10member ZIPafc6f35205e871b29947e9bdd4028e3f9657bc8afa6acd695bac81dae0d27f82 honestly records dirty T053source. Guides/report/HANDOFF and initial milestone checkbox included. Native Windows/installed sidebar/speech evidence not claimed.
+    - [x] Milestone 7.3 — Phase review
+        - [x] T-055 — Review test and report Phase 7
             Depends on: T-051, T-054 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/7/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
+            Verification: Whole-phase R9/C4 and C3/C7/C8consumer review plus6-task initial-closure/combinedmilestone-record audit pass;no scoped TODO. Clean exact T0542caf3a2 check/build,198deterministic,168extracted(34source-only exclusions) pass. Clean10member ZIP0c818ded89e464ba66472f7ce8802d1ab39240f541aacefde554d0952543d6b0 sourceDirty=false; unchanged committed runtime/tests passed194source(8build-only exclusions). Complete5target/8mask/compact-sidebar/DPR2/state+focus/keyboard/file/error regressions and visual evidence remain valid. M7.2-F01 repaired with6RED cases. Exact T052/T053 Actions41355144358/41355579858success;T05441356044950stillrunning wheninspected. Phase report/HANDOFF and initial phase/review-milestone checkoff included. Explicit main integration/fresh exact release/download checks pending; optional advisory emitted once,no separate campaign selected.
 
 ## Phase 8 — Windows desktop delivery
 
