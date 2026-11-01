@@ -191,10 +191,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-027.
             Evidence: Provide all six labeled controls with defaults and next-piece policy feedback. Keyboard interactions in controls must not move the board; settings remain accessible without new gameplay click targets.
             Verification: All four new cross-browser panel cases first failed because controls were absent. After implementation, check/build and14 focused Chromium/Firefox panel/render/layout cases pass. Six exact labels/defaults and every choice, next-piece pending hint clearing after hold replacement, normal select focus without game actions, exactly two gameplay buttons and320/768/1440 no-overflow/board-focus regressions verified. Inspected desktop and320px screenshots; settings listeners dispose with mount. Milestone4.1 closure/readback verified before this task.
-        - [ ] T-029 — Integrate disabled-action and preview feedback
+        - [x] T-029 — Integrate disabled-action and preview feedback
             Scope: src/ui views/input and controller/browser tests. Contract: R5/R2/R4; C3/C4.
             Depends on: T-028.
             Evidence: Exercise hard-drop/hold enablement, preview hiding and each ghost mode in actual play. Verify stored hold retention, penetrator prohibition and correct control/view state across restart.
+            Verification: Four actual-page browser cases exposed missing Disabled preview feedback and stale effective-policy text before repair. Final check/build and18 focused Chromium/Firefox cases pass. Native play verifies disabled Space/C do nothing, held kind survives disabling, hidden preview toggles coherently, restart retains selected values, old interval survives pending edits and next spawn uses immediate/failed policy. Prepared source-only public composition fixture checks hide/show/dynamic raster equality at rows9/10/11 for normal/penetrator and immutable game state, including hold prohibition after re-enabling. No production state hook added.
         - [ ] T-030 — Verify session isolation and package configuration release
             Scope: tests/e2e, adapter write spies and browser packaging/docs. Contract: R5/R12; C7/C8.
             Depends on: T-028, T-029.
