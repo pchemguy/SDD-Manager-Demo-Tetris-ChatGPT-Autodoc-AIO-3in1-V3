@@ -186,10 +186,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/4/4.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Five controller cases failed against the unavailable setter; final check/build, 95 units and all30 cumulative source Chromium/Firefox cases pass. Edits validate atomically before clock/state writes, apply current visibility/action toggles, retain disabled held kind and selected settings across restart, preserve current-piece policy/deadline until ordinary or held replacement spawn, and never call persistence. Reentrant edits serialize coherent views and disposal resolves cancelled queued promises. Whole-capability review found no scoped TODO; milestone4.1 report/HANDOFF and parent checkbox included.
     - [ ] Milestone 4.2 — Settings panel integration
-        - [ ] T-028 — Build the six-control session settings panel
+        - [x] T-028 — Build the six-control session settings panel
             Scope: src/ui/panels.ts/styles and browser UI checks. Contract: R5/R9; C4.
             Depends on: T-027.
             Evidence: Provide all six labeled controls with defaults and next-piece policy feedback. Keyboard interactions in controls must not move the board; settings remain accessible without new gameplay click targets.
+            Verification: All four new cross-browser panel cases first failed because controls were absent. After implementation, check/build and14 focused Chromium/Firefox panel/render/layout cases pass. Six exact labels/defaults and every choice, next-piece pending hint clearing after hold replacement, normal select focus without game actions, exactly two gameplay buttons and320/768/1440 no-overflow/board-focus regressions verified. Inspected desktop and320px screenshots; settings listeners dispose with mount. Milestone4.1 closure/readback verified before this task.
         - [ ] T-029 — Integrate disabled-action and preview feedback
             Scope: src/ui views/input and controller/browser tests. Contract: R5/R2/R4; C3/C4.
             Depends on: T-028.
