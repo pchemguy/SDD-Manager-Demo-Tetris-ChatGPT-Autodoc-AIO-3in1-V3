@@ -259,11 +259,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 - [ ] Phase 6 — Session results and portable files
     - [ ] Milestone 6.1 — Session leaderboard
-        - [ ] T-039 — Implement result validation and deterministic ranking
+        - [x] T-039 — Implement result validation and deterministic ranking
             Scope: src/rules/results.ts and tests/unit/rules. Contract: R7; C5.
             Depends on: T-038.
             Evidence: Check valid IDs, safe integer scores, UTC calendar times, ties, sorting without mutation and truncation to ten. Preserve ID/timestamp representations rather than regenerating imported identity.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
+            Verification: R7 C5: six focused cases observed RED for the absent public operation, then all144 deterministic checks (142 unit +2 composed adapter integrations),check/build passed. Covers ASCII ID length/uniqueness, complete record shapes/accessors, safe scores, Gregorian leap/calendar and UTC syntax, instant-equivalent fractional timestamps, code-unit ties, owned copies/no mutation, top-ten selection and invalid/duplicate rows beyond the cut. IDs/timestamp representations retained. Phase entry0.6.0/leaderboard/files with v0.5 source/tag/release/assets/latest/Actions41339824567,predecessor integration/closures and all Phase6 issues48–57/milestones18–21 verified before edits/tests. No scoped TODO; file/UI completion remains mapped to later tasks. npm host http-proxy warning remains non-blocking.
         - [ ] T-040 — Record completed games exactly once
             Scope: src/application/controller.ts and clock/ID port tests. Contract: R7; C3/C7.
             Depends on: T-039.

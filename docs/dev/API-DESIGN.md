@@ -62,7 +62,7 @@ encodeSnapshot(snapshot: PortableSnapshot,
 decodeSnapshot(bytes: Uint8Array): Promise<Outcome<PortableSnapshot>>;
 ```
 
-Decode identifies format from bytes, not the supplied filename. JSON and SQLite conversion feed the same complete semantic validator. Encoding validates its input too. C6 owns a terminable codec worker and disposal of its database/statement handles; callers receive owned byte arrays or immutable validated candidates. The decoder exposes no SQL execution API to the controller or UI. C5 sorting is deterministic and non-mutating.
+Decode identifies format from bytes, not the supplied filename. JSON and SQLite conversion feed the same complete semantic validator. Encoding validates its input too. C6 owns a terminable codec worker and disposal of its database/statement handles; callers receive owned byte arrays or immutable validated candidates. The decoder exposes no SQL execution API to the controller or UI. C5 sorting is deterministic and non-mutating. `rankResults` validates every supplied record and unique identity before ranking/truncating to ten, returns owned record copies and throws TypeError for invalid preconditions; file validation converts rejected input into its typed Outcome. Calendar checks reject impossible dates and timestamp comparison uses the represented UTC instant without rewriting strings.
 
 ## C7 required platform ports
 
