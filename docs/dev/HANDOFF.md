@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Phase 7 tracking/readiness is verified; T-049 centered wide five-panel geometry and device-pixel Canvas are verified; publication/issue58 closure is next.
+Checkpoint: Phase 7 tracking/readiness is verified; Milestone 7.1 wide layout is verified; T-051 publication and issue60/milestone22 closure are next.
 
 ## Workflow and sources
 
@@ -20,4 +20,8 @@ Working branch: `phase/7-centered-panel-layout`, created from main at `9c25ebb7d
 
 Phase7 label, milestones22–24 and issues58–64 are fully read-back verified with exact task/parent associations before product edits/tests. The initial overlength phase description was rejected locally before hosted mutation, then shortened and locally checked. Brief acknowledged-creation collection lag was resolved with bounded safe GETs, never mutation replay. Accepted PLAN/SPEC/TASKS readiness and predecessor release/integration/closure gates are established under the retained full grant. Version0.7.0/panelLayout is now selected at phase entry.
 
-T-049 implements five-panel wide order at1280/1440/1920 with symmetric middle board anchoring independent of hidden auxiliary tracks, adjacent essential information, complete help and device-pixel-aware Canvas backing. Eight new browser cases failed on the missing panel/backing store before implementation, then passed in both browsers. Final check/build,198 deterministic checks and164 source browser cases pass (8 build-only exclusions). Wide/DPR2 screenshot inspected. No scoped TODO. Publish/read back T-049 and close issue58 before T-050. Auxiliary visibility controls remain T-050; exhaustive wide review T-051; final compact/focus/layout acceptance T-052–T-054; whole-phase review T-055. No new human checkpoint is pending. Continue through T-072 with every required task/milestone/phase/release gate.
+T-049/T-050 are published, issues58/59 closed/read back, exact Actions41354055936/41354296712 succeeded. [M7.1 report](reports/phases/7/7.1.md) records the whole-capability/public-consumer review, source/artifact identities and actual evidence. T-051 contains the exhaustive real-button combinations, UI guide, report/HANDOFF and initial milestone completion together. No scoped TODO remains.
+
+Final check/build,198 deterministic,172 source cases(8build-only exclusions) and150 explicit packaged passing receipts(30source-only exclusions,exit0,passed last-run) pass. All eight visibility combinations at1280/1920 preserve<=1CSSpx center and16px adjacent info gap in both browsers;1440/DPR2 and real focus/form/file/game regressions pass. Wide source/extracted screenshots inspected. Ten-member ZIP5ef8c684504adde7dcfe753fbb9ce0891b12cfeaca0c13af81044aea3806314a honestly records dirty T050 source. It is not final release bytes.
+
+Publish/read back T-051, close issue60 then milestone22. Continue T-052–T-055 compact/focus/cumulative/phase review, then explicit main integration/v0.7.0 release and the retained full range through T-072. No pending human checkpoint. Native Windows/full installed-sidebars are later assigned scope, not claimed tested here.

@@ -320,7 +320,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 ## Phase 7 — Centered panel layout
 
 - [ ] Phase 7 — Centered panel layout
-    - [ ] Milestone 7.1 — Centered wide panels
+    - [x] Milestone 7.1 — Centered wide panels
         - [x] T-049 — Implement centered five-panel wide geometry
             Scope: src/ui/styles.css/panels.ts and wide-layout checks. Contract: R9; C4.
             Depends on: T-048.
@@ -332,11 +332,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-049.
             Evidence: Put three independent show/hide toggles above the bottom Start/Restart and Pause/Start row. Hide all settings file controls with their panel and remove hidden content from focus navigation.
             Verification: R9 C4:4new browser cases observed RED for missing visibility controls. Final check/build,198 deterministic checks and24 explicit Chromium/Firefox input/file/layout/visibility case receipts plus passed last-run status succeed. Three named aria-expanded/aria-controls buttons precede the bottom two-button gameplay row. Hiding settings removes all its selects/file actions from role/focus navigation; panels remain independent and showing preserves selections. Twelve actual Tab transitions never enter hidden content; form/toggle keys do not dispatch game input, and gameplay buttons restore Canvas focus. URL/cookies/local/session stores remain byte-unchanged by visibility. One harness assumption corrected: Tab into browser chrome invokes the required blur pause, so independent button checks start a fresh run; no gameplay behavior changed. No scoped TODO.
-        - [ ] T-051 — Verify every wide panel visibility combination
+        - [x] T-051 — Verify every wide panel visibility combination
             Scope: tests/e2e layout/Canvas evidence and UI guide. Contract: R9; C4.
             Depends on: T-049, T-050.
             Evidence: Measure board center within one CSS pixel for all eight combinations at wide widths. Inspect rendered output, button order, info visibility and file-control hiding; fix geometry/focus regressions.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/7/7.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: M7.1 whole-capability/public-consumer review passes;no scoped TODO. Check/build,198deterministic,172source(8build-only exclusions) and150explicit packaged pass receipts(30source-only exclusions,exit0,passed last-run) succeed. All8real-button masks at1280/1920 in both browsers preserve<=1CSSpx board center,16px info gap/no overflow;1440/DPR2/keyboard/focus/game/settings/JSON/SQLite regressions pass. Source all-visible/board-only and extracted Firefox screenshots inspected.10member ZIP5ef8c684504adde7dcfe753fbb9ce0891b12cfeaca0c13af81044aea3806314a honestly records dirty T050source. Exact T049/T050 Actions41354055936/41354296712success. UIguide/report/HANDOFF and initial milestone completion included; compact/final accessibility remain later tasks.
     - [ ] Milestone 7.2 — Compact accessible layout
         - [ ] T-052 — Implement compact responsive layout
             Scope: src/ui/styles.css/panels.ts and resize checks. Contract: R9; C4.
