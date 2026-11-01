@@ -1,35 +1,21 @@
 # Project handoff
 
-Checkpoint: Milestone 1.1 implementation/review passed; T-003 publication and milestone closure are pending. Full implementation remains authorized.
-
-Outcome: PROJECT was accepted by the user; ARCHITECTURE, DECOMPOSITION with MODELS/API-DESIGN, SPEC with three contract artifacts, PLAN, layout and TASKS are prepared under scoped autodoc preapproval. Required SPEC/PLAN/TASKS conformance reports are present. Nine planned phases contain 21 delivery milestones, nine phase reviews and 72 unchecked implementation tasks. No product implementation exists.
+Checkpoint: Milestone 1.2 implementation and review passed; T-006 publication, issue closure and milestone closure are pending effects. Full implementation remains authorized.
 
 ## Workflow and sources
 
-- Workflow/stage/owner: main development, completed document pass at the sdd-tasks → sdd-manage return boundary.
-- Governing records: [DOCS_TASKS](DOCS_TASKS.md) owns checkoffs; [DOCS_PREPARATION](DOCS_PREPARATION.md) owns mode, decisions and evidence. Recover later state from these records and Git.
-- Package: repository-provided SDD Manager 0.16.1 at `.agents/plugins/sdd-manager`.
+Main development, implementation owner sdd-implement. [TASKS](TASKS.md) is the sole executable owner. [DOCS_PREPARATION](DOCS_PREPARATION.md) retains accepted autodoc preparation and the full implementation grant; preparation/QC is integrated into main `eeb0dcc81ccb6e34687623eab665a6e51f1f4e1b`. Repository SDD Manager version is 0.16.1. Reports: [engine](reports/phases/1/1.1.md), [playable browser session](reports/phases/1/1.2.md).
 
 ## Scope and human decisions
 
-- Objective: prepare the user's complete browser Tetris, Windows Electron and Chromium/Firefox sidebar project in autodoc/onepass mode.
-- Approval basis: user accepted PROJECT and its consequential choices with “k” on 2026-11-01. Later document checkpoints through TASKS are preapproved by mode selection; scoped correction evidence is in the adjacent reports and DOCS_PREPARATION.
-- Authorized range: the user’s “Run QC and full implement” selects DOCS-009, preparation integration and T-001–T-072, with phase verification/integration/releases. Stop at complete delivery or a concrete unresolved blocker.
-- Tracking: root AGENTS.md enables preparation and implementation tracking. Milestone 1 and issues 1–9 were verified before writes.
-- Reporting: Standard.
+The user's “Run QC and full implement” on 2026-11-01 authorizes T-001–T-072, phase reviews, verified integration and versioned releases with every applicable platform artifact. The later request explicitly delegates recovery and continuation to a monitored subagent. Stop at complete delivery or a concrete unresolved blocker. Tracking is enabled by root AGENTS.md. Reporting: Standard; parent receives task/milestone progress and blockers.
 
 ## Branches and return
 
-- Working branch: `phase/1-classic-browser-baseline`, created from published main `eeb0dcc81ccb6e34687623eab665a6e51f1f4e1b`.
-- Creation parent and integration target: actual default branch `main`.
-- Phase branch-off commit: `eeb0dcc81ccb6e34687623eab665a6e51f1f4e1b`.
-- Suspended parent: none. `design-docs/ai-logs` retains only the integrated scaffold checkpoint.
+Working branch: `phase/1-classic-browser-baseline`. Creation parent and integration target: actual default branch `main`. Branch-off commit: `eeb0dcc81ccb6e34687623eab665a6e51f1f4e1b`. No suspended parent. The retained design branches are already integrated and do not own current product work.
 
 ## Pending work and next action
 
-- Issues 1–7 were closed/read back after their verified publication. Publish/read back this DOCS-008 commit, then close/read back issue 8 before reporting the pass complete.
-- All nine DOCS issues and milestone 1 are closed/read back after published preparation merge. Phase 1 label, milestones 2–5 and task issues 10–19 are verified with associations.
-- Current boundary: publish T-003 and close issue 12, verify issues 10–12 complete, then close/read back milestone 2. Continue T-004–T-010 only after the relevant dependency/closure gates; full T-001–T-072 authority remains active.
-- Domain milestone evidence: reports/phases/1/1.1.md. Final unit suite 29/29, type check and scaffold build pass. Browser runtime probes passed; playable UI, platform packages and releases are not delivered yet.
+Documentation issues 1–9 and milestone 1 are closed. Phase 1 associations exist for issues 10–19 and milestones 2–5. T-001–T-005 are published and their issues closed; milestone 1.1 is closed. T-006 now includes the recovered UI, corrected labels, acceptance evidence and milestone 1.2 review. Publish/read back T-006, close/read back issue 15, then milestone 3 (1.2). Continue T-007–T-010 and remaining authorized phases subject to per-task publication, dependency, review, packaging and release gates.
 
-Projection recovery: the first 300-second utility invocation created seven issues then reported source_not_committed at its final check. Worktree/request/HEAD TASKS hashes were identical. Read-only reconciliation verified existing effects and only three missing issues; the second apply completed all ten associations without duplicate objects. No source change or credential replacement was made.
+Current evidence: 44/44 unit checks, type check/build and 2/2 actual-browser tests pass; screenshot inspected. No package or release is delivered yet. Native Windows and full-browser sidebars remain later evidence limits, not implicit blockers. Existing ignored credential input is available without being included in tracked artifacts. No reset or replay of completed work was performed.

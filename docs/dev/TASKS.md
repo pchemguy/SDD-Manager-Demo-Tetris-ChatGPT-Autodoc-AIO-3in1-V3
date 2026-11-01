@@ -33,7 +33,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Create idle/running games with explicit seeds, support baseline movement and pause transitions, uniform sequence, gravity and independent grounded interval timers. Verify exact expiry, lift/re-ground, no-reset movement and top-out without a DOM.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/1/1.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: RED: eight intended engine failures against stubs; after initial green, independent review found nonzero-source sampling bias and six fixed-seed regressions failed before correction. GREEN: all 29 unit tests, npm run check and npm run build pass. Independent focused recheck confirmed the sampler correction and milestone readiness. Full independent grounding intervals, no grounded reset, lifting reset, pause preservation, exact lock/gravity order, leftover elapsed time, immutable state and safe top-out are verified. Includes Milestone 1.1 whole-capability code review/report and HANDOFF; TODO None. Scoring/UI/modern features remain assigned later work.
-    - [ ] Milestone 1.2 — Playable browser session
+    - [x] Milestone 1.2 — Playable browser session
         - [x] T-004 — Implement line clearing scoring and level progression
             Scope: src/domain scoring/engine and tests/unit/domain. Contract: R1/R3; C2.
             Depends on: T-003.
@@ -44,11 +44,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-004.
             Evidence: Compose fixed baseline defaults, serial command/time dispatch, run IDs, immutable views and subscription/disposal. Verify start/pause/resume/restart and clock-independent controller behavior with public domain operations.
             Verification: Six controller behavioral tests failed against the unimplemented API, then all 44 unit tests passed. npm run check and npm run build pass. Verified one monotonic clock, input-before-frame accounting, pause freezing, lock-before-input order, isolated snapshots and lifecycle disposal. C3 tick API refinement recorded in focused specification/planning/task conformance revisions. Persistent settings and file operations remain unavailable until their assigned increments.
-        - [ ] T-006 — Deliver playable Canvas keyboard and game information UI
+        - [x] T-006 — Deliver playable Canvas keyboard and game information UI
             Scope: src/ui, src/entry/browser.ts, index.html and tests/e2e. Contract: R1/initial R9; C4.
             Depends on: T-004, T-005.
             Evidence: Render board/score/level/status, route movement/rotation/soft drop and expose exactly the two specified clickable gameplay buttons. Demonstrate a playable full run from the actual browser app with inspected Canvas output.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/1/1.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Recovered existing UI without discarding work. Label regressions failed before correction; final type check, build, 44/44 unit tests and 2/2 actual Chromium/Firefox gameplay tests pass. Inspected Canvas screenshot. Milestone 1.2 code review/report and HANDOFF included; no scoped TODO. Lifecycle/repeat acceptance remains T-007.
     - [ ] Milestone 1.3 — Browser distribution
         - [ ] T-007 — Complete baseline lifecycle and keyboard repeat behavior
             Scope: src/ui/input.ts and browser lifecycle/controller integration. Contract: R1/R3/R9; C3/C4/C7.
