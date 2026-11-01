@@ -86,9 +86,16 @@ export function setPaused(state: GameState, paused: boolean): GameState {
 
 /** Apply one delivered action without host effects or mutating the caller's state. */
 export function dispatchGame(state: GameState, action: GameAction, settings: Settings, capabilities: Capabilities): Transition {
-  if (state.status !== 'running' || !state.active || ['hardDrop','penetrator'].includes(action)) return { state, events: [] };
+  if (state.status !== 'running' || !state.active || action==='penetrator') return { state, events: [] };
+  if(action==='hardDrop'&&(!capabilities.has('modern')||!settings.hardDrop))return {state,events:[]};
   if(action==='hold'&&(!capabilities.has('modern')||!settings.hold||state.holdUsed||state.active.penetrator))return {state,events:[]};
   const g = copy(state), events: GameEvent[] = [];
+  if(action==='hardDrop'){
+    const target=landing(g.board,g.active!);if(!target)return {state,events:[]};
+    g.score=addPoints(g.score,2*Math.max(0,target.origin.y-g.active!.origin.y));g.active=copyPiece(target);ground(g);
+    if(g.piecePolicy.hardDropLock==='immediate'||g.piecePolicy.lockPolicy==='failed')lock(g,settings,events);
+    return {state:g,events};
+  }
   if(action==='hold'){
     const kind=g.active!.kind,replacement=g.held;g.held=kind;spawn(g,settings,events,replacement??undefined);g.holdUsed=true;
     return {state:g,events};

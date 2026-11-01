@@ -37,4 +37,5 @@ test('directional delay is 150/50ms and rotations ignore repeated keydown until 
   await page.clock.runFor(1);expect(await actions()).toBe('["left","left","left"]');await page.keyboard.up('ArrowLeft');
   await page.keyboard.down('x');await page.keyboard.down('x');expect(await actions()).toBe('["left","left","left","rotateCW"]');
   await page.keyboard.up('x');await page.keyboard.press('x');expect(await actions()).toBe('["left","left","left","rotateCW","rotateCW"]');
+  await page.keyboard.down('Space');await page.keyboard.down('Space');expect(await actions()).toBe('["left","left","left","rotateCW","rotateCW","hardDrop"]');await page.keyboard.up('Space');
 });

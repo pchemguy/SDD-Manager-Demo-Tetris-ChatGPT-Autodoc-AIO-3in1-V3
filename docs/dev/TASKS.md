@@ -101,10 +101,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-013.
             Evidence: Use the same landing result as drop, including zero-distance projection, and verify ghost rendering never changes the board or simulation. Keep default ghost visibility shown until configurable modes are delivered.
             Verification: One public projection case and both browser outline cases failed before implementation. Final 56 unit tests, check/build and 18 Chromium/Firefox browser tests pass. Literal blocker/zero-distance/null fixtures verify non-mutating landing; actual Canvas edge/center pixels verify four translucent outlined ghost cells separate from active fills. Screenshot inspected. Board presentation extracted into its planned private owner; no gameplay state mutation or new click target.
-        - [ ] T-015 — Implement delayed hard drop and policy precedence
+        - [x] T-015 — Implement delayed hard drop and policy precedence
             Scope: src/domain/engine.ts, input binding and domain/controller tests. Contract: R2/R3; C2/C3/C4.
             Depends on: T-014.
             Evidence: Verify final pose, actual-distance points, zero-distance repeat and a full remaining interval without grounding reset. Cover failed-policy and immediate-policy public inputs while the UI still uses fixed defaults.
+            Verification: Three hard-drop domain cases and both Space-binding consumer cases failed before implementation. Final 61 unit tests, type check/build and 18 Chromium/Firefox browser cases pass. Verified shared ghost/drop landing, actual-distance points, no zero-distance repeat points/reset, independent full remaining interval, captured failed/immediate policy precedence, disabled/non-running no-ops and controller single-clock integration. Space is one-shot until keyup. Modern preview/help integration remains T-016.
         - [ ] T-016 — Integrate modern controls previews and browser distribution
             Scope: src/ui panels/help, tests/e2e, INSTALL.md and browser packaging. Contract: R2/R3/R4/R12; C4/C8.
             Depends on: T-014, T-015.

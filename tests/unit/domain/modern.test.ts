@@ -88,3 +88,20 @@ test('ghost uses ordinary reachable landing, including zero distance, without st
   expect(projectGame(a,{...settings,ghost:'hide'},caps).ghost).toBeNull();expect(projectGame(a,settings,new Set()).ghost).toBeNull();
   board[0]=Array<Cell>(10).fill('J');expect(projectGame({...a,active:{kind:'O',rotation:0,origin:{x:4,y:-2},penetrator:false}},settings,caps).ghost).toBeNull();
 });
+
+test('hard drop matches ghost and awards actual distance while retaining a full independent lock interval',()=>{
+  const board=empty();board[15]![4]='J';const a={...pose('O',0,4,5),board,score:100,timers:{gravityRemainingMs:37,lockRemainingMs:null,grounded:false}};
+  const projected=projectGame(a,settings,caps).ghost;const before=JSON.stringify(a);const b=dispatchGame(a,'hardDrop',settings,caps);
+  expect(b.state.active).toEqual(projected);expect(b.state.score).toBe(116);expect(b.events).toEqual([]);expect(b.state.board).toEqual(board);expect(b.state.timers.lockRemainingMs).toBe(1000);
+  const c=advanceGame(b.state,400,settings,caps).state;const zero=dispatchGame(c,'hardDrop',settings,caps).state;
+  expect(zero.score).toBe(116);expect(zero.timers.lockRemainingMs).toBe(600);expect(advanceGame(zero,599,settings,caps).events).toEqual([]);
+  expect(advanceGame(zero,600,settings,caps).events.some(e=>e.type==='locked')).toBe(true);expect(JSON.stringify(a)).toBe(before);
+});
+test.each(['failed','immediate'] as const)('hard drop honors captured %s lock precedence, including zero distance',mode=>{
+  const a={...pose('O',0,4,18),piecePolicy:{lockPolicy:mode==='failed'?'failed' as const:'interval' as const,hardDropLock:mode==='immediate'?'immediate' as const:'general' as const}};
+  const b=dispatchGame(a,'hardDrop',settings,caps);expect(b.events.filter(e=>e.type==='locked')).toHaveLength(1);expect(b.state.board.flat().filter(Boolean)).toHaveLength(4);expect(b.state.score).toBe(0);
+});
+test('hard drop is unavailable without capability/setting/running state',()=>{
+  const a=pose('O',0,4,5);expect(dispatchGame(a,'hardDrop',{...settings,hardDrop:false},caps).state).toEqual(a);expect(dispatchGame(a,'hardDrop',settings,new Set()).state).toEqual(a);
+  const paused={...a,status:'paused' as const};expect(dispatchGame(paused,'hardDrop',settings,caps).state).toEqual(paused);
+});
