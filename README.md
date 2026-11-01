@@ -2,7 +2,7 @@
 
 A Tetris development project targeting a static browser application, a Windows Electron application and desktop Chromium/Firefox sidebar extensions. Delivery begins with a playable classic browser baseline and adds the requested capabilities through bounded increments.
 
-Implementation is underway. The classic engine, scoring, controller and playable Canvas browser UI are present. Phase 1 is verified and integrated. Browser release downloads and installation instructions are available from the [latest release](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/releases/latest). Later phases remain in progress.
+Implementation is underway. The classic/modern engine, scoring, controller and playable Canvas UI with next/hold/ghost previews are present. Phase 1 is verified and integrated. Browser release downloads and installation instructions are available from the [latest release](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/releases/latest). Later phases remain in progress.
 
 ## Project documents
 
@@ -30,7 +30,7 @@ npm run build
 npm run dev
 ```
 
-Browser acceptance uses the project-local `.cache/ms-playwright` binary root. Provision the pinned managed Chromium headless shell and Firefox with the local Playwright CLI. Follow the repository browser policy for download/runtime recovery; never reuse a personal browser profile. `npm run probe:browsers` checks two isolated input/Canvas/font/screenshot/teardown cycles per browser, not game acceptance. Run `npm run test:unit` for domain/controller checks and `npm run test:e2e` for actual browser gameplay. The baseline supports arrow movement, Up/X and Z rotation, Down soft drop, Escape pause/resume, and the two session buttons. Left/right repeat after 150 ms and then every 50 ms; soft drop repeats every 40 ms. Pause and focus loss release held keys. Form/editable focus retains normal keys.
+Browser acceptance uses the project-local `.cache/ms-playwright` binary root. Provision the pinned managed Chromium headless shell and Firefox with the local Playwright CLI. Follow the repository browser policy for download/runtime recovery; never reuse a personal browser profile. `npm run probe:browsers` checks two isolated input/Canvas/font/screenshot/teardown cycles per browser, not game acceptance. Run `npm run test:unit` for domain/controller checks and `npm run test:e2e` for actual browser gameplay. The baseline supports arrow movement, Up/X and Z rotation, Down soft drop, Space hard drop, C hold, Escape pause/resume, and the two session buttons. Left/right repeat after 150 ms and then every 50 ms; soft drop repeats every 40 ms. Pause and focus loss release held keys. Form/editable focus retains normal keys.
 
 On this managed Linux host, Firefox content processes hit a diagnosed `/proc/self/uid_map: EPERM`. The process-local `TETRIS_FIREFOX_SANDBOX_WORKAROUND=1` flag enables the documented content-sandbox override only for trusted local probes/tests. Leave it unset on environments that do not require it. No host security setting is changed.
 

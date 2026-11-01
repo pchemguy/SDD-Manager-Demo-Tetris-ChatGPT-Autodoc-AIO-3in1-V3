@@ -76,41 +76,48 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 2 — Modern piece controls
 
-- [ ] Phase 2 — Modern piece controls
-    - [ ] Milestone 2.1 — Sequence and piece controls
-        - [ ] T-011 — Implement seven-bag sequence and next preview
+- [x] Phase 2 — Modern piece controls
+    - [x] Milestone 2.1 — Sequence and piece controls
+        - [x] T-011 — Implement seven-bag sequence and next preview
             Scope: src/domain/sequence.ts, projections and focused tests. Contract: R2; C2.
             Depends on: T-010.
             Evidence: Check nonbiased seeded bag shuffling, every bag containing all seven kinds, refill boundaries and preview reads without consumption. Preserve serializable generator state and baseline play.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
-        - [ ] T-012 — Implement once-per-piece hold
+            Verification: Verified predecessor v0.1.0 integration/release, all hosted bytes and Phase 2 tracking before work. Two intended modern factory/preview failures preceded implementation. Final 47 unit tests, type check and build pass: four complete bags for three seeds, immutable preview/next-spawn agreement across refill boundaries, serializable determinism, disabled preview and retained unbiased baseline uniform sequence. v0.2.0/capability metadata and phase branch-off checkpoint included.
+        - [x] T-012 — Implement once-per-piece hold
             Scope: src/domain/engine.ts and controller views/tests. Contract: R2/R3; C2/C3.
             Depends on: T-011.
             Evidence: Check empty hold versus swap queue consumption, spawn resets, second-use prohibition, lock reset of holdUsed and failed replacement spawn. Capture selected policy only on the replacement piece.
-        - [ ] T-013 — Implement ordered wall kicks
+            Verification: Four intended hold/projection failures preceded implementation. Final 51 unit tests, type check and build pass. Verified empty hold consumes the queued next kind, nonempty swap preserves sequence, once-per-lock reset, spawn pose/timer/policy capture, input immutability, capability/setting/paused/penetrator no-ops, retained disabled-slot projection and exact-once safe above-top replacement failure. Controller consumes the same public projection; UI key/panel integration remains T-016.
+        - [x] T-013 — Implement ordered wall kicks
             Scope: src/domain geometry/engine and tests/unit/domain. Contract: R2/R3; C1/C2.
             Depends on: T-011, T-012.
             Evidence: Check clockwise/counterclockwise candidate order, wall/floor/stack cases, unchanged O rotation and complete failure. Recheck hold/sequence and grounded/lifted lock behavior through public engine operations.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/2/2.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 2.2 — Projection and hard drop
-        - [ ] T-014 — Render ghost from the shared ordinary landing
+            Verification: Three intended wall/stack kick failures preceded implementation. Final 55 unit tests, type check and build pass. Public-engine checks cover exact left-before-right candidate order for both rotations, I wall/floor offsets, unchanged O, complete failure, preserved grounded deadlines and cleared lifted deadline. Whole milestone sequence/hold/kick code review, report and HANDOFF included; no scoped TODO and no complete SRS claim.
+    - [x] Milestone 2.2 — Projection and hard drop
+        - [x] T-014 — Render ghost from the shared ordinary landing
             Scope: src/domain projections and src/ui/board.ts. Contract: R4; C1/C2/C4.
             Depends on: T-013.
             Evidence: Use the same landing result as drop, including zero-distance projection, and verify ghost rendering never changes the board or simulation. Keep default ghost visibility shown until configurable modes are delivered.
-        - [ ] T-015 — Implement delayed hard drop and policy precedence
+            Verification: One public projection case and both browser outline cases failed before implementation. Final 56 unit tests, check/build and 18 Chromium/Firefox browser tests pass. Literal blocker/zero-distance/null fixtures verify non-mutating landing; actual Canvas edge/center pixels verify four translucent outlined ghost cells separate from active fills. Screenshot inspected. Board presentation extracted into its planned private owner; no gameplay state mutation or new click target.
+        - [x] T-015 — Implement delayed hard drop and policy precedence
             Scope: src/domain/engine.ts, input binding and domain/controller tests. Contract: R2/R3; C2/C3/C4.
             Depends on: T-014.
             Evidence: Verify final pose, actual-distance points, zero-distance repeat and a full remaining interval without grounding reset. Cover failed-policy and immediate-policy public inputs while the UI still uses fixed defaults.
-        - [ ] T-016 — Integrate modern controls previews and browser distribution
+            Verification: Three hard-drop domain cases and both Space-binding consumer cases failed before implementation. Final 61 unit tests, type check/build and 18 Chromium/Firefox browser cases pass. Verified shared ghost/drop landing, actual-distance points, no zero-distance repeat points/reset, independent full remaining interval, captured failed/immediate policy precedence, disabled/non-running no-ops and controller single-clock integration. Space is one-shot until keyup. Modern preview/help integration remains T-016.
+        - [x] T-016 — Integrate modern controls previews and browser distribution
             Scope: src/ui panels/help, tests/e2e, INSTALL.md and browser packaging. Contract: R2/R3/R4/R12; C4/C8.
             Depends on: T-014, T-015.
             Evidence: Expose next/held/ghost and keyboard bindings, exercise combined bag/hold/kick/drop play and rebuild the extracted browser package. Confirm no extra gameplay click targets or predecessor regressions.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/2/2.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 2.3 — Phase review
-        - [ ] T-017 — Review test and report Phase 2
+            Verification: Both browser integration cases failed for missing preview elements before implementation. Final 61 unit checks, type check/build, 20 source-app browser cases and 18 extracted-package cases pass (2 source-only exclusions). Next/held miniatures, C hold, Space delayed drop, wall movement/rotation, lock/queue behavior and two-button limit verified; full-page modern/ghost screenshots inspected. Aligned C4 mount export/mode with accepted API. Updated install/help, milestone 2.2 report/HANDOFF and stable browser candidate; no scoped TODO.
+    - [x] Milestone 2.3 — Phase review
+        - [x] T-017 — Review test and report Phase 2
             Depends on: T-013, T-016 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/2/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
+            Verification: Whole-phase code/consumer review and single-task closing-commit audit pass with no scoped TODO. Reused current identical production evidence: 61 unit tests, check/build, 20 source-browser cases and 18 extracted-package cases (2 explicit source-only exclusions). Rebuilt clean T-016 package passes all checks and byte-matches tested runtime assets; GitHub Actions 41324234370 succeeded for that exact source. Phase report/HANDOFF and initial task/parent checkoffs included; integration and exact-source release remain subsequent gates.
 
 ## Phase 3 — Penetrator bonuses
 

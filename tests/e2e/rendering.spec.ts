@@ -16,7 +16,7 @@ test('gravity, keyboard translation, inverse rotation and pause preserve the ren
   await page.keyboard.press('Escape');expect(await coloredCells(page)).toEqual(start);await page.clock.runFor(1000);expect(await coloredCells(page)).toEqual(start.map(({x,y})=>({x,y:y+1})));
 });
 for(const width of [320,768,1440])test(`baseline remains legible without overflow at ${width}px`,async({page})=>{
-  await page.setViewportSize({width,height:900});await page.goto('/');await expect(page.getByRole('heading',{name:'Tetris01'})).toBeVisible();
+  await page.setViewportSize({width,height:900});await page.goto('/');await expect(page.getByRole('heading',{name:'Tetris',exact:true})).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await expect(page.locator('canvas')).toBeVisible();await expect(page.locator('#restart')).toBeVisible();await expect(page.locator('#pause')).toBeVisible();
   await page.screenshot({path:test.info().outputPath(`baseline-${width}.png`),fullPage:true});

@@ -1,6 +1,7 @@
-/** Pure classic game transitions; gravity and grounded locking have separate clocks. */
+/** Pure falling-piece transitions; gravity and grounded locking have separate clocks. */
 import type { Capabilities, Cell, GameAction, GameEvent, GameState, Piece, PieceKind, Settings, Transition } from '../models';
 import { canPlace, cells } from './geometry';
+import { landing } from './landing';
 import { takeNext } from './sequence';
 import { addPoints, clearAndScore } from './scoring';
 
@@ -21,9 +22,9 @@ function ground(g: Draft): void {
   g.timers.grounded = grounded;
 }
 
-function spawn(g: Draft, settings: Settings, events: GameEvent[]): void {
-  const [kind, sequence] = takeNext(g.sequence);
-  g.sequence = copySequence(sequence);
+function spawn(g: Draft, settings: Settings, events: GameEvent[], replacement?:PieceKind): void {
+  let kind=replacement;
+  if(kind===undefined){const [next,sequence]=takeNext(g.sequence);kind=next;g.sequence=copySequence(sequence);}
   g.active = { kind, rotation: 0, origin: { x: kind === 'O' ? 4 : 3, y: -2 }, penetrator: false };
   g.holdUsed = false;
   g.piecePolicy = { lockPolicy: settings.lockPolicy, hardDropLock: settings.hardDropLock };
@@ -63,11 +64,11 @@ function down(g: Draft, settings: Settings, events: GameEvent[], soft = false): 
 const copyPiece = (p: Piece) => ({ ...p, origin: { ...p.origin } });
 
 /** Create an empty idle state or a seeded running game; seeds are nonzero uint32. */
-export function createGame(seed: number, runId: string, settings: Settings, _capabilities: Capabilities, initialStatus: 'idle' | 'running'): GameState {
+export function createGame(seed: number, runId: string, settings: Settings, capabilities: Capabilities, initialStatus: 'idle' | 'running'): GameState {
   if (!Number.isInteger(seed) || seed < 1 || seed > 4294967295) throw new RangeError('Seed must be a nonzero uint32');
   const g: Draft = {
     runId, status: initialStatus, board: Array.from({ length: 20 }, () => Array<Cell>(10).fill(null)),
-    active: null, held: null, holdUsed: false, sequence: { rng: seed, mode: 'uniform', pending: [] },
+    active: null, held: null, holdUsed: false, sequence: { rng: seed, mode: capabilities.has('modern')?'bag7':'uniform', pending: [] },
     score: 0, lines: 0, level: 1, bonuses: 0,
     timers: { gravityRemainingMs: 1000, lockRemainingMs: null, grounded: false },
     piecePolicy: { lockPolicy: settings.lockPolicy, hardDropLock: settings.hardDropLock }
@@ -83,17 +84,34 @@ export function setPaused(state: GameState, paused: boolean): GameState {
   return state;
 }
 
-/** Apply one baseline action without host effects or mutating the caller's state. */
-export function dispatchGame(state: GameState, action: GameAction, settings: Settings, _capabilities: Capabilities): Transition {
-  if (state.status !== 'running' || !state.active || ['hold','hardDrop','penetrator'].includes(action)) return { state, events: [] };
+/** Apply one delivered action without host effects or mutating the caller's state. */
+export function dispatchGame(state: GameState, action: GameAction, settings: Settings, capabilities: Capabilities): Transition {
+  if (state.status !== 'running' || !state.active || action==='penetrator') return { state, events: [] };
+  if(action==='hardDrop'&&(!capabilities.has('modern')||!settings.hardDrop))return {state,events:[]};
+  if(action==='hold'&&(!capabilities.has('modern')||!settings.hold||state.holdUsed||state.active.penetrator))return {state,events:[]};
   const g = copy(state), events: GameEvent[] = [];
+  if(action==='hardDrop'){
+    const target=landing(g.board,g.active!);if(!target)return {state,events:[]};
+    g.score=addPoints(g.score,2*Math.max(0,target.origin.y-g.active!.origin.y));g.active=copyPiece(target);ground(g);
+    if(g.piecePolicy.hardDropLock==='immediate'||g.piecePolicy.lockPolicy==='failed')lock(g,settings,events);
+    return {state:g,events};
+  }
+  if(action==='hold'){
+    const kind=g.active!.kind,replacement=g.held;g.held=kind;spawn(g,settings,events,replacement??undefined);g.holdUsed=true;
+    return {state:g,events};
+  }
   if (action === 'softDrop') down(g, settings, events, true);
   else {
     const p = g.active!;
     let candidate: Piece = p;
     if (action === 'left' || action === 'right') candidate = { ...p, origin: { ...p.origin, x: p.origin.x + (action === 'left' ? -1 : 1) } };
     else if (p.kind !== 'O') candidate = { ...p, rotation: ((p.rotation + (action === 'rotateCW' ? 1 : 3)) % 4) as Piece['rotation'] };
-    if (canPlace(g.board, candidate, true)) { g.active = copyPiece(candidate); ground(g); }
+    const rotating=(action==='rotateCW'||action==='rotateCCW')&&p.kind!=='O';
+    const offsets=rotating&&capabilities.has('modern')?[[0,0],[-1,0],[1,0],[-2,0],[2,0],[0,-1],[0,-2]]:[[0,0]];
+    for(const [dx,dy]of offsets){
+      const kicked={...candidate,origin:{x:candidate.origin.x+dx!,y:candidate.origin.y+dy!}};
+      if(canPlace(g.board,kicked,true)){g.active=copyPiece(kicked);ground(g);break;}
+    }
   }
   return { state: g, events };
 }
@@ -116,7 +134,7 @@ export function advanceGame(state: GameState, elapsedMs: number, settings: Setti
   return { state: g, events };
 }
 
-/** Baseline projections expose no undelivered modern controls. */
-export function projectGame(_state: GameState, _settings: Settings, _capabilities: Capabilities): Readonly<{ ghost: Piece | null; next: PieceKind | null; held: PieceKind | null }> {
-  return { ghost: null, next: null, held: null };
+/** Expose only delivered projections without consuming queue or mutating simulation. */
+export function projectGame(state: GameState, settings: Settings, capabilities: Capabilities): Readonly<{ ghost: Piece | null; next: PieceKind | null; held: PieceKind | null }> {
+  return { ghost: capabilities.has('modern')&&settings.ghost!=='hide'&&state.active ? landing(state.board,state.active) : null, next: capabilities.has('modern')&&settings.nextPreview ? state.sequence.pending[0]??null : null, held: capabilities.has('modern')?state.held:null };
 }

@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Phase 1 implementation/review is integrated into main; merge publication and v0.1.0 release remain pending effects. Full implementation remains authorized.
+Checkpoint: Phase 2 implementation/review is integrated into main; merge publication and v0.2.0 release remain pending effects. Full implementation remains authorized.
 
 ## Workflow and sources
 
@@ -12,10 +12,12 @@ The user's “Run QC and full implement” on 2026-11-01 authorizes T-001–T-07
 
 ## Branches and return
 
-Working branch: `main`, receiving completed `phase/1-classic-browser-baseline` at `c8853db4009b694a3e514483508ccf0c71855528`. Creation parent and integration target: actual default branch `main`. Branch-off commit: `eeb0dcc81ccb6e34687623eab665a6e51f1f4e1b`. No suspended parent. The retained design branches are already integrated and do not own current product work.
+Working branch: `main`, receiving completed `phase/2-modern-piece-controls` at `9df05728b59d77d43316e770d7ea56336236ff02`. Its creation parent/integration target was main at release commit `b304c51700824bff6fe94b63987a7f357b5d872b`. No suspended parent. Phase 1 integrated at `abc7dc119bf9de3755863e2d38542746387f929b`; all ten task issues and four milestones are closed.
 
 ## Pending work and next action
 
-Documentation issues 1–9 and milestone 1 are closed. Phase 1 associations exist for issues 10–19 and milestones 2–5. T-001–T-009 are published with closed issues; delivery milestones 1.1–1.3 are closed/read back. T-010 includes the phase review, corrected Vite runtime notice and complete source/package evidence. T-010 is published, issue 19 and milestone 5 are closed/read back. Publish/read back this explicit verified phase merge. Prepare v0.1.0 exact-source release commit/tag and rebuild/check its assets; publish/read back and verify hosted bytes. Only then activate Phase 2 and continue T-011–T-072 under the retained full grant.
+[v0.1.0](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/releases/tag/v0.1.0) is published/latest, with all three assets re-downloaded and byte-matched. Browser ZIP SHA-256: `9b9e3063cc54f1356c50d1aaaa4ebbb698eb5df0c8ae71da243a6f526fc54617`. Exact tag/package source is the phase branch-off release commit above; no release effect remains uncertain.
 
-Current evidence: 44/44 unit checks, type check/build, 16/16 source-app browser tests and 14 extracted-package cases pass (two source-module consumer cases explicitly excluded). Screenshots inspected; browser candidate and required Vite notice verified. Phase report: [Phase 1](reports/phases/1/PHASE-REPORT.md). Final exact-source rebuild and release remain pending. Native Windows and full-browser sidebars remain later evidence limits, not implicit blockers. Existing ignored credential input is available without being included in tracked artifacts. No reset or replay of completed work was performed.
+Phase 2 source-bound tracking readback verified label, milestones 6–8 and issues 20–26 before edits/tests. T-011–T-016 are published with closed issues; delivery milestones 6 and 7 are closed/read back. T-017 includes [Phase 2 review](reports/phases/2/PHASE-REPORT.md). T-017 is published and issue 26/milestone 8 are closed/read back. Publish/read back this explicit verified merge, then finish the v0.2.0 exact-source release/tag/assets/download verification. Only then activate Phase 3 and continue T-018–T-072. No additional human checkpoint is pending within the retained full grant.
+
+Current evidence: 61 unit tests, type check/build, 20 source-app browser cases and 18 extracted-package cases pass (two explicit source-only exclusions). GitHub Actions run 41324234370 succeeded for T-016. Full-page screenshots inspected. Clean T-016 candidate ZIP hash: 8992909f0c91ce8c163b0e4c8bcf957c67d71031d410cb627f14b1df9038f35a; runtime bytes match the tested candidate. Final release-source rebuild remains pending. No scoped TODO, reset or work discard.
