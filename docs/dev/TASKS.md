@@ -146,10 +146,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-020.
             Evidence: Render active/locked penetrator cells and their projection white without using white for regular kinds. Inspect overlap rendering and confirm draw order never changes settled board data.
             Verification: Characterization of existing prepared board branches, without fabricating a prior RED or rewriting correct code. Type check and 2 authored-state Chromium/Firefox render cases pass. Actual RGBA verifies pure white active/settled cells, translucent white ghost, seven distinct non-white regular kinds and retained settled data under active overlap. Full-page screenshot inspected. Test-only controller/mount fixture is outside release build inputs; ordinary packaged-entry regressions remain T-023.
-        - [ ] T-022 — Expose bonus inventory and penetrator hotkey
+        - [x] T-022 — Expose bonus inventory and penetrator hotkey
             Scope: src/ui panels/input/help and controller integration. Contract: R4/R9; C3/C4.
             Depends on: T-021.
             Evidence: Show one lightning symbol per bonus; update on spend/award. Exercise the P hotkey, exhausted inventory and active hold prohibition with clear help and no added gameplay button.
+            Verification: Four intended inventory/help browser failures preceded implementation. Final type check/build, 78 unit tests and 26 Chromium/Firefox browser cases pass. Inventory renders 3→2 lightning symbols after native P, repeated activation cannot cancel/spend, C preserves held/next state while active, hold status/help explain prohibition, and ordinary packaged-capable entry ignores exhausted P without changing Canvas. Exactly two gameplay buttons remain; full-page active/bonus screenshot inspected. Authored-state fixtures are excluded from production.
         - [ ] T-023 — Verify penetrator play and cumulative browser artifact
             Scope: tests/e2e, domain integration fixtures and browser packaging/docs. Contract: R4/R12; C1-C4/C8.
             Depends on: T-021, T-022.

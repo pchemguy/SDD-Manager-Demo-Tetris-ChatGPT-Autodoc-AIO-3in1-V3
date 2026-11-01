@@ -1,6 +1,6 @@
 /** Own keyboard repeat clocks and release held state when gameplay loses focus or pauses. */
 import type { GameAction } from '../models';
-const actions:Record<string,GameAction>={ArrowLeft:'left',ArrowRight:'right',ArrowDown:'softDrop',ArrowUp:'rotateCW',x:'rotateCW',z:'rotateCCW',' ':'hardDrop',c:'hold'};
+const actions:Record<string,GameAction>={ArrowLeft:'left',ArrowRight:'right',ArrowDown:'softDrop',ArrowUp:'rotateCW',x:'rotateCW',z:'rotateCCW',' ':'hardDrop',c:'hold',p:'penetrator'};
 export function bindInput(target:HTMLElement, action:(action:GameAction)=>void, togglePause:()=>void) {
   const host=target.ownerDocument.defaultView!;
   const held=new Map<string,number|undefined>();
