@@ -2,7 +2,7 @@
 import { expect,test } from '@playwright/test';
 test('modern preview and hold work with wall movement, rotation and delayed hard drop',async({page})=>{
   await page.clock.install({time:new Date('2026-11-01T00:00:00Z')});await page.clock.pauseAt(new Date('2026-11-01T00:00:01Z'));await page.goto('/');await page.locator('#restart').click();
-  await expect(page.getByRole('button')).toHaveCount(2);
+  await expect(page.locator('.game-actions button')).toHaveCount(2);
   const next=page.getByTestId('next-kind'),held=page.getByTestId('held-kind');const firstNext=await next.innerText();expect(['I','J','L','O','S','T','Z']).toContain(firstNext);await expect(held).toHaveText('—');
   await page.keyboard.press('c');const firstHeld=await held.innerText();expect(['I','J','L','O','S','T','Z']).toContain(firstHeld);const afterHold=await next.innerText();expect(afterHold).not.toBe(firstNext);await expect(page.getByTestId('hold-state')).toHaveText('Used until lock');
   await page.keyboard.press('c');await expect(held).toHaveText(firstHeld);await expect(next).toHaveText(afterHold);

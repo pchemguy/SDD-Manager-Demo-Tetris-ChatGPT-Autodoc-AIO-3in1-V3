@@ -3,7 +3,7 @@ test('classic app is playable through keyboard, pause and restart', async ({ pag
   await page.clock.install();
   await page.goto('/');
   await expect(page.getByRole('heading', {name:'Game info and controls'})).toBeVisible();
-  await expect(page.getByRole('button')).toHaveCount(2);
+  await expect(page.locator('.game-actions button')).toHaveCount(2);
   await expect(page.getByTestId('status')).toHaveText('idle');
   await expect(page.locator('#restart')).toHaveText('Start');
   await expect(page.locator('#pause')).toHaveText('Start');

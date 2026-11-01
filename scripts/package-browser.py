@@ -5,6 +5,16 @@ ROOT=Path(__file__).resolve().parents[1]
 EXPECTED={'tetris-browser.zip','INSTALL.md','SHA256SUMS.txt'}
 def version(): return json.loads((ROOT/'package.json').read_text())['version']
 def digest(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+def sqlite_assets():
+    expected=json.loads((ROOT/'package.json').read_text())['dependencies']['sql.js']
+    recorded=json.loads((ROOT/'vendor/sqlite/ASSET-INFO.json').read_text())
+    actual={'package':'sql.js','version':expected,'hashes':{name:digest(ROOT/'vendor/sqlite'/name) for name in ['sql-wasm-browser.js','sql-wasm-browser.wasm']}}
+    installed=json.loads((ROOT/'node_modules/sql.js/package.json').read_text())['version']
+    if recorded!=actual or installed!=expected: raise ValueError('SQLite source asset/version mismatch; run build:assets')
+    for name,sha in actual['hashes'].items():
+        if digest(ROOT/'node_modules/sql.js/dist'/name)!=sha: raise ValueError('SQLite copied asset/source mismatch')
+    return actual
+
 def verify(folder, extract=None):
     names={p.name for p in folder.iterdir() if p.is_file()}
     if names!=EXPECTED: raise ValueError('Release asset names must be exactly '+', '.join(sorted(EXPECTED)))
@@ -19,16 +29,30 @@ def verify(folder, extract=None):
             p=PurePosixPath(info.filename)
             if p.is_absolute() or '..' in p.parts or '\\' in info.filename or (info.external_attr>>16)&0o170000==0o120000: raise ValueError('Unsafe ZIP member')
             if info.file_size>20_000_000: raise ValueError('Unexpected member size')
-            if info.filename not in {'index.html','BUILD-INFO.json','INSTALL.md','LICENSE','THIRD-PARTY-NOTICES.txt'} and not (p.parts[0]=='assets' and p.suffix in {'.js','.css','.wasm'}): raise ValueError('Unexpected runtime member: '+info.filename)
+            if info.filename not in {'index.html','BUILD-INFO.json','INSTALL.md','LICENSE','THIRD-PARTY-NOTICES.txt','schemas/snapshot.schema.json'} and not (p.parts[0]=='assets' and p.suffix in {'.js','.css','.wasm'}): raise ValueError('Unexpected runtime member: '+info.filename)
             data=z.read(info.filename)
             if any(secret in data for secret in [b'github_pat_',b'ghp_',b'BEGIN PRIVATE KEY']): raise ValueError('Credential marker in runtime')
-        if not {'index.html','BUILD-INFO.json','INSTALL.md','LICENSE','THIRD-PARTY-NOTICES.txt'}<=set(members): raise ValueError('Missing package entry/metadata/instructions/license')
+        if not {'index.html','BUILD-INFO.json','INSTALL.md','LICENSE','THIRD-PARTY-NOTICES.txt','schemas/snapshot.schema.json'}<=set(members): raise ValueError('Missing package entry/metadata/instructions/license')
+        workers={name for name in members if re.fullmatch(r'assets/codec\.worker-[A-Za-z0-9_-]+\.js',name)}
+        references=set()
+        for name in members:
+            if name.startswith('assets/') and name.endswith('.js') and name not in workers:
+                references.update(re.findall(r'codec\.worker-[A-Za-z0-9_-]+\.js',z.read(name).decode()))
+        if len(workers)!=1 or references!={PurePosixPath(name).name for name in workers}: raise ValueError('Missing/unreferenced local codec worker asset')
         metadata=json.loads(z.read('BUILD-INFO.json'))
+        if metadata.get('sqlite')!=sqlite_assets(): raise ValueError('SQLite build metadata/source mismatch')
+        wasm={name for name in members if re.fullmatch(r'assets/sql-wasm-browser-[A-Za-z0-9_-]+\.wasm',name)}
+        wasm_references=set()
+        for name in workers:
+            wasm_references.update(re.findall(r'sql-wasm-browser-[A-Za-z0-9_-]+\.wasm',z.read(name).decode()))
+        if len(wasm)!=1 or wasm_references!={PurePosixPath(name).name for name in wasm}: raise ValueError('Missing/unreferenced matching local SQLite WASM')
+        if hashlib.sha256(z.read(next(iter(wasm)))).hexdigest()!=metadata['sqlite']['hashes']['sql-wasm-browser.wasm']: raise ValueError('SQLite WASM/source mismatch')
         if metadata['version']!=version() or not re.fullmatch('[0-9a-f]{40}',metadata['source']): raise ValueError('Source/version mismatch')
         if metadata['source']!=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(): raise ValueError('Package source does not match selected checkout')
         html=z.read('index.html').decode()
         for url in re.findall(r'(?:src|href)="([^"]+)"',html):
             if not url.startswith('./') or url[2:] not in members: raise ValueError('Missing/nonlocal runtime asset: '+url)
+        if z.read('schemas/snapshot.schema.json')!=(ROOT/'schemas/snapshot.schema.json').read_bytes(): raise ValueError('Snapshot schema/source mismatch')
         if z.read('INSTALL.md')!=(folder/'INSTALL.md').read_bytes(): raise ValueError('Installation instructions mismatch')
         if z.read('LICENSE')!=(ROOT/'LICENSE').read_bytes(): raise ValueError('Project license/source mismatch')
         if z.read('THIRD-PARTY-NOTICES.txt')!=(ROOT/'THIRD-PARTY-NOTICES.txt').read_bytes(): raise ValueError('Third-party notices/source mismatch')
@@ -42,7 +66,7 @@ def package(folder):
     build=ROOT/'dist/browser'
     if not (build/'index.html').is_file(): raise ValueError('Run npm run build first')
     folder.mkdir(parents=True,exist_ok=True)
-    metadata={'version':version(),'source':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'sourceDirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()),'platform':'browser'}
+    metadata={'version':version(),'source':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'sourceDirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()),'platform':'browser','sqlite':sqlite_assets()}
     files={str(p.relative_to(build)).replace('\\','/'):p.read_bytes() for p in build.rglob('*') if p.is_file()}
     files['BUILD-INFO.json']=(json.dumps(metadata,sort_keys=True,indent=2)+'\n').encode()
     files['INSTALL.md']=(ROOT/'INSTALL.md').read_bytes()
