@@ -1,3 +1,12 @@
 .obsidian
 .trash
 *.tkn
+
+node_modules/
+.cache/
+generated/
+vendor/
+dist/
+artifacts/
+test-results/
+playwright-report/

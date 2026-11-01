@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: accepted preparation merged into main; merge publication and documentation milestone closure require readback. Full implementation authorized.
+Checkpoint: Phase 1 activated; T-001 toolchain setup is current. Full implementation remains authorized.
 
 Outcome: PROJECT was accepted by the user; ARCHITECTURE, DECOMPOSITION with MODELS/API-DESIGN, SPEC with three contract artifacts, PLAN, layout and TASKS are prepared under scoped autodoc preapproval. Required SPEC/PLAN/TASKS conformance reports are present. Nine planned phases contain 21 delivery milestones, nine phase reviews and 72 unchecked implementation tasks. No product implementation exists.
 
@@ -20,14 +20,16 @@ Outcome: PROJECT was accepted by the user; ARCHITECTURE, DECOMPOSITION with MODE
 
 ## Branches and return
 
-- Working branch at this checkpoint: actual default `main`; preparation source `design-docs/main`.
+- Working branch: `phase/1-classic-browser-baseline`, created from published main `eeb0dcc81ccb6e34687623eab665a6e51f1f4e1b`.
 - Creation parent and integration target: actual default branch `main`.
-- Branch-off commit: `93682b5b82b4b06d82f2a9cefada7345cb7ac341`.
+- Phase branch-off commit: `eeb0dcc81ccb6e34687623eab665a6e51f1f4e1b`.
 - Suspended parent: none. `design-docs/ai-logs` retains only the integrated scaffold checkpoint.
 
 ## Pending work and next action
 
 - Issues 1–7 were closed/read back after their verified publication. Publish/read back this DOCS-008 commit, then close/read back issue 8 before reporting the pass complete.
-- All nine DOCS issues are closed/read back. Publish/read back this verified two-parent merge, then close/read back the preparation milestone. Phase activation has not run.
-- Next eligible action: finish preparation publication/integration, then activate Phase 1 and execute the authorized full range.
+- All nine DOCS issues and milestone 1 are closed/read back after published preparation merge. Phase 1 label, milestones 2–5 and task issues 10–19 are verified with associations.
+- Current action: T-001 setup; then T-002–T-010, Phase 1 integration/release, and subsequent eligible phases through T-072. Do not re-ask the authorized range.
 - Product builds, tests, packages and releases have not been created or verified.
+
+Projection recovery: the first 300-second utility invocation created seven issues then reported source_not_committed at its final check. Worktree/request/HEAD TASKS hashes were identical. Read-only reconciliation verified existing effects and only three missing issues; the second apply completed all ten associations without duplicate objects. No source change or credential replacement was made.

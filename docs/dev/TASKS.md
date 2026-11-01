@@ -16,11 +16,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 - [ ] Phase 1 — Classic browser baseline
     - [ ] Milestone 1.1 — Deterministic classic engine
-        - [ ] T-001 — Establish the local toolchain and isolated runners
+        - [x] T-001 — Establish the local toolchain and isolated runners
             Scope: package.json/lockfile, TypeScript/Vite/unit/Playwright configuration and README/AGENTS setup guidance. Contract: R1/R12; C8.
             Depends on: none; accepted/published preparation and Phase 1 activation.
             Evidence: Pin compatible local tools and establish public-entry compilation plus isolated browser provisioning/launch evidence under the central browser policy. Classify actual environment failures and record executable modes without treating installation as application acceptance.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
+            Verification: Tooling-only task: npm install --ignore-scripts installed 42 pinned packages; npm run check and npm run build pass. TETRIS_FIREFOX_SANDBOX_WORKAROUND=1 timeout 90s npm run probe:browsers passed two isolated input/Canvas-glyph/screenshot/teardown cycles each on Chromium shell 156.0.8078.4 and Firefox 157.0. Chromium CDN returned HTTP 200 HTML; official Playwright 1.64.1 OCI platform digest d65108d1a8095d8b0c4a5e32bf1807a40a5ce90ff0c78473e1116b1c243235e8 and browser layer eb005fbb9cada4cd1b9476577a1eef0e000a2a0e9e319f84ecf4bfff1a4f28bb were SHA-256/size verified, selected paths safely extracted and archive-derived executable modes restored after EACCES. Firefox official fallback installed; its content-process uid_map EPERM was diagnosed and the documented process-local override verified. npm warns about the host http-proxy environment setting; it did not prevent install/check/build. No game acceptance or native Windows evidence is claimed.
         - [ ] T-002 — Implement classic piece geometry and landing
             Scope: src/models.ts and src/domain geometry/shapes/landing public exports, tests/unit/domain. Contract: R1; C1.
             Depends on: T-001.
