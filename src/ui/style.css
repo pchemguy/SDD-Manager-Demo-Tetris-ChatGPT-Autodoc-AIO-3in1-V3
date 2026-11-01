@@ -23,16 +23,30 @@ main{max-width:1400px}.game-layout{flex-wrap:wrap}.info{flex:0 0 270px}.board-wr
 [data-panel-layout=true] canvas{border:0;outline:1px solid #41516a;width:300px;height:auto;aspect-ratio:1/2}
 [data-panel-layout=true] canvas:focus-visible{outline:2px solid #7be0c5;outline-offset:4px}
 [data-panel-layout=true] [data-testid=score].long-score{font-size:16px}
+/* Compact is the shared default; sidebar mode retains it at every viewport width. */
+body{min-width:0}
+main[data-panel-layout=true]{max-width:none;width:100%;padding:20px 10px}
+[data-panel-layout=true] .game-layout{display:flex;flex-direction:column;flex-wrap:nowrap;align-items:center;gap:20px}
+[data-panel-layout=true] .info,[data-panel-layout=true] .leaderboard-panel,[data-panel-layout=true] .settings-panel,[data-panel-layout=true] .help-panel{width:min(440px,100%);min-width:0;flex:0 0 auto;padding:16px}
+[data-panel-layout=true] .info{min-height:0;display:flex;flex-direction:column}
+[data-panel-layout=true] .info h2{margin-bottom:12px}
+[data-panel-layout=true] .info dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+[data-panel-layout=true] .info dl div{display:block;border:0;padding:5px 0;min-width:0}
+[data-panel-layout=true] .info dd{font-size:22px;overflow-wrap:anywhere}
+[data-panel-layout=true] .board-wrap{width:min(300px,100%);min-width:0;flex:0 0 auto}
+[data-panel-layout=true] canvas{max-width:100%;width:100%;height:auto;aspect-ratio:1/2}
 @media(min-width:1280px){
- main[data-panel-layout=true]{max-width:none;width:100%;padding:32px 24px}
- [data-panel-layout=true] .game-layout{display:grid;grid-template-columns:minmax(0,1fr) 220px 300px 220px minmax(0,1fr);gap:16px;align-items:start}
- [data-panel-layout=true] .leaderboard-panel{grid-column:1;grid-row:1;justify-self:end;width:min(236px,100%);min-width:0;padding:18px}
- [data-panel-layout=true] .info{grid-column:2;grid-row:1;width:100%;min-width:0;min-height:600px;padding:16px;display:flex;flex-direction:column}
- [data-panel-layout=true] .board-wrap{grid-column:3;grid-row:1;width:300px}
- [data-panel-layout=true] .settings-panel{grid-column:4;grid-row:1;width:100%;min-width:0;padding:18px}
- [data-panel-layout=true] .help-panel{grid-column:5;grid-row:1;width:min(236px,100%);min-width:0;justify-self:start;padding:18px}
- [data-panel-layout=true] .info dd{font-size:22px}
- [data-panel-layout=true] .info h2{margin-bottom:14px}
+ main[data-panel-layout=true][data-layout=wide]{max-width:none;width:100%;padding:32px 24px}
+ [data-panel-layout=true][data-layout=wide] .game-layout{display:grid;grid-template-columns:minmax(0,1fr) 220px 300px 220px minmax(0,1fr);gap:16px;align-items:start}
+ [data-panel-layout=true][data-layout=wide] .leaderboard-panel{grid-column:1;grid-row:1;justify-self:end;width:min(236px,100%);min-width:0;padding:18px}
+ [data-panel-layout=true][data-layout=wide] .info{grid-column:2;grid-row:1;width:100%;min-width:0;min-height:600px;padding:16px;display:flex;flex-direction:column}
+ [data-panel-layout=true][data-layout=wide] .board-wrap{grid-column:3;grid-row:1;width:300px}
+ [data-panel-layout=true][data-layout=wide] .settings-panel{grid-column:4;grid-row:1;width:100%;min-width:0;padding:18px}
+ [data-panel-layout=true][data-layout=wide] .help-panel{grid-column:5;grid-row:1;width:min(236px,100%);min-width:0;justify-self:start;padding:18px}
+ [data-panel-layout=true][data-layout=wide] .info dl{display:block}
+ [data-panel-layout=true][data-layout=wide] .info dl div{display:flex;justify-content:space-between;align-items:baseline;padding:15px 0;border-bottom:1px solid #273345}
+ [data-panel-layout=true][data-layout=wide] .info dd{font-size:22px}
+ [data-panel-layout=true][data-layout=wide] .info h2{margin-bottom:14px}
 }
 
 .panel-toggles{display:grid;gap:6px;margin-top:auto;padding-top:16px}

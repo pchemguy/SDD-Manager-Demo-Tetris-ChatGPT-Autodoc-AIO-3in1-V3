@@ -28,8 +28,22 @@ export function mount(root:HTMLElement, controller:Controller, mode:'wide'|'side
     ...(helpPanel?[{name:'help',element:helpPanel.element}]:[])
   ]):null;
   if(auxiliary)root.querySelector('.game-actions')!.before(auxiliary.element);
+  const host=root.ownerDocument.defaultView!,wideQuery=host.matchMedia('(min-width:1280px)');
+  const arrange=()=>{
+    if(!panelLayout)return;
+    const layout=mode==='sidebar'||!wideQuery.matches?'compact':'wide';if(root.dataset.layout===layout)return;
+    const focus=root.contains(root.ownerDocument.activeElement)?root.ownerDocument.activeElement as HTMLElement:null;
+    root.dataset.layout=layout;
+    const info=root.querySelector<HTMLElement>('.info')!,board=root.querySelector<HTMLElement>('.board-wrap')!;
+    const panels=layout==='compact'?[info,board,leaderboardPanel?.element,settingsPanel?.element,helpPanel?.element]:[leaderboardPanel?.element,info,board,settingsPanel?.element,helpPanel?.element];
+    root.querySelector('.game-layout')!.replaceChildren(...panels.filter((panel):panel is HTMLElement=>Boolean(panel)));
+    if(focus&&!focus.closest('[hidden]'))focus.focus({preventScroll:true});
+  };
+  arrange();wideQuery.addEventListener('change',arrange);
   const canvas=root.querySelector('canvas')!;
   const drawBoard=createBoardRenderer(canvas);
+  const resizing=()=>drawBoard(controller.view());
+  const observer=new ResizeObserver(resizing);observer.observe(canvas);host.addEventListener('resize',resizing);
   const set=(id:string,value:string|number)=>{const element=root.querySelector(`[data-testid="${id}"]`)!;if(element.textContent!==String(value))element.textContent=String(value);};
   const render=(view:GameView)=>{
     const g=view.state.game;
@@ -48,5 +62,5 @@ export function mount(root:HTMLElement, controller:Controller, mode:'wide'|'side
   const input=bindInput(canvas,action=>controller.action(action),()=>{const s=controller.view().state.game.status;if(s==='running')controller.pause();else if(s==='paused')controller.resume();});
   const unsubscribe=controller.subscribe(view=>{if(view.state.game.status!=='running')input.clear();render(view);});let frame=0,closed=false;
   const animate=()=>{if(closed)return;controller.tick();frame=requestAnimationFrame(animate);};frame=requestAnimationFrame(animate);
-  return ()=>{closed=true;cancelAnimationFrame(frame);unsubscribe();input.dispose();auxiliary?.dispose();settingsPanel?.dispose();controller.dispose();root.replaceChildren();};
+  return ()=>{closed=true;cancelAnimationFrame(frame);observer.disconnect();host.removeEventListener('resize',resizing);wideQuery.removeEventListener('change',arrange);unsubscribe();input.dispose();auxiliary?.dispose();settingsPanel?.dispose();controller.dispose();root.replaceChildren();};
 }
