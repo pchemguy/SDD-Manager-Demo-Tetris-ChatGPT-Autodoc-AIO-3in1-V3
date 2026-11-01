@@ -5,7 +5,7 @@ import { createBoardRenderer } from './board';
 import './style.css';
 import { bindInput } from './input';
 import { renderPreview } from './preview';
-import { createHelpPanel, createLeaderboardPanel, createSettingsPanel } from './panels';
+import { createHelpPanel, createLeaderboardPanel, createPanelControls, createSettingsPanel } from './panels';
 export function mount(root:HTMLElement, controller:Controller, mode:'wide'|'sidebar'='wide'):()=>void {
   root.dataset.mode=mode;const capabilities=controller.view().capabilities,modern=capabilities.has('modern'),penetrator=capabilities.has('penetrator'),panelLayout=capabilities.has('panelLayout');root.dataset.panelLayout=String(panelLayout);
   root.innerHTML=`<header><p class="eyebrow">KEYBOARD ARCADE · ${modern?'MODERN':'CLASSIC'}</p><h1>Tetris<span aria-hidden="true">${modern?'02':'01'}</span></h1><p>Find your rhythm. Leave no gaps.</p></header>
@@ -20,7 +20,14 @@ export function mount(root:HTMLElement, controller:Controller, mode:'wide'|'side
   if(leaderboardPanel)root.querySelector('.game-layout')!.prepend(leaderboardPanel.element);
   const settingsPanel=capabilities.has('settings')?createSettingsPanel(controller):null;
   if(settingsPanel)root.querySelector('.game-layout')!.append(settingsPanel.element);
-  if(panelLayout)root.querySelector('.game-layout')!.append(createHelpPanel(modern,penetrator).element);
+  const helpPanel=panelLayout?createHelpPanel(modern,penetrator):null;
+  if(helpPanel)root.querySelector('.game-layout')!.append(helpPanel.element);
+  const auxiliary=panelLayout?createPanelControls([
+    ...(leaderboardPanel?[{name:'leaderboard',element:leaderboardPanel.element}]:[]),
+    ...(settingsPanel?[{name:'settings',element:settingsPanel.element}]:[]),
+    ...(helpPanel?[{name:'help',element:helpPanel.element}]:[])
+  ]):null;
+  if(auxiliary)root.querySelector('.game-actions')!.before(auxiliary.element);
   const canvas=root.querySelector('canvas')!;
   const drawBoard=createBoardRenderer(canvas);
   const set=(id:string,value:string|number)=>{const element=root.querySelector(`[data-testid="${id}"]`)!;if(element.textContent!==String(value))element.textContent=String(value);};
@@ -41,5 +48,5 @@ export function mount(root:HTMLElement, controller:Controller, mode:'wide'|'side
   const input=bindInput(canvas,action=>controller.action(action),()=>{const s=controller.view().state.game.status;if(s==='running')controller.pause();else if(s==='paused')controller.resume();});
   const unsubscribe=controller.subscribe(view=>{if(view.state.game.status!=='running')input.clear();render(view);});let frame=0,closed=false;
   const animate=()=>{if(closed)return;controller.tick();frame=requestAnimationFrame(animate);};frame=requestAnimationFrame(animate);
-  return ()=>{closed=true;cancelAnimationFrame(frame);unsubscribe();input.dispose();settingsPanel?.dispose();controller.dispose();root.replaceChildren();};
+  return ()=>{closed=true;cancelAnimationFrame(frame);unsubscribe();input.dispose();auxiliary?.dispose();settingsPanel?.dispose();controller.dispose();root.replaceChildren();};
 }

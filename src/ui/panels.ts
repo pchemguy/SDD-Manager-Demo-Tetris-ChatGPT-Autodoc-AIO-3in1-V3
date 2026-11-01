@@ -30,7 +30,7 @@ function createFileControls(controller:Controller){
 }
 /** Own only these DOM listeners; mount owns the controller subscription/lifetime. */
 export function createSettingsPanel(controller:Controller){
- const element=document.createElement('section');element.className='settings-panel';element.setAttribute('aria-labelledby','settings-title');
+ const element=document.createElement('section');element.className='settings-panel';element.id='panel-settings';element.setAttribute('aria-labelledby','settings-title');
  element.innerHTML=`<p class="eyebrow">MAKE IT YOURS</p><h2 id="settings-title">${controller.view().capabilities.has('persistentSettings')?'Settings':'Session settings'}</h2>${definitions.map(d=>`<label for="setting-${d.key}">${d.label}</label><select id="setting-${d.key}">${d.options.map(([value,label])=>`<option value="${value}">${label}</option>`).join('')}</select>`).join('')}<p class="hint" data-testid="policy-hint"></p><p class="hint" data-testid="storage-hint">${controller.view().capabilities.has('persistentSettings')?'Settings are saved in this browser.':'Settings last until this page reloads.'}</p><p role="alert" class="error" hidden></p>`;
  const files=controller.view().capabilities.has('files')?createFileControls(controller):null;
  if(files)element.querySelector('[data-testid=storage-hint]')!.before(files.element);
@@ -54,7 +54,7 @@ export function createSettingsPanel(controller:Controller){
 
 /** Read-only session ranking; rebuild rows only when result content changes, never on every frame. */
 export function createLeaderboardPanel(){
- const element=document.createElement('section');element.className='leaderboard-panel';element.setAttribute('aria-labelledby','leaderboard-title');
+ const element=document.createElement('section');element.className='leaderboard-panel';element.id='panel-leaderboard';element.setAttribute('aria-labelledby','leaderboard-title');
  element.innerHTML='<p class="eyebrow">THIS PAGE SESSION</p><h2 id="leaderboard-title">Session top ten</h2><p class="hint" data-empty>No completed games yet.</p><ol aria-label="Completed games"></ol><p class="hint">Restart keeps this list. Reload ends the session.</p>';
  const list=element.querySelector('ol')!,empty=element.querySelector<HTMLElement>('[data-empty]')!;let signature='';
  return {element,render(view:GameView){
@@ -73,4 +73,17 @@ export function createHelpPanel(modern:boolean,penetrator:boolean){
  const element=document.createElement('section');element.className='help-panel';element.id='panel-help';element.setAttribute('aria-labelledby','help-title');
  element.innerHTML=`<p class="eyebrow">PLAY WITH THE KEYS</p><h2 id="help-title">Controls and help</h2><p class="hint">← → move · ↑ / X rotate<br>Z rotate back · ↓ soft drop<br>${modern?'<span data-testid="modern-actions">Space hard drop · C hold</span><br>':''}${penetrator?'P activates penetrator (1 bonus)<br>':''}Esc pause / resume</p><p class="hint" data-testid="lock-info">Full grounding interval; pause freezes timers.</p>${penetrator?'<p class="hint">Four cleared lines earn one ⚡ (max 3). Hold is unavailable while active.</p>':''}<p class="hint">Start/Restart begins a fresh game. The right Start resumes a paused game. Focus the board for game keys; settings and file controls retain normal keyboard behavior.</p>`;
  return {element};
+}
+
+/** Auxiliary visibility belongs to this mount, never to portable/persisted settings. */
+export function createPanelControls(panels:ReadonlyArray<{name:string;element:HTMLElement}>){
+ const element=document.createElement('div');element.className='panel-toggles';element.setAttribute('role','group');element.setAttribute('aria-label','Auxiliary panels');
+ const cleanups:Array<()=>void>=[];
+ for(const panel of panels){
+  const button=document.createElement('button');button.type='button';button.setAttribute('aria-controls',panel.element.id);
+  const render=()=>{button.textContent=`${panel.element.hidden?'Show':'Hide'} ${panel.name}`;button.setAttribute('aria-expanded',String(!panel.element.hidden));};
+  const toggle=()=>{panel.element.hidden=!panel.element.hidden;render();if(panel.element.hidden&&panel.element.contains(document.activeElement))button.focus();};
+  render();button.addEventListener('click',toggle);cleanups.push(()=>button.removeEventListener('click',toggle));element.append(button);
+ }
+ return {element,dispose(){for(const cleanup of cleanups)cleanup();}};
 }
