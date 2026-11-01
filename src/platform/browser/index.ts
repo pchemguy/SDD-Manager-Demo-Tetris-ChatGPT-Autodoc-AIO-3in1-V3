@@ -1,8 +1,9 @@
 /** Browser clock, identity, memory-session and lifecycle ports; persistence is capability-scoped. */
 import type { AppError, AppState, Checkpoint, Outcome } from '../../models';
 import type { PlatformPorts } from '../ports';
+import {readRawSettings} from './settings';
 
-/** Create fresh page-session adapters without reading/writing persistent browser storage. */
+/** Create fresh host adapters; settings are read only when requested by a delivered capability. */
 export function createBrowserPorts(host: Window = window): PlatformPorts {
   let checkpoint: Checkpoint | null = null;
   let revision = 0;
@@ -20,7 +21,7 @@ export function createBrowserPorts(host: Window = window): PlatformPorts {
       do { host.crypto.getRandomValues(words); } while (words[0] === 0);
       return words[0]!;
     },
-    readSettings: async () => ({ ok: true, value: { query: {}, saved: {} } }),
+    readSettings: async () => {try{return {ok:true,value:readRawSettings(host)};}catch{return {ok:false,error:{code:'persistence-failed',message:'Browser settings could not be read.'}};}},
     commitSettings: async () => ({ ok: true, value: undefined }),
     download: async () => unavailable(),
     loadCheckpoint: async () => ({ ok: true, value: structuredClone(checkpoint) }),

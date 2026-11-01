@@ -214,11 +214,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 - [ ] Phase 5 — Persistent configuration
     - [ ] Milestone 5.1 — Per-key configuration restoration
-        - [ ] T-032 — Implement strict per-key query and cookie parsing
+        - [x] T-032 — Implement strict per-key query and cookie parsing
             Scope: src/rules/settings.ts and src/platform/browser/settings.ts. Contract: R6; C5/C7.
             Depends on: T-031.
             Evidence: Parse canonical names/values, duplicate known query keys, corrupt cookies and mixed sources independently. Preserve valid cookie values when URL keys are omitted/invalid and leave unknown keys alone.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
+            Verification: All seven new public rules/adapter cases failed before implementation, then check/build and all102 units pass. Every canonical string including explicit defaults resolves per-key URL→valid cookie→default; empty/wrong-case/padded values and known duplicate query groups warn/fall through, corrupt/duplicate cookies are isolated and unknown data untouched. Inputs remain immutable and parser write spies remain zero. Public C5 index is used by all consumers; canonical GhostMode alias aligns models. v0.5.0/persistentSettings selected and predecessor full v0.4 release/closure gate plus complete Phase5 projection verified; HANDOFF records recovered state. Startup integration/transactions remain assigned later.
         - [ ] T-033 — Integrate persistent startup resolution
             Scope: src/application bootstrap and browser settings adapter. Contract: R6; C3/C7.
             Depends on: T-032.

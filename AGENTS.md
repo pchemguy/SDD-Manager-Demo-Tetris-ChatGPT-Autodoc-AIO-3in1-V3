@@ -56,7 +56,7 @@ Read [PROJECT](docs/dev/PROJECT.md), [ARCHITECTURE](docs/dev/ARCHITECTURE.md), [
 
 The project targets shared TypeScript gameplay/UI for browser, Windows Electron and Chromium/Firefox sidebars. The classic/modern engine, controller, browser ports and Canvas UI with next/hold/ghost are implemented; later capability paths in layout remain planned. Node 24 with pinned dependencies supports validated `npm run check`, `npm run build` and the bounded browser probe. Use `npm run test:unit` for domain/controller checks and `npm run test:e2e` for the actual browser game. Preserve platform separation and the central browser/Windows policies above.
 
-[TASKS](docs/dev/TASKS.md) is the sole implementation task owner; its adjacent review report assesses derivation. The current autodoc stopping boundary and any later grants remain in DOCS_PREPARATION/HANDOFF. Phase 4 is activated; recover the current task from TASKS/Git and HANDOFF.
+[TASKS](docs/dev/TASKS.md) is the sole implementation task owner; its adjacent review report assesses derivation. The current autodoc stopping boundary and any later grants remain in DOCS_PREPARATION/HANDOFF. Phase 5 is activated; recover the current task from TASKS/Git and HANDOFF.
 
 The managed Linux test host requires `TETRIS_FIREFOX_SANDBOX_WORKAROUND=1` for trusted local Firefox checks after a diagnosed content-process namespace failure. It is opt-in and must not be applied to arbitrary pages. Use the absolute project-owned browser root established by Playwright configuration.
 
