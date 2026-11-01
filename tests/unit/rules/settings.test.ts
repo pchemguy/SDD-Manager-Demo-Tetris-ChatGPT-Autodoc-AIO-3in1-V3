@@ -1,5 +1,5 @@
 import {expect,test} from 'vitest';
-import {DEFAULT_SETTINGS,validateSettings} from '../../../src/rules/settings';
+import {DEFAULT_SETTINGS,validateSettings} from '../../../src/rules';
 test('canonical defaults and each complete typed settings variant are accepted without sharing mutable input',()=>{
  expect(DEFAULT_SETTINGS).toEqual({ghost:'show',hardDrop:true,nextPreview:true,hardDropLock:'general',lockPolicy:'interval',hold:true});
  for(const patch of [{},{ghost:'hide'},{ghost:'dynamic'},{hardDrop:false},{nextPreview:false},{hardDropLock:'immediate'},{lockPolicy:'failed'},{hold:false}]){

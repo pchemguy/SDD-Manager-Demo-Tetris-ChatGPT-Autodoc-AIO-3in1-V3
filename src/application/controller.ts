@@ -2,7 +2,7 @@
 import type { AppError, AppState, Capabilities, FileFormat, GameAction, GameView, InputFile, Outcome, SettingPatch, Transition } from '../models';
 import type { PlatformPorts } from '../platform/ports';
 import { advanceGame, createGame, dispatchGame, projectGame, setPaused } from '../domain';
-import { validateSettings } from '../rules/settings';
+import { validateSettings } from '../rules';
 export interface Controller {
   view(): GameView; start(): void; pause(): void; resume(): void; action(action: GameAction): void; tick(): void;
   setSettings(patch: SettingPatch): Promise<Outcome<void>>;

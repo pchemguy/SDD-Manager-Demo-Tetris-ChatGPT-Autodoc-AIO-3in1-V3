@@ -4,7 +4,7 @@ import { createController } from '../application';
 import { createBrowserPorts } from '../platform/browser';
 import { mount } from '../ui';
 import { CAPABILITIES } from '../capabilities';
-import { DEFAULT_SETTINGS } from '../rules/settings';
+import { DEFAULT_SETTINGS } from '../rules';
 const settings=DEFAULT_SETTINGS;
 const capabilities=CAPABILITIES;
 const ports=createBrowserPorts();
