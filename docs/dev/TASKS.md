@@ -319,7 +319,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 7 — Centered panel layout
 
-- [ ] Phase 7 — Centered panel layout
+- [x] Phase 7 — Centered panel layout
     - [x] Milestone 7.1 — Centered wide panels
         - [x] T-049 — Implement centered five-panel wide geometry
             Scope: src/ui/styles.css/panels.ts and wide-layout checks. Contract: R9; C4.
@@ -355,11 +355,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Inspect representative device-pixel Canvas output and compact/wide layouts, run input/settings/file regressions and verify the extracted browser build. Record the completed pre-Electron layout exit.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/7/7.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: M7.2 whole-capability/public-consumer review and pre-Electron R9 exit pass;no scoped TODO. Check/build,198deterministic,194source/8build-only exclusions and168packaged/34source-only exclusions have complete explicit receipts,exit0,passed last-run. Full320/600/1024/1280/1920 geometry/DOM order/state+focus retention,8wide masks,compactDPR2 backing600x1200/exact paused pixels acrossresize and all input/settings/JSON/SQLite regressions pass. M7.2-F01 hidden-settings feedback repaired with6failed-before cases; one visible alert/operation live region and unchanged-frame status verified. Extracted ChromiumDPR2/1280wide and Firefox320screenshots inspected. Exact T052/T053 Actions41355144358/41355579858success.10member ZIPafc6f35205e871b29947e9bdd4028e3f9657bc8afa6acd695bac81dae0d27f82 honestly records dirty T053source. Guides/report/HANDOFF and initial milestone checkbox included. Native Windows/installed sidebar/speech evidence not claimed.
-    - [ ] Milestone 7.3 — Phase review
-        - [ ] T-055 — Review test and report Phase 7
+    - [x] Milestone 7.3 — Phase review
+        - [x] T-055 — Review test and report Phase 7
             Depends on: T-051, T-054 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/7/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
+            Verification: Whole-phase R9/C4 and C3/C7/C8consumer review plus6-task initial-closure/combinedmilestone-record audit pass;no scoped TODO. Clean exact T0542caf3a2 check/build,198deterministic,168extracted(34source-only exclusions) pass. Clean10member ZIP0c818ded89e464ba66472f7ce8802d1ab39240f541aacefde554d0952543d6b0 sourceDirty=false; unchanged committed runtime/tests passed194source(8build-only exclusions). Complete5target/8mask/compact-sidebar/DPR2/state+focus/keyboard/file/error regressions and visual evidence remain valid. M7.2-F01 repaired with6RED cases. Exact T052/T053 Actions41355144358/41355579858success;T05441356044950stillrunning wheninspected. Phase report/HANDOFF and initial phase/review-milestone checkoff included. Explicit main integration/fresh exact release/download checks pending; optional advisory emitted once,no separate campaign selected.
 
 ## Phase 8 — Windows desktop delivery
 
