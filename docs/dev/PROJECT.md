@@ -40,11 +40,11 @@ The only clickable gameplay controls are Start/Restart on the left and Pause/Sta
 
 Adapt the shared interface to a narrow, resizable extension sidebar while retaining all delivered capabilities. Gameplay runs in the sidebar page, never the background worker. Persistent extension settings use extension-local storage. Leaderboards retain session-only behavior, including manually restored results. Cookie/URL and file operations receive explicit extension adaptations; closing/reopening and focus changes must not advance an unattended game.
 
-## Proposed consequential choices
+## Design choices
 
-These recommendations require confirmation before dependent design. Detailed signatures, schemas, scoring tables, timing constants and acceptance cases belong to the later design and specification.
+The following choices guide the application. Detailed signatures, schemas, scoring tables, timing constants and acceptance cases belong to the design and specification.
 
-| Concern | Recommended direction |
+| Concern | Direction |
 | --- | --- |
 | Implementation | TypeScript with a framework-free DOM interface and Canvas board; a shared deterministic game core, static browser build and thin platform adapters. |
 | Baseline | A 10×20 visible board; simple scoring and level progression. The initial baseline already uses the requested full-interval lock default. Modern movement/randomization features remain later increments. |
@@ -60,6 +60,6 @@ These recommendations require confirmation before dependent design. Detailed sig
 
 ## Scope limits and remaining detail
 
-No network leaderboard, accounts, multiplayer, mobile touch controls, installer signing or store publication is requested. Unsigned development distribution is the proposed starting point; platform instructions must state its installation limits accurately.
+No network leaderboard, accounts, multiplayer, mobile touch controls, installer signing or store publication is requested. Unsigned development distribution is the starting point; platform instructions must state its installation limits accurately.
 
 The exact scoring curve, repeat timing, browser support versions, packaging choices and native verification facilities will be established during design/specification and planning. These details may not contradict the confirmed gameplay choices or weaken artifact verification requirements.

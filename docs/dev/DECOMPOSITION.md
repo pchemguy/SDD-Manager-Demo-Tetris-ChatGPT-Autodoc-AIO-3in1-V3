@@ -17,7 +17,7 @@
 | C7 Platform adapters | Clock, seed, ID/time source, settings/URL transaction, file picker/download, session checkpoint and lifecycle bindings | PlatformPorts to C3; shell setup to platform entry | Actual host APIs; no gameplay or ranking logic |
 | C8 Delivery assembly | Build inputs, platform manifests, packaged assets, stable output names and release checks | Browser, Windows and two extension packages to users | Shared app and shell entries; no domain rules |
 
-The application controller sequences engine actions, derives views, updates results exactly once at game over, then notifies presentation and queues acknowledged session checkpoints. C4 sends semantic commands, never raw DOM events, into that boundary. C2 computes ghost/hard-drop poses using the same C1 landing operation. C6 returns an isolated validated snapshot to C3; C3 and C7 coordinate effects before the live state swap.
+The application controller sequences engine actions, derives views, updates results exactly once at game over, then notifies presentation and queues acknowledged session checkpoints. C4 sends semantic commands, never raw DOM events, into that boundary. C2 computes ghost/hard-drop poses using the same C1 landing operation. C6 performs bounded work in its terminable worker and returns an isolated validated snapshot to C3; C3 and C7 coordinate effects before the live state swap.
 
 ## External and internal surfaces
 

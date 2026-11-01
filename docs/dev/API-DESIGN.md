@@ -12,7 +12,8 @@ canPlace(board: Board, piece: Piece, allowAboveTop: boolean): boolean;
 landing(board: Board, piece: Piece): Piece | null;
 canTraverse(board: Board, piece: Piece): boolean;
 createGame(seed: number, runId: string, settings: Settings,
-  capabilities: Capabilities): GameState;
+  capabilities: Capabilities, initialStatus: 'idle' | 'running'): GameState;
+setPaused(state: GameState, paused: boolean): GameState;
 dispatchGame(state: GameState, action: GameAction, settings: Settings,
   capabilities: Capabilities): Transition;
 advanceGame(state: GameState, elapsedMs: number, settings: Settings,
@@ -61,7 +62,7 @@ encodeSnapshot(snapshot: PortableSnapshot,
 decodeSnapshot(bytes: Uint8Array): Promise<Outcome<PortableSnapshot>>;
 ```
 
-Decode identifies format from bytes, not the supplied filename. JSON and SQLite conversion feed the same complete semantic validator. Encoding validates its input too. C6 owns disposal of database/statement handles and any worker it creates; callers receive owned byte arrays or immutable validated candidates. The decoder exposes no SQL execution API to the controller or UI. C5 sorting is deterministic and non-mutating.
+Decode identifies format from bytes, not the supplied filename. JSON and SQLite conversion feed the same complete semantic validator. Encoding validates its input too. C6 owns a terminable codec worker and disposal of its database/statement handles; callers receive owned byte arrays or immutable validated candidates. The decoder exposes no SQL execution API to the controller or UI. C5 sorting is deterministic and non-mutating.
 
 ## C7 required platform ports
 
