@@ -166,7 +166,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 4 — Session configuration
 
-- [ ] Phase 4 — Session configuration
+- [x] Phase 4 — Session configuration
     - [x] Milestone 4.1 — Session settings model
         - [x] T-025 — Define typed session settings and defaults
             Scope: src/rules/settings.ts, src/models.ts consumers and tests/unit/rules. Contract: R5; C5.
@@ -202,11 +202,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Confirm settings survive game restart but reset on reload and write no cookies, query parameters or persistent browser storage. Recheck all choices plus gameplay and package the complete session-only increment.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/4/4.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Characterization passes without product repair: actual source/extracted app keeps all six selected values on Restart, resets defaults on reload, ignores/preserves preexisting setting/query data and records zero cookie/Storage/history writes. Check,95 units,42 source browser cases,package verification and32 packaged browser cases pass (10 explicit source-only exclusions). Reviewed controls/queue/ports/runtime and desktop/320px screenshots; no scoped TODO. Candidate ce201a4eb9cda8336302ff21071713c2fb628b088d49247721e2dfa28d7d10bf honestly dirty metadata matches tested local runtime; final release remains gated. Milestone4.2 report/HANDOFF/docs and parent checkoff included.
-    - [ ] Milestone 4.3 — Phase review
-        - [ ] T-031 — Review test and report Phase 4
+    - [x] Milestone 4.3 — Phase review
+        - [x] T-031 — Review test and report Phase 4
             Depends on: T-027, T-030 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/4/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
+            Verification: Whole-phase C2–C5/browser/consumer and task-commit audit passes with no scoped blocker/TODO. Current identical production evidence:95 units,check/build,42 source and32 packaged Chromium/Firefox cases (10 explicit source-only exclusions). Clean exact T-030 source rebuilt and package rechecked/tested:97e915fab3c5da7bee99e77f72a179f65c220bd46776b76fe8157ef0c4ba5496,sourceDirty=false. Exact Actions41331208378 succeeded. Six choices, selected/effective timers, ghost raster and session no-persistence acceptance covered; report/HANDOFF and initial task/parent checkoffs included. Integration/exact-release source remain subsequent gates.
 
 ## Phase 5 — Persistent configuration
 
