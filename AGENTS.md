@@ -49,3 +49,11 @@ Follow `sdd-manage`'s preparation and phase-activation workflows for required tr
 ## Project guidance
 
 Maintain project-specific navigation and validated setup/check commands here as they become established. Do not invent commands, paths, requirements or completion claims.
+
+## Tetris project navigation
+
+Read [PROJECT](docs/dev/PROJECT.md), [ARCHITECTURE](docs/dev/ARCHITECTURE.md), [DECOMPOSITION](docs/dev/DECOMPOSITION.md), [MODELS](docs/dev/MODELS.md), [API-DESIGN](docs/dev/API-DESIGN.md), [SPEC](docs/dev/SPEC.md), [PLAN](docs/dev/PLAN.md) and [layout](docs/dev/layout.md) as their current owners. Focused behavioral contracts are linked from SPEC. [DOCS_PREPARATION](docs/dev/DOCS_PREPARATION.md) owns preparation decisions/evidence; DOCS_TASKS owns preparation checkoffs. HANDOFF remains the recovery entry.
+
+The project targets shared TypeScript gameplay/UI for browser, Windows Electron and Chromium/Firefox sidebars. Source/test/build locations in layout are planned, not implemented. No application setup/build/test command has been validated yet; record actual commands here when implementation establishes them. Preserve platform separation and the central browser/Windows policies above.
+
+[TASKS](docs/dev/TASKS.md) is the sole implementation task owner; its adjacent review report assesses derivation. The current autodoc stopping boundary and any later grants remain in DOCS_PREPARATION/HANDOFF. No product implementation or phase activation has occurred.
