@@ -13,7 +13,7 @@ const definitions:ReadonlyArray<{key:SettingKey;label:string;options:ReadonlyArr
 /** Manual file controls own bounded file reads and listeners; C3 owns data and serialization. */
 function createFileControls(controller:Controller){
  const element=document.createElement('section');element.className='file-controls';element.setAttribute('aria-label','Manual snapshot files');
- element.innerHTML='<h3>Manual snapshots</h3><label for="save-format">Save format</label><select id="save-format"><option value="json">JSON</option></select><div class="file-actions"><button type="button" id="file-save">Save</button><button type="button" id="file-restore">Restore</button></div><input type="file" accept=".json,application/json" hidden><p class="hint">Only the session top ten and selected settings. Resume explicitly after file interaction.</p><p class="hint" data-file-status aria-live="polite"></p>';
+ element.innerHTML='<h3>Manual snapshots</h3><label for="save-format">Save format</label><select id="save-format"><option value="json">JSON</option><option value="sqlite">SQLite</option></select><div class="file-actions"><button type="button" id="file-save">Save</button><button type="button" id="file-restore">Restore</button></div><input type="file" accept=".json,.sqlite,.sqlite3,.db,application/json,application/vnd.sqlite3" hidden><p class="hint">Only the session top ten and selected settings. Resume explicitly after file interaction.</p><p class="hint" data-file-status aria-live="polite"></p>';
  const save=element.querySelector<HTMLButtonElement>('#file-save')!,restore=element.querySelector<HTMLButtonElement>('#file-restore')!,format=element.querySelector<HTMLSelectElement>('#save-format')!,input=element.querySelector<HTMLInputElement>('input')!,status=element.querySelector<HTMLElement>('[data-file-status]')!;
  let closed=false,pending=false;
  const perform=async(operation:()=>Promise<import('../models').Outcome<void>>,success:string)=>{
@@ -61,7 +61,7 @@ export function createLeaderboardPanel(){
   const next=JSON.stringify(view.state.results);if(signature===next)return;signature=next;empty.hidden=view.state.results.length>0;
   list.replaceChildren(...view.state.results.map(result=>{
    const row=document.createElement('li');row.dataset.resultId=result.id;
-   const score=document.createElement('strong');score.dataset.resultScore='';score.textContent=String(result.score);
+   const score=document.createElement('strong');score.dataset.resultScore='';score.textContent=String(result.score);score.className=score.textContent.length>12?'long-score':'';
    const stamp=document.createElement('time');stamp.dateTime=result.timestamp;stamp.textContent=result.timestamp;
    row.append(score,stamp);return row;
   }));

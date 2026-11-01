@@ -13,3 +13,6 @@
 main{max-width:1400px}.game-layout{flex-wrap:wrap}.info{flex:0 0 270px}.board-wrap{flex:0 0 300px}.leaderboard-panel{flex:0 0 236px;width:236px;background:#111c2a;border:1px solid #2a394b;border-radius:12px;padding:22px}.leaderboard-panel h2{margin-bottom:18px}.leaderboard-panel ol{padding-left:22px;margin:0}.leaderboard-panel li{padding:9px 0;border-bottom:1px solid #273345;font-size:12px;color:#a7b7ca}.leaderboard-panel strong{display:block;color:#eaf1fa;font-size:19px;font-variant-numeric:tabular-nums}.leaderboard-panel time{display:block;font-size:10px;line-height:1.6;overflow-wrap:anywhere;margin-top:3px}.leaderboard-panel [hidden]{display:none}@media(max-width:950px){.info,.board-wrap,.leaderboard-panel{flex-basis:auto}.leaderboard-panel{width:300px;padding:16px}}
 
 .file-controls{margin-top:22px;border-top:1px solid #34445a;padding-top:14px}.file-controls h3{font-size:13px;margin:0 0 10px}.file-actions{display:flex;gap:8px;margin-top:12px}button:disabled,select:disabled{cursor:wait;opacity:.6}
+
+/* Preserve every safe-integer digit within the ranking card. */
+.leaderboard-panel strong.long-score{font-size:14px}
