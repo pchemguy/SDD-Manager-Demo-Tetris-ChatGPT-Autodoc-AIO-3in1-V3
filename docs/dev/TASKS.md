@@ -258,7 +258,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 ## Phase 6 — Session results and portable files
 
 - [ ] Phase 6 — Session results and portable files
-    - [ ] Milestone 6.1 — Session leaderboard
+    - [x] Milestone 6.1 — Session leaderboard
         - [x] T-039 — Implement result validation and deterministic ranking
             Scope: src/rules/results.ts and tests/unit/rules. Contract: R7; C5.
             Depends on: T-038.
@@ -270,11 +270,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-039.
             Evidence: Insert final score/time for each run once, reject duplicate completion events and exclude abandoned restarts. Retain results across restarts while leaving reload persistence absent.
             Verification: R7 C3/C7: four of seven new scenarios initially failed; after implementation and correcting a test fixture that wrongly expected an above-board hard drop to lock, all151 deterministic checks (149 unit +2 integration),check/build pass. Timer/input completion samples UTC once and uses the existing run ID/final score; render/pause/repeated actions cannot insert again. Existing restored IDs and completed markers prevent rewrites, including a result cut from the top ten. Running/paused restarts abandon unfinished runs and retain completed history; fresh page composition is empty, with no configuration/checkpoint writes or completion-time ID generation. Invalid hard-drop expectation was repaired against the established legal-final-pose contract, without changing game behavior. No scoped TODO.
-        - [ ] T-041 — Deliver the session leaderboard panel
+        - [x] T-041 — Deliver the session leaderboard panel
             Scope: src/ui/panels.ts, controller integration and tests/e2e. Contract: R7/R9; C4.
             Depends on: T-039, T-040.
             Evidence: Display the ordered top ten and empty state, update after game over and verify duplicate/tied/overflow histories. Exercise a real session end and show that score history is not written persistently.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/6/6.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: M6.1 whole-capability/public-consumer review passes, no scoped TODO. Four browser panel cases observed RED; final151 deterministic checks,check/build,126 source and110 packaged Chromium/Firefox cases pass (16 explicit source-only exclusions). Real game-over records once with final score/stable ID/UTC,Restart retains,reload clears and cookies/URL/local/session stores stay unchanged. Public authored consumer verifies ties/instant-equivalent retained strings,eleventh-result truncation and repeated notifications. Test-only frame-boundary/import/fixture corrections documented; gameplay contracts unchanged. Inspected ten-row screenshot. Seven-member ZIPf4813db24396d7aea5cc4ffdde13ba1cb7c7500429190388d44b9f9d0944959b,dirty T040 source recorded honestly; exact T039/T040 Actions41341556581/41341750289 succeeded. Report/HANDOFF and initial milestone checkoff included. Files and final panel centering remain assigned later work.
     - [ ] Milestone 6.2 — JSON snapshots
         - [ ] T-042 — Define portable schema and complete snapshot validation
             Scope: schemas/snapshot.schema.json, scripts/build-schemas.mjs, src/files/validation.ts and fixtures. Contract: R8; C5/C6.

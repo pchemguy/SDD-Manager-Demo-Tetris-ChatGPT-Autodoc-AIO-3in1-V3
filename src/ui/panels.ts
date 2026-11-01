@@ -31,3 +31,19 @@ export function createSettingsPanel(controller:Controller){
   const error=element.querySelector<HTMLElement>('[role=alert]')!;error.hidden=!view.error;if(error.textContent!==(view.error?.message??''))error.textContent=view.error?.message??'';
  },dispose(){for(const cleanup of cleanups)cleanup();}};
 }
+
+/** Read-only session ranking; rebuild rows only when result content changes, never on every frame. */
+export function createLeaderboardPanel(){
+ const element=document.createElement('section');element.className='leaderboard-panel';element.setAttribute('aria-labelledby','leaderboard-title');
+ element.innerHTML='<p class="eyebrow">THIS PAGE SESSION</p><h2 id="leaderboard-title">Session top ten</h2><p class="hint" data-empty>No completed games yet.</p><ol aria-label="Completed games"></ol><p class="hint">Restart keeps this list. Reload ends the session.</p>';
+ const list=element.querySelector('ol')!,empty=element.querySelector<HTMLElement>('[data-empty]')!;let signature='';
+ return {element,render(view:GameView){
+  const next=JSON.stringify(view.state.results);if(signature===next)return;signature=next;empty.hidden=view.state.results.length>0;
+  list.replaceChildren(...view.state.results.map(result=>{
+   const row=document.createElement('li');row.dataset.resultId=result.id;
+   const score=document.createElement('strong');score.dataset.resultScore='';score.textContent=String(result.score);
+   const stamp=document.createElement('time');stamp.dateTime=result.timestamp;stamp.textContent=result.timestamp;
+   row.append(score,stamp);return row;
+  }));
+ }};
+}

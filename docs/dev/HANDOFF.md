@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Phase 6 tracking/readiness is verified; T-039 result validation/ranking is verified; publication and issue48 closure are next.
+Checkpoint: Phase 6 tracking/readiness is verified; Milestone6.1 session leaderboard is verified; T-041 publication and issue50/milestone18 closure are next.
 
 ## Workflow and sources
 
@@ -20,4 +20,4 @@ Working branch: `phase/6-session-results-files`, created from main at `d3af002d8
 
 Phase 6 label, milestones18–21 and issues48–57 are fully read-back verified with exact task/parent associations before product edits/tests. Brief collection visibility lag after acknowledged issue creation was reconciled read-only; existing identities were reused, and bounded repeated safe GETs resolved final visibility. No mutation was replayed and no bundled tool source changed. Owning TASKS/PLAN/SPEC QC readiness and predecessor release/integration/closure gates are established under the retained full grant.
 
-Publish/read back T-039 and close issue48, then continue T-040–T-072 through each required task, milestone, phase and release gate. No scoped TODO or pending human decision. Phase 6 entry version/capabilities are0.6.0/leaderboard/files; these become complete at their assigned delivery tasks, not by metadata alone.
+T-03938851eb69f9e38f0f1899cb2b281b55efdfd4093 and T-040ff9491c4fbdf11e4ca14e53748d83af060128768 are published with issues48/49 closed. [M6.1 report](reports/phases/6/6.1.md) covers T-041. Current evidence:151 deterministic checks,check/build,126 source and110 packaged cases pass (16 source-only exclusions); seven-member ZIPf4813db24396d7aea5cc4ffdde13ba1cb7c7500429190388d44b9f9d0944959b honestly records dirty T-040-based source. Exact T039/T040 Actions41341556581/41341750289 succeeded. Publish/read back T-041, close issue50 then milestone18, and continue T-042–T-072 through each required task, milestone, phase and release gate. No scoped TODO or pending human decision. Phase 6 entry version/capabilities are0.6.0/leaderboard/files; these become complete at their assigned delivery tasks, not by metadata alone.
