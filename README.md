@@ -35,6 +35,8 @@ Browser acceptance uses the project-local `.cache/ms-playwright` binary root. Pr
 
 On this managed Linux host, Firefox content processes hit a diagnosed `/proc/self/uid_map: EPERM`. The process-local `TETRIS_FIREFOX_SANDBOX_WORKAROUND=1` flag enables the documented content-sandbox override only for trusted local probes/tests. Leave it unset on environments that do not require it. No host security setting is changed.
 
+The SQLite asset gate is available as `npm run probe:sqlite`: it rebuilds/extracts the real ZIP and probes its production worker in both browsers. sql.js 1.15.2 and its matching browser WASM are copied/fingerprinted by `build:assets`; no CDN or host SQLite is used. JSON does not fetch that binary. Application SQL conversion remains the next task. See the [asset gate evidence](docs/dev/reports/phases/6/SQLITE-ASSET-GATE.md).
+
 ## Browser packaging
 
 `npm run package` builds `dist/release/tetris-browser.zip`, `INSTALL.md` and `SHA256SUMS.txt`. `npm run verify:package` checks the stable inventory, SHA-256 bytes, safe ZIP members, local assets, source/version, project/third-party license bytes and credential exclusions, then extracts to `dist/package-smoke`. Use `TETRIS_PACKAGED_TEST=1 npm run test:e2e` to test that extracted distribution. On the diagnosed Linux host, also set the Firefox workaround described above. Python 3.11+ is required for packaging/static smoke serving. See [installation instructions](INSTALL.md).
