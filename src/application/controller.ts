@@ -2,7 +2,7 @@
 import type { AppError, AppState, Capabilities, FileFormat, GameAction, GameView, InputFile, Outcome, SettingKey, SettingPatch, Transition } from '../models';
 import type { PlatformPorts } from '../platform/ports';
 import { advanceGame, createGame, dispatchGame, projectGame, setPaused } from '../domain';
-import { resolveSettings, validateSettings } from '../rules';
+import { rankResults, resolveSettings, validateSettings } from '../rules';
 export interface Controller {
   view(): GameView; start(): void; pause(): void; resume(): void; action(action: GameAction): void; tick(): void;
   setSettings(patch: SettingPatch): Promise<Outcome<void>>;
@@ -49,7 +49,10 @@ export function createController(initial: AppState, ports: PlatformPorts, capabi
   const accept = (result: Transition) => {
     state = { ...state, game: result.state };
     if (result.events.some(event => event.type === 'gameOver') && state.completedRunId !== result.state.runId) {
-      state = { ...state, completedRunId: result.state.runId };
+      // A run is remembered even when its score misses the top ten. Restored identities are never rewritten.
+      const recorded=state.results.some(row=>row.id===result.state.runId);
+      const results=caps.has('leaderboard')&&!recorded?rankResults([...state.results,{id:result.state.runId,score:result.state.score,timestamp:ports.utcNow()}]):state.results;
+      state = { ...state, results, completedRunId: result.state.runId };
     }
   };
   const sync = () => {
