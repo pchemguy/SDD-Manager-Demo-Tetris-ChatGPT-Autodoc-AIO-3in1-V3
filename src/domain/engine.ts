@@ -2,6 +2,7 @@
 import type { Capabilities, Cell, GameAction, GameEvent, GameState, Piece, PieceKind, Settings, Transition } from '../models';
 import { canPlace, cells } from './geometry';
 import { takeNext } from './sequence';
+import { addPoints, clearAndScore } from './scoring';
 
 type Mutable<T> = T extends ReadonlyArray<infer U> ? Mutable<U>[] : T extends object ? { -readonly [K in keyof T]: Mutable<T[K]> } : T;
 type Draft = Mutable<GameState>;
@@ -42,13 +43,20 @@ function lock(g: Draft, settings: Settings, events: GameEvent[]): void {
   if (!g.active || !canPlace(g.board, g.active, false)) { end(g, events); return; }
   for (const { x, y } of cells(g.active)) g.board[y]![x] = g.active.kind;
   events.push({ type: 'locked', runId: g.runId });
+  const result = clearAndScore(g.board, g.score, g.lines, g.level);
+  g.board = result.board; g.score = result.score; g.lines = result.lines; g.level = result.level;
+  if (result.cleared) events.push({ type: 'linesCleared', lines: result.cleared, runId: g.runId });
   spawn(g, settings, events);
 }
 
-function down(g: Draft, settings: Settings, events: GameEvent[]): void {
+function down(g: Draft, settings: Settings, events: GameEvent[], soft = false): void {
   if (!g.active) return;
   const candidate = below(g.active);
-  if (canPlace(g.board, candidate, true)) { g.active = copyPiece(candidate); ground(g); }
+  if (canPlace(g.board, candidate, true)) {
+    g.active = copyPiece(candidate);
+    if (soft) g.score = addPoints(g.score, 1);
+    ground(g);
+  }
   else if (g.piecePolicy.lockPolicy === 'failed') lock(g, settings, events);
   else ground(g);
 }
@@ -79,7 +87,7 @@ export function setPaused(state: GameState, paused: boolean): GameState {
 export function dispatchGame(state: GameState, action: GameAction, settings: Settings, _capabilities: Capabilities): Transition {
   if (state.status !== 'running' || !state.active || ['hold','hardDrop','penetrator'].includes(action)) return { state, events: [] };
   const g = copy(state), events: GameEvent[] = [];
-  if (action === 'softDrop') down(g, settings, events);
+  if (action === 'softDrop') down(g, settings, events, true);
   else {
     const p = g.active!;
     let candidate: Piece = p;

@@ -34,10 +34,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/1/1.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: RED: eight intended engine failures against stubs; after initial green, independent review found nonzero-source sampling bias and six fixed-seed regressions failed before correction. GREEN: all 29 unit tests, npm run check and npm run build pass. Independent focused recheck confirmed the sampler correction and milestone readiness. Full independent grounding intervals, no grounded reset, lifting reset, pause preservation, exact lock/gravity order, leftover elapsed time, immutable state and safe top-out are verified. Includes Milestone 1.1 whole-capability code review/report and HANDOFF; TODO None. Scoring/UI/modern features remain assigned later work.
     - [ ] Milestone 1.2 — Playable browser session
-        - [ ] T-004 — Implement line clearing scoring and level progression
+        - [x] T-004 — Implement line clearing scoring and level progression
             Scope: src/domain scoring/engine and tests/unit/domain. Contract: R1/R3; C2.
             Depends on: T-003.
             Evidence: Verify simultaneous one-to-four-row compaction, score before level changes, soft-drop points, safe-integer saturation and the gravity curve. Preserve timer/spawn behavior and exactly one game-over event.
+            Verification: RED: all nine new public-engine scoring cases failed before implementation. GREEN: full unit suite passes 38/38, npm run check and npm run build pass. Verified one-to-four line bases, simultaneous row compaction and surviving-cell shifts, pre-clear level multiplication, next-spawn level/interval changes, soft-drop points only for actual movement, no gravity points and maximum-safe score saturation. Tests use literal independent board/score expectations; no new browser claim.
         - [ ] T-005 — Integrate the application controller and browser ports
             Scope: src/application and src/platform browser/ports, tests/unit/application. Contract: R1/R3; C3/C7.
             Depends on: T-004.
