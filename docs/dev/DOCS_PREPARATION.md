@@ -8,7 +8,7 @@
 - Tracking: enabled for documentation preparation and implementation by root AGENTS.md. GitHub milestone 1 (`sdd-docs-main`) and issues 1–9 match the pinned definitions, with every association read back before repository writes.
 - Publication: each owned commit is pushed and read back before further work. Repository operations within the requested project are authorized by the development request and supplied repository credentials.
 - Reporting: Standard after Explicit bootstrap; Minimal and Explicit remain selectable.
-- Next boundary: publish initialization, verify DOCS-001 issue closure, then prepare and present PROJECT for approval. After approval, continue through DOCS-008 and stop before DOCS-009 package QC, integration or implementation.
+- Next boundary: human approval of the published PROJECT proposal and its consequential choices. After approval, continue through DOCS-008 and stop before DOCS-009 package QC, integration or implementation.
 
 ## Scope source
 
@@ -18,8 +18,8 @@ One pass covers the user's complete 2026-11-01 project request: classic baseline
 
 | Task | Current evidence / decision basis |
 | --- | --- |
-| DOCS-001 | Root guidance preservation and scaffold checks pass; this completion commit includes the task-only checklist and HANDOFF. Publication and issue closure require subsequent readback. |
-| DOCS-002 | PROJECT proposal pending. No human approval recorded. |
+| DOCS-001 | Complete at `d5f876ec4743832d91c06671774b417f67fb9b96`; supervised exact remote readback passed. Issue 1 is closed as completed, with association and state read back. |
+| DOCS-002 | Onepass PROJECT proposal SHA-256 `b7a026207dced33bdb2f6867d4b830f0fd640e3518bd5a4ddac392095e257a15`. Purpose, full scope, platform order and consequential recommendations checked against the user request; no product verification claimed. No human approval recorded; DOCS-002 remains unchecked. |
 | DOCS-003–008 | Not authored. Later document checkpoints are preapproved within the requested scope, subject to PROJECT approval and technical QC. |
 | DOCS-009 | Not selected. Remains pending at the autodoc stop. |
 
@@ -37,4 +37,8 @@ One pass covers the user's complete 2026-11-01 project request: classic baseline
 
 ## Pending transitions
 
-Publish and read back this initialization completion, then close/read back issue 1 with its evidence. Prepare PROJECT without marking DOCS-002 complete until actual human acceptance. The preparation milestone and issues 2–9 remain open.
+Publish and read back this PROJECT proposal, then obtain human approval before ARCHITECTURE. The preparation milestone and issues 2–9 remain open; DOCS-002 is unchecked. No implementation range, package QC or documentation integration is selected.
+
+## Proposed product decisions
+
+PROJECT’s proposed consequential choices table is the reviewable decision set, including stack direction, midline rule, lock reset semantics, penetrator/hold interactions, configuration changes, invalid inputs, leaderboard completion/ties, lifecycle and extension adaptations. All are agent recommendations pending human confirmation; prior Tetris context does not constitute acceptance for this repository. Lock-policy changes at the next piece boundary preserve the active-piece deadline; other setting effects are immediate. Focus/reopening recommendations preserve paused session state without persistent scores or background gameplay. Detailed contracts remain with their later owners.
