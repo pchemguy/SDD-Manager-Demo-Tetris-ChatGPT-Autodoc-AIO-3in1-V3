@@ -123,11 +123,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 - [ ] Phase 3 — Penetrator bonuses
     - [ ] Milestone 3.1 — Penetrator mechanics
-        - [ ] T-018 — Implement lowest valid penetrator landing
+        - [x] T-018 — Implement lowest valid penetrator landing
             Scope: src/domain/landing.ts and tests/unit/domain. Contract: R4; C1.
             Depends on: T-017.
             Evidence: Scan through blockers to the deepest wholly in-board non-overlapping pose. Verify disconnected holes, invalid floor pose, null landing and exact agreement of candidate reachability with final placement checks.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
+            Verification: Predecessor v0.2.0 integration/release and hosted bytes verified; uncertain Phase 3 create settled read-only and full projection verified without duplicates before work. Three intended landing/traversal failures preceded implementation. Final 65 unit tests, type check/build pass: pass-through blockers, disconnected holes, invalid geometric floor, null final pose, no upward repair, all shape rotations and input immutability. v0.3.0/capability/branch checkpoint included; activation and locking remain following tasks.
         - [ ] T-019 — Implement activation and pass-through traversal
             Scope: src/domain/engine.ts and domain/controller tests. Contract: R4/R3; C2/C3.
             Depends on: T-018.

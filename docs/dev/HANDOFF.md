@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Phase 2 implementation/review is integrated into main; merge publication and v0.2.0 release remain pending effects. Full implementation remains authorized.
+Checkpoint: Phase 3 is activated; T-018 implements lowest valid penetrator landing. Its publication and issue closure remain pending effects. Full implementation remains authorized.
 
 ## Workflow and sources
 
@@ -12,12 +12,14 @@ The user's “Run QC and full implement” on 2026-11-01 authorizes T-001–T-07
 
 ## Branches and return
 
-Working branch: `main`, receiving completed `phase/2-modern-piece-controls` at `9df05728b59d77d43316e770d7ea56336236ff02`. Its creation parent/integration target was main at release commit `b304c51700824bff6fe94b63987a7f357b5d872b`. No suspended parent. Phase 1 integrated at `abc7dc119bf9de3755863e2d38542746387f929b`; all ten task issues and four milestones are closed.
+Working branch: `phase/3-penetrator-bonuses`, created from actual default/creation parent/integration target `main` at released source `f6888905635e3601aafce9fd9f76b326b02c88dd`. No suspended parent. Phase 2 integrated at `46647bbf297886b0a8df5235b5514f0cd2e0f372`; all seven task issues and three milestones are closed. Earlier phases remain summarized by their reports.
 
 ## Pending work and next action
 
-[v0.1.0](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/releases/tag/v0.1.0) is published/latest, with all three assets re-downloaded and byte-matched. Browser ZIP SHA-256: `9b9e3063cc54f1356c50d1aaaa4ebbb698eb5df0c8ae71da243a6f526fc54617`. Exact tag/package source is the phase branch-off release commit above; no release effect remains uncertain.
+[v0.2.0](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/releases/tag/v0.2.0) is published/latest; all three assets were re-downloaded and byte-matched. Browser ZIP SHA-256: `49e358d91daf10c8d7c14a7e1d861ad9a3b8933f57dd321ab3aeed47b3369582`. Exact tag/package source is the branch-off release commit above.
 
-Phase 2 source-bound tracking readback verified label, milestones 6–8 and issues 20–26 before edits/tests. T-011–T-016 are published with closed issues; delivery milestones 6 and 7 are closed/read back. T-017 includes [Phase 2 review](reports/phases/2/PHASE-REPORT.md). T-017 is published and issue 26/milestone 8 are closed/read back. Publish/read back this explicit verified merge, then finish the v0.2.0 exact-source release/tag/assets/download verification. Only then activate Phase 3 and continue T-018–T-072. No additional human checkpoint is pending within the retained full grant.
+Phase 3 label, milestones 9–11 and issues 27–33 with all associations are verified before task edits/tests. The initial projection could not see acknowledged issue 27 in collection readback; read-only reconciliation established that exact existing issue and six missing identities. The subsequent apply reused existing objects and verified the complete projection without duplicates.
 
-Current evidence: 61 unit tests, type check/build, 20 source-app browser cases and 18 extracted-package cases pass (two explicit source-only exclusions). GitHub Actions run 41324234370 succeeded for T-016. Full-page screenshots inspected. Clean T-016 candidate ZIP hash: 8992909f0c91ce8c163b0e4c8bcf957c67d71031d410cb627f14b1df9038f35a; runtime bytes match the tested candidate. Final release-source rebuild remains pending. No scoped TODO, reset or work discard.
+T-018 includes v0.3.0 and penetrator capability metadata plus landing/traversal definitions. Publish/read back T-018 and close issue 27, then continue T-019–T-024, complete verified Phase 3 integration/release, and the remaining full T-001–T-072 grant. No additional human checkpoint is pending.
+
+Current evidence: three intended landing/traversal failures before implementation, then 65/65 unit tests, type check and build pass. Literal blocker/disconnected-hole/null/bounds cases and all seven shape rotations verify deepest fully legal final poses without mutation. Activation, bonus/lock integration and penetrator UI remain their next owning tasks. No scoped TODO, reset or discarded work.
