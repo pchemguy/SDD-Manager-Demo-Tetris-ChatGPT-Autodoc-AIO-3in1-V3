@@ -174,10 +174,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Validate exactly six keys, defaults, typed patches and invalid-value rejection without coercion. Keep selected values separate from active PiecePolicy and expose no persistent effects.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
             Verification: Valid-settings acceptance first failed against the compilable unimplemented validator, then all 81 unit tests, npm run check and npm run build passed. Complete six-key typed values are copied; missing/extra keys, wrong values and accessor/inherited inputs reject without coercion or effects. Browser initializes frozen canonical defaults; v0.4.0/settings capability selected. Predecessor main integration, closed tracking and v0.3.0 exact-source release/download gate verified; Phase 4 full projection read back after reconciling collection lag.
-        - [ ] T-026 — Implement dynamic midline ghost visibility
+        - [x] T-026 — Implement dynamic midline ghost visibility
             Scope: src/domain projections and domain/render tests. Contract: R4/R5; C2/C4.
             Depends on: T-025.
             Evidence: Check hide/show/dynamic modes at y=9/y=10 and straddling projected shapes for normal and penetrator pieces. Preserve shared landing/drop calculations and all non-visibility state.
+            Verification: Two normal/penetrator above-midline fixtures failed before implementation, then all 88 units and npm run check passed. Hide/show/dynamic tested at bottom rows 9,10 and11, including a straddling O; dynamic displays when any projected cell reaches row10. Projection preserves state/other fields and all modes retain identical shared landing, hard-drop pose and score.
         - [ ] T-027 — Apply settings through the controller policy boundary
             Scope: src/application/controller.ts and tests/unit/application. Contract: R5/R2/R3; C3.
             Depends on: T-025, T-026.

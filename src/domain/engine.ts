@@ -142,5 +142,7 @@ export function advanceGame(state: GameState, elapsedMs: number, settings: Setti
 
 /** Expose only delivered projections without consuming queue or mutating simulation. */
 export function projectGame(state: GameState, settings: Settings, capabilities: Capabilities): Readonly<{ ghost: Piece | null; next: PieceKind | null; held: PieceKind | null }> {
-  return { ghost: capabilities.has('modern')&&settings.ghost!=='hide'&&state.active ? landing(state.board,state.active) : null, next: capabilities.has('modern')&&settings.nextPreview ? state.sequence.pending[0]??null : null, held: capabilities.has('modern')?state.held:null };
+  const projected=capabilities.has('modern')&&settings.ghost!=='hide'&&state.active ? landing(state.board,state.active) : null;
+  const ghost=projected&&settings.ghost==='dynamic'&&!cells(projected).some(cell=>cell.y>=10)?null:projected;
+  return { ghost, next: capabilities.has('modern')&&settings.nextPreview ? state.sequence.pending[0]??null : null, held: capabilities.has('modern')?state.held:null };
 }
