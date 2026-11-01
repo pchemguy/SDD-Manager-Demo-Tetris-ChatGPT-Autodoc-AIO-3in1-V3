@@ -8,7 +8,7 @@ export function createBrowserPorts(host: Window = window): PlatformPorts {
   const settings=createBrowserSettings(host);
   let checkpoint: Checkpoint | null = null;
   let revision = 0;
-  const unavailable = (): Outcome<void> => ({ ok: false, error: { code: 'runtime-unavailable', message: 'File operations are not available in this build.' } });
+  const browser=host as Window&Pick<typeof globalThis,'URL'|'Blob'>;
   return {
     now: () => host.performance.now(), utcNow: () => new Date().toISOString(),
     newId: () => {
@@ -24,7 +24,15 @@ export function createBrowserPorts(host: Window = window): PlatformPorts {
     },
     readSettings: settings.read,
     commitSettings: settings.commit,
-    download: async () => unavailable(),
+    download: async file => {
+      let url:string|undefined,anchor:HTMLAnchorElement|undefined;
+      try{
+        const bytes=new Uint8Array(file.bytes),blob=new browser.Blob([bytes.buffer],{type:file.name.endsWith('.sqlite')?'application/vnd.sqlite3':'application/json'});
+        url=browser.URL.createObjectURL(blob);anchor=host.document.createElement('a');anchor.href=url;anchor.download=file.name;anchor.style.display='none';host.document.body.append(anchor);anchor.click();
+        return {ok:true,value:undefined};
+      }catch{return {ok:false,error:{code:'file-failed',message:'The browser could not request this download.'}};}
+      finally{anchor?.remove();if(url){const owned=url;host.setTimeout(()=>browser.URL.revokeObjectURL(owned),0);}}
+    },
     loadCheckpoint: async () => ({ ok: true, value: structuredClone(checkpoint) }),
     writeCheckpoint: async (state: AppState) => {
       checkpoint = { checkpointVersion: 1, windowId: 0, generation: 1, revision: ++revision, state: structuredClone(state) };

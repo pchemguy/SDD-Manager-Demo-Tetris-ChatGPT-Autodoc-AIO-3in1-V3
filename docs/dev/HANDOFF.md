@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Phase 6 tracking/readiness is verified; Milestone6.1 session leaderboard is verified; T-041 publication and issue50/milestone18 closure are next.
+Checkpoint: Phase 6 tracking/readiness is verified; Milestone 6.2 JSON snapshots are verified; T-044 publication and issue 53/milestone 19 closure are next.
 
 ## Workflow and sources
 
@@ -20,4 +20,8 @@ Working branch: `phase/6-session-results-files`, created from main at `d3af002d8
 
 Phase 6 label, milestones18–21 and issues48–57 are fully read-back verified with exact task/parent associations before product edits/tests. Brief collection visibility lag after acknowledged issue creation was reconciled read-only; existing identities were reused, and bounded repeated safe GETs resolved final visibility. No mutation was replayed and no bundled tool source changed. Owning TASKS/PLAN/SPEC QC readiness and predecessor release/integration/closure gates are established under the retained full grant.
 
-T-03938851eb69f9e38f0f1899cb2b281b55efdfd4093 and T-040ff9491c4fbdf11e4ca14e53748d83af060128768 are published with issues48/49 closed. [M6.1 report](reports/phases/6/6.1.md) covers T-041. Current evidence:151 deterministic checks,check/build,126 source and110 packaged cases pass (16 source-only exclusions); seven-member ZIPf4813db24396d7aea5cc4ffdde13ba1cb7c7500429190388d44b9f9d0944959b honestly records dirty T-040-based source. Exact T039/T040 Actions41341556581/41341750289 succeeded. Publish/read back T-041, close issue50 then milestone18, and continue T-042–T-072 through each required task, milestone, phase and release gate. No scoped TODO or pending human decision. Phase 6 entry version/capabilities are0.6.0/leaderboard/files; these become complete at their assigned delivery tasks, not by metadata alone.
+T-039–T-043 are published; issues 48–52 and native milestone 18 are closed/read back. [M6.1](reports/phases/6/6.1.md) and [M6.2](reports/phases/6/6.2.md) contain complete current reviews/evidence. T-042 source342754f6ce8c646a82a971752d1fd3de2117783c and T-043 sourcedca421cfe36e06dfa60249ff6d1ae377eff1dcaa have successful Actions41342838772/41343574029. T-044 includes the initial milestone completion/report/HANDOFF together.
+
+Current evidence: 178 deterministic checks, check/build, 140 source and 116 packaged Chromium/Firefox cases pass (24 explicit source-only exclusions). The nine-member ZIP88f937aede4f56fcc7361fdffcce0a934b8e52598bf9e160646205151a39379f honestly records dirty T-043 source and includes the locally executing JSON worker/schema/notices. Native download/Restore, complete rejection/no-mutation, compensated history failure, explicit pause/resume and queue/disposal guards pass. M6.2-F01 missing dynamic-worker gate was reproduced and repaired before closure; a missing-worker fixture with valid recomputed sums now rejects. Extracted file controls screenshot inspected. No scoped TODO. Optional AbortSignal refines required C6 cancellation without expanding feature scope. SQLite is explicitly unavailable until its following tasks.
+
+Publish/read back T-044, close issue 53 then milestone 19, and continue T-045–T-072 through each task, milestone, phase and release gate. No pending human decision. Phase 6 version/capabilities are 0.6.0/leaderboard/files; complete SQLite and whole-phase review/integration/release remain. Preserve all prior evidence and the full grant.

@@ -2,7 +2,7 @@
 import {expect,test} from '@playwright/test';
 test.beforeEach(async({page})=>{await page.clock.install({time:new Date('2026-11-01T00:00:00Z')});await page.clock.pauseAt(new Date('2026-11-01T00:00:01Z'));await page.goto('/');});
 test('six labeled settings have canonical defaults, selectable choices and a next-piece policy hint',async({page})=>{
- await expect(page.getByRole('combobox')).toHaveCount(6);await expect(page.getByRole('button')).toHaveCount(2);
+ await expect(page.locator('select[id^=setting-]')).toHaveCount(6);await expect(page.locator('.game-actions button')).toHaveCount(2);
  for(const [label,value] of [['Ghost','show'],['Hard drop','true'],['Next preview','true'],['Hard drop lock','general'],['Lock policy','interval'],['Hold','true']])await expect(page.getByRole('combobox',{name:label,exact:true})).toHaveValue(value);
  await page.locator('#restart').click();
  await page.getByRole('combobox',{name:'Lock policy',exact:true}).selectOption('failed');await page.getByRole('combobox',{name:'Hard drop lock',exact:true}).selectOption('immediate');

@@ -1,7 +1,8 @@
 /** Own live state, command serialization and one monotonic clock for frames and input. */
-import type { AppError, AppState, Capabilities, FileFormat, GameAction, GameView, InputFile, Outcome, SettingKey, SettingPatch, Transition } from '../models';
+import type { AppError, AppState, Capabilities, FileFormat, GameAction, GameView, InputFile, Outcome, SettingKey, SettingPatch, Transition, PortableSnapshot } from '../models';
 import type { PlatformPorts } from '../platform/ports';
 import { advanceGame, createGame, dispatchGame, projectGame, setPaused } from '../domain';
+import { encodeSnapshot, decodeSnapshot } from '../files';
 import { rankResults, resolveSettings, validateSettings } from '../rules';
 export interface Controller {
   view(): GameView; start(): void; pause(): void; resume(): void; action(action: GameAction): void; tick(): void;
@@ -18,6 +19,7 @@ export function createController(initial: AppState, ports: PlatformPorts, capabi
   let lastTime = ports.now(), disposed = false, busy = false;
   const caps = new Set(capabilities);
   let initializing=caps.has('persistentSettings');
+  let fileGeneration=0,fileAbort:AbortController|null=null;
   const listeners = new Set<(view: GameView) => void>();
   type Job={run:()=>void|Outcome<void>|Promise<Outcome<void>>;cancel:()=>void;complete?:(result:Outcome<void>)=>void};
   const pending:Job[]=[];let active:Job|null=null;
@@ -45,7 +47,7 @@ export function createController(initial: AppState, ports: PlatformPorts, capabi
   };
   const enqueue=(job:Job)=>{if(disposed){job.cancel();return;}pending.push(job);drain();};
   const perform=(operation:()=>void,cancel:()=>void=()=>{})=>enqueue({run:operation,cancel});
-  const operate=(operation:()=>Outcome<void>|Promise<Outcome<void>>):Promise<Outcome<void>>=>new Promise(resolve=>enqueue({run:operation,complete:resolve,cancel:()=>resolve(unavailable('Operation'))}));
+  const operate=(operation:()=>Outcome<void>|Promise<Outcome<void>>,cancel?:()=>Outcome<void>):Promise<Outcome<void>>=>new Promise(resolve=>enqueue({run:operation,complete:resolve,cancel:()=>resolve(cancel?.()??unavailable('Operation'))}));
   const accept = (result: Transition) => {
     state = { ...state, game: result.state };
     if (result.events.some(event => event.type === 'gameOver') && state.completedRunId !== result.state.runId) {
@@ -62,6 +64,20 @@ export function createController(initial: AppState, ports: PlatformPorts, capabi
     if (state.game.status === 'running' && elapsed > 0) accept(advanceGame(state.game, elapsed, state.settings, caps));
   };
   const unavailable = (feature: string): Outcome<void> => ({ ok: false, error: { code: 'runtime-unavailable', message: disposed ? 'This game session is closed.' : `${feature} is not available in this build.` } });
+  const closedFile=():Outcome<void>=>({ok:false,error:{code:'stale-session',message:'This file operation belongs to a closed game session.'}});
+  const fileJob=(operation:(signal:AbortSignal,alive:()=>boolean)=>Promise<Outcome<void>>)=>operate(async()=>{
+    if(!caps.has('files'))return unavailable('Files');
+    const owner=new AbortController(),generation=++fileGeneration;fileAbort=owner;
+    const alive=()=>!disposed&&!owner.signal.aborted&&fileGeneration===generation;
+    try{
+      sync();state={...state,game:setPaused(state.game,true)};emit();if(!alive())return closedFile();
+      let result:Outcome<void>;
+      try{result=await operation(owner.signal,alive);}catch{result={ok:false,error:{code:'file-failed',message:'The file operation could not be completed; no partial snapshot was loaded.'}};}
+      if(!alive())return closedFile();
+      if(!result.ok){error=result.error;if(error.code==='persistence-failed')stickyError=error;}else error=stickyError;
+      emit();return result;
+    }finally{if(fileAbort===owner)fileAbort=null;}
+  },closedFile);
   let release = () => {};
   const controller: Controller = {
     view,
@@ -94,8 +110,23 @@ export function createController(initial: AppState, ports: PlatformPorts, capabi
         return apply();
       })();
     }),
-    save: async () => unavailable('Saving'),
-    restore: async () => unavailable('Restoring'),
+    save: format=>fileJob(async(signal,alive)=>{
+      const snapshot:PortableSnapshot={formatVersion:1,results:structuredClone(state.results),settings:structuredClone(state.settings)};
+      const encoded=await encodeSnapshot(snapshot,format,signal);if(!alive())return closedFile();if(!encoded.ok)return encoded;
+      return ports.download({name:format==='sqlite'?'tetris-save.sqlite':'tetris-save.json',bytes:encoded.value});
+    }),
+    restore: file=>fileJob(async(signal,alive)=>{
+      const decoded=await decodeSnapshot(file.bytes,signal);if(!alive())return closedFile();if(!decoded.ok)return decoded;
+      const candidate=decoded.value;
+      if(caps.has('persistentSettings')){
+        let saved:Outcome<void>;
+        try{saved=await ports.commitSettings({previous:structuredClone(state.settings),next:structuredClone(candidate.settings),writeKeys:Object.keys(state.settings) as SettingKey[],reason:'restore'});}
+        catch{saved={ok:false,error:{code:'persistence-failed',message:'Restored settings could not be saved.'}};}
+        if(!alive())return closedFile();if(!saved.ok)return saved;
+      }
+      sync();state={...state,results:structuredClone(candidate.results),settings:structuredClone(candidate.settings)};stickyError=null;
+      return {ok:true,value:undefined};
+    }),
     subscribe: listener => {
       if (disposed) return () => {};
       listeners.add(listener); listener(view());
@@ -112,7 +143,7 @@ export function createController(initial: AppState, ports: PlatformPorts, capabi
         resolve(result);
       })();
     },()=>resolve(unavailable('Suspending')))),
-    dispose: () => { if (!disposed) { disposed = true; release(); listeners.clear(); active?.cancel(); while(pending.length)pending.shift()!.cancel(); } }
+    dispose: () => { if (!disposed) { disposed = true;fileGeneration++;fileAbort?.abort(); release(); listeners.clear(); active?.cancel(); while(pending.length)pending.shift()!.cancel(); } }
   };
   release = ports.bindLifecycle(() => { void controller.suspend(); });
   if(initializing)void (async()=>{

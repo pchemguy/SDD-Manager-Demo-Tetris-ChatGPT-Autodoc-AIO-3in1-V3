@@ -23,6 +23,12 @@ def verify(folder, extract=None):
             data=z.read(info.filename)
             if any(secret in data for secret in [b'github_pat_',b'ghp_',b'BEGIN PRIVATE KEY']): raise ValueError('Credential marker in runtime')
         if not {'index.html','BUILD-INFO.json','INSTALL.md','LICENSE','THIRD-PARTY-NOTICES.txt','schemas/snapshot.schema.json'}<=set(members): raise ValueError('Missing package entry/metadata/instructions/license')
+        workers={name for name in members if re.fullmatch(r'assets/codec\.worker-[A-Za-z0-9_-]+\.js',name)}
+        references=set()
+        for name in members:
+            if name.startswith('assets/') and name.endswith('.js') and name not in workers:
+                references.update(re.findall(r'codec\.worker-[A-Za-z0-9_-]+\.js',z.read(name).decode()))
+        if len(workers)!=1 or references!={PurePosixPath(name).name for name in workers}: raise ValueError('Missing/unreferenced local codec worker asset')
         metadata=json.loads(z.read('BUILD-INFO.json'))
         if metadata['version']!=version() or not re.fullmatch('[0-9a-f]{40}',metadata['source']): raise ValueError('Source/version mismatch')
         if metadata['source']!=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(): raise ValueError('Package source does not match selected checkout')
