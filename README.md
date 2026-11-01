@@ -21,7 +21,7 @@ Selected conversations may be recorded manually under `docs/ai-logs/`. Scaffoldi
 
 ## Development setup
 
-Use Node 24 and the pinned local dependencies. Check, unit tests, development server and build regenerate the standalone draft-2020-12 validator from `schemas/snapshot.schema.json` using pinned Ajv8.20.0; runtime validation uses generated ESM without a schema compiler/eval. Generated files are reproducible and ignored. The canonical schema is also included byte-for-byte in the browser package:
+Use Node 24 and the pinned local dependencies. Check, unit tests, development server and build regenerate the standalone draft-2020-12 validator from `schemas/snapshot.schema.json` using pinned Ajv8.20.0; runtime validation uses generated ESM without a schema compiler/eval. Generated files are reproducible and ignored. The public JSON codec runs parsing in a local module worker, bounds input at4MiB and execution at10 seconds, and accepts an optional AbortSignal that terminates owned work; SQLite and the app file controls remain the following Phase6 tasks. The canonical schema is also included byte-for-byte in the browser package:
 
 
 ```text
