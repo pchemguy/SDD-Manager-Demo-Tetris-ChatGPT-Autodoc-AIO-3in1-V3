@@ -212,7 +212,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 5 — Persistent configuration
 
-- [ ] Phase 5 — Persistent configuration
+- [x] Phase 5 — Persistent configuration
     - [x] Milestone 5.1 — Per-key configuration restoration
         - [x] T-032 — Implement strict per-key query and cookie parsing
             Scope: src/rules/settings.ts and src/platform/browser/settings.ts. Contract: R6; C5/C7.
@@ -248,11 +248,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Exercise all six edits, explicit defaults, reload and invalid fallbacks. Run failure-injection and successful real-origin checks, recheck gameplay/session behavior and verify the extracted artifact.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/5/5.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Check/build,138 deterministic checks,122 source and108 extracted-package Chromium/Firefox cases pass (14 explicit source-only exclusions); all26 native-choice cases pass with effective actions/projections/policies and Restart/omitted URL/reload retention. Whole transaction/queue/UI/package review has no scoped TODO. Reproduced M5.2-F01 missing project MIT text, added exact LICENSE/notices gates, and missing/wrong-license fixtures with corrected checksums are rejected. Candidate24067afc7af660c41c8cc658d7d9d2ace96446586feb3ebd8b8e34acc969710d honestly dirty; final instruction clarification rebuilt with all non-instruction members identical to108-case tested runtime and source guide byte-matched. Inspected clear failure screenshot; report/HANDOFF/docs and milestone parent checkoff included. Exact clean phase/release source remains subsequent.
-    - [ ] Milestone 5.3 — Phase review
-        - [ ] T-038 — Review test and report Phase 5
+    - [x] Milestone 5.3 — Phase review
+        - [x] T-038 — Review test and report Phase 5
             Depends on: T-034, T-037 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/5/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
+            Verification: Whole-phase C3–C5/C7/C8 code,consumer,public-boundary and six-delivery-task closing audit passes; no scoped blocker/TODO. Current identical production evidence:138 deterministic checks,check/build,122 source and108 packaged Chromium/Firefox cases (14 explicit source-only exclusions). Clean exact T037 source rebuilt/rechecked/tested: f8c1798fd8b50d924ca1534a7097ccc9c32de1c29f81a5d7cb238871162cab2b,sourceDirty=false; exact Actions41337951112 succeeded. All13 choices,per-key resolution,acknowledged edits/compensation/concurrency/disposal and session boundaries covered. License omission repaired/negative gates verified. Phase report/HANDOFF and initial task/parent checkoffs included; integration/exact release remain subsequent gates.
 
 ## Phase 6 — Session results and portable files
 
