@@ -19,10 +19,10 @@ def verify(folder, extract=None):
             p=PurePosixPath(info.filename)
             if p.is_absolute() or '..' in p.parts or '\\' in info.filename or (info.external_attr>>16)&0o170000==0o120000: raise ValueError('Unsafe ZIP member')
             if info.file_size>20_000_000: raise ValueError('Unexpected member size')
-            if info.filename not in {'index.html','BUILD-INFO.json','INSTALL.md','THIRD-PARTY-NOTICES.txt'} and not (p.parts[0]=='assets' and p.suffix in {'.js','.css','.wasm'}): raise ValueError('Unexpected runtime member: '+info.filename)
+            if info.filename not in {'index.html','BUILD-INFO.json','INSTALL.md','LICENSE','THIRD-PARTY-NOTICES.txt'} and not (p.parts[0]=='assets' and p.suffix in {'.js','.css','.wasm'}): raise ValueError('Unexpected runtime member: '+info.filename)
             data=z.read(info.filename)
             if any(secret in data for secret in [b'github_pat_',b'ghp_',b'BEGIN PRIVATE KEY']): raise ValueError('Credential marker in runtime')
-        if not {'index.html','BUILD-INFO.json','INSTALL.md','THIRD-PARTY-NOTICES.txt'}<=set(members): raise ValueError('Missing package entry/metadata/instructions')
+        if not {'index.html','BUILD-INFO.json','INSTALL.md','LICENSE','THIRD-PARTY-NOTICES.txt'}<=set(members): raise ValueError('Missing package entry/metadata/instructions/license')
         metadata=json.loads(z.read('BUILD-INFO.json'))
         if metadata['version']!=version() or not re.fullmatch('[0-9a-f]{40}',metadata['source']): raise ValueError('Source/version mismatch')
         if metadata['source']!=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(): raise ValueError('Package source does not match selected checkout')
@@ -30,6 +30,8 @@ def verify(folder, extract=None):
         for url in re.findall(r'(?:src|href)="([^"]+)"',html):
             if not url.startswith('./') or url[2:] not in members: raise ValueError('Missing/nonlocal runtime asset: '+url)
         if z.read('INSTALL.md')!=(folder/'INSTALL.md').read_bytes(): raise ValueError('Installation instructions mismatch')
+        if z.read('LICENSE')!=(ROOT/'LICENSE').read_bytes(): raise ValueError('Project license/source mismatch')
+        if z.read('THIRD-PARTY-NOTICES.txt')!=(ROOT/'THIRD-PARTY-NOTICES.txt').read_bytes(): raise ValueError('Third-party notices/source mismatch')
         if extract:
             if extract.exists(): shutil.rmtree(extract)
             extract.mkdir(parents=True);z.extractall(extract)
@@ -44,6 +46,7 @@ def package(folder):
     files={str(p.relative_to(build)).replace('\\','/'):p.read_bytes() for p in build.rglob('*') if p.is_file()}
     files['BUILD-INFO.json']=(json.dumps(metadata,sort_keys=True,indent=2)+'\n').encode()
     files['INSTALL.md']=(ROOT/'INSTALL.md').read_bytes()
+    files['LICENSE']=(ROOT/'LICENSE').read_bytes()
     files['THIRD-PARTY-NOTICES.txt']=(ROOT/'THIRD-PARTY-NOTICES.txt').read_bytes()
     with zipfile.ZipFile(folder/'tetris-browser.zip','w',zipfile.ZIP_DEFLATED) as z:
         for name,data in sorted(files.items()):

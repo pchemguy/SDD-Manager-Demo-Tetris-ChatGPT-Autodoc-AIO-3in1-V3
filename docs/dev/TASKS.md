@@ -212,41 +212,48 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 5 — Persistent configuration
 
-- [ ] Phase 5 — Persistent configuration
-    - [ ] Milestone 5.1 — Per-key configuration restoration
-        - [ ] T-032 — Implement strict per-key query and cookie parsing
+- [x] Phase 5 — Persistent configuration
+    - [x] Milestone 5.1 — Per-key configuration restoration
+        - [x] T-032 — Implement strict per-key query and cookie parsing
             Scope: src/rules/settings.ts and src/platform/browser/settings.ts. Contract: R6; C5/C7.
             Depends on: T-031.
             Evidence: Parse canonical names/values, duplicate known query keys, corrupt cookies and mixed sources independently. Preserve valid cookie values when URL keys are omitted/invalid and leave unknown keys alone.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
-        - [ ] T-033 — Integrate persistent startup resolution
+            Verification: All seven new public rules/adapter cases failed before implementation, then check/build and all102 units pass. Every canonical string including explicit defaults resolves per-key URL→valid cookie→default; empty/wrong-case/padded values and known duplicate query groups warn/fall through, corrupt/duplicate cookies are isolated and unknown data untouched. Inputs remain immutable and parser write spies remain zero. Public C5 index is used by all consumers; canonical GhostMode alias aligns models. v0.5.0/persistentSettings selected and predecessor full v0.4 release/closure gate plus complete Phase5 projection verified; HANDOFF records recovered state. Startup integration/transactions remain assigned later.
+        - [x] T-033 — Integrate persistent startup resolution
             Scope: src/application bootstrap and browser settings adapter. Contract: R6; C3/C7.
             Depends on: T-032.
             Evidence: Resolve URL then cookie then default per key. Save valid explicit URL defaults as well as nondefaults, write only those startup keys and report unavailable persistence without blocking usable resolved page settings.
-        - [ ] T-034 — Verify real-origin configuration restoration
+            Verification: Six controller and four browser-adapter startup cases first failed; further RED checks caught warning loss, warning clearing on Start and unrelated duplicate-cookie interference. Final check/build,113 units and46 cumulative source Chromium/Firefox cases pass. C3 queues startup commands, resolves each key, synchronizes only valid explicit keys including defaults, retains usable page selections on failure, preserves warnings across Start, cancels disposed startup and checkpoints an actually paused resolved session. Startup-only cookie writes use required attributes/readback and compensate handled failures; unavailable cookies retain query data and rollback failure is reported honestly. Real-origin startup cases pass. R5 non-persistence remains covered by an explicit session-only public fixture, excluded from future package runs; general edit/history transactions remain T035/T036.
+        - [x] T-034 — Verify real-origin configuration restoration
             Scope: tests/integration/platform and tests/e2e. Contract: R6/R5; C5/C7.
             Depends on: T-032, T-033.
             Evidence: Check every setting across reload, mixed sources, invalid/duplicate query values and omitted keys using a real HTTP origin. Verify warning behavior, unrelated data preservation and existing session-only score boundaries.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/5/5.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 5.2 — Transactional setting updates
-        - [ ] T-035 — Implement compensated cookie and URL setting commits
+            Verification: Characterization passed without product repair:115 deterministic checks (113 units,2 actual composed C3/C5/C7 integration),check/build and88 cumulative source Chromium/Firefox cases pass. The42-case real HTTP matrix covers all13 canonical values/reload/omission,no omitted-key writes or metadata changes,every duplicate known query group,mixed corrupt sources,one-year/path/SameSite/HTTP attributes,unrelated data and live score/game non-persistence. HTTPS Secure is adapter-double evidence only. Public boundary/whole startup capability review passes; no scoped TODO. Existing test command/CI includes integration fixtures. Milestone5.1 report/HANDOFF and parent checkoff included; general edits/URL transactions/package remain later tasks.
+    - [x] Milestone 5.2 — Transactional setting updates
+        - [x] T-035 — Implement compensated cookie and URL setting commits
             Scope: src/platform/browser/settings.ts and adapter contract tests. Contract: R6; C7.
             Depends on: T-034.
             Evidence: Capture old persistence/URL, write and read back changed keys, and compensate handled failures before a live-state swap. Verify fragments/unrelated cookies/parameters and no reload/navigation.
-        - [ ] T-036 — Integrate persistence errors with selected settings
+            Verification: All12 new public adapter transaction cases failed before implementation; final check/build and127 deterministic checks pass. Forty-four focused Chromium/Firefox cases pass, including actual public adapter success and history-after-mutation/quiet-cookie-rejection compensation plus the complete42-case startup matrix. Edits replace only requested known groups while preserving raw unrelated query tokens/fragments/history state; Restore requires all6 values, explicit defaults persist, invalid/undeclared changes have zero effects. Cookie and history acknowledgments are verified; handled failures compensate accessible cookie values/URL, every rollback is attempted and externally prevented compensation is reported honestly. C3 async edit integration remains T036; source adapter consumer is explicitly excluded from package tests.
+        - [x] T-036 — Integrate persistence errors with selected settings
             Scope: src/application/controller.ts and src/ui feedback/tests. Contract: R6/R5; C3/C4.
             Depends on: T-035.
             Evidence: Serialize asynchronous edits, apply selected values only on adapter success and retain current results/game state on failure. Report startup synchronization and rollback failures honestly; preserve next-piece policy effects.
-        - [ ] T-037 — Verify persistent edits and cumulative browser package
+            Verification: All11 new controller queue/acknowledgment cases failed before implementation; four native error-feedback cases then exposed an incorrect saved-status hint. Final check/build,138 deterministic checks and96 cumulative source Chromium/Firefox cases pass. Async edits serialize and compute from the preceding accepted state, swap selections only after ack, preserve game/results/settings on failure, retain current-piece deadline/policy until replacement, and settle disposed active/queued promises without late live commits. Startup subscribers remain coherent; empty/invalid edits have zero effects, failure feedback survives Restart and successful retry clears it. Actual page tests prove persistence/reload without gameplay restart, compensated history failure/unchanged canvas and honest externally blocked rollback; inspected the clear error screenshot.
+        - [x] T-037 — Verify persistent edits and cumulative browser package
             Scope: tests/e2e, persistence fixtures and browser packaging/docs. Contract: R6/R12; C7/C8.
             Depends on: T-035, T-036.
             Evidence: Exercise all six edits, explicit defaults, reload and invalid fallbacks. Run failure-injection and successful real-origin checks, recheck gameplay/session behavior and verify the extracted artifact.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/5/5.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 5.3 — Phase review
-        - [ ] T-038 — Review test and report Phase 5
+            Verification: Check/build,138 deterministic checks,122 source and108 extracted-package Chromium/Firefox cases pass (14 explicit source-only exclusions); all26 native-choice cases pass with effective actions/projections/policies and Restart/omitted URL/reload retention. Whole transaction/queue/UI/package review has no scoped TODO. Reproduced M5.2-F01 missing project MIT text, added exact LICENSE/notices gates, and missing/wrong-license fixtures with corrected checksums are rejected. Candidate24067afc7af660c41c8cc658d7d9d2ace96446586feb3ebd8b8e34acc969710d honestly dirty; final instruction clarification rebuilt with all non-instruction members identical to108-case tested runtime and source guide byte-matched. Inspected clear failure screenshot; report/HANDOFF/docs and milestone parent checkoff included. Exact clean phase/release source remains subsequent.
+    - [x] Milestone 5.3 — Phase review
+        - [x] T-038 — Review test and report Phase 5
             Depends on: T-034, T-037 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/5/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
+            Verification: Whole-phase C3–C5/C7/C8 code,consumer,public-boundary and six-delivery-task closing audit passes; no scoped blocker/TODO. Current identical production evidence:138 deterministic checks,check/build,122 source and108 packaged Chromium/Firefox cases (14 explicit source-only exclusions). Clean exact T037 source rebuilt/rechecked/tested: f8c1798fd8b50d924ca1534a7097ccc9c32de1c29f81a5d7cb238871162cab2b,sourceDirty=false; exact Actions41337951112 succeeded. All13 choices,per-key resolution,acknowledged edits/compensation/concurrency/disposal and session boundaries covered. License omission repaired/negative gates verified. Phase report/HANDOFF and initial task/parent checkoffs included; integration/exact release remain subsequent gates.
 
 ## Phase 6 — Session results and portable files
 

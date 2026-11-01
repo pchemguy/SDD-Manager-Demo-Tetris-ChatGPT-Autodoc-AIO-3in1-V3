@@ -1,8 +1,8 @@
 /** Own live state, command serialization and one monotonic clock for frames and input. */
-import type { AppError, AppState, Capabilities, FileFormat, GameAction, GameView, InputFile, Outcome, SettingPatch, Transition } from '../models';
+import type { AppError, AppState, Capabilities, FileFormat, GameAction, GameView, InputFile, Outcome, SettingKey, SettingPatch, Transition } from '../models';
 import type { PlatformPorts } from '../platform/ports';
 import { advanceGame, createGame, dispatchGame, projectGame, setPaused } from '../domain';
-import { validateSettings } from '../rules';
+import { resolveSettings, validateSettings } from '../rules';
 export interface Controller {
   view(): GameView; start(): void; pause(): void; resume(): void; action(action: GameAction): void; tick(): void;
   setSettings(patch: SettingPatch): Promise<Outcome<void>>;
@@ -14,21 +14,38 @@ export interface Controller {
 
 /** Compose a page session; all host-dependent values enter through narrow ports. */
 export function createController(initial: AppState, ports: PlatformPorts, capabilities: Capabilities): Controller {
-  let state = structuredClone(initial), error: AppError | null = null;
+  let state = structuredClone(initial), error: AppError | null = null, stickyError:AppError|null=null;
   let lastTime = ports.now(), disposed = false, busy = false;
   const caps = new Set(capabilities);
+  let initializing=caps.has('persistentSettings');
   const listeners = new Set<(view: GameView) => void>();
-  const pending: Array<{run:()=>void;cancel:()=>void}> = [];
+  type Job={run:()=>void|Outcome<void>|Promise<Outcome<void>>;cancel:()=>void;complete?:(result:Outcome<void>)=>void};
+  const pending:Job[]=[];let active:Job|null=null;
   const view = (): GameView => ({ state: structuredClone(state), ...structuredClone(projectGame(state.game, state.settings, caps)), capabilities: new Set(caps), error: structuredClone(error) });
   const emit = () => { for (const listener of [...listeners]) if (!disposed) listener(view()); };
-  const perform = (operation: () => void, cancel:()=>void=()=>{}) => {
-    if (disposed) {cancel();return;}
-    pending.push({run:operation,cancel});
-    if (busy) return;
-    busy = true;
-    try { while (pending.length && !disposed) pending.shift()!.run(); }
-    finally { busy = false; }
+  const asynchronous=(value:void|Outcome<void>|Promise<Outcome<void>>):value is Promise<Outcome<void>>=>typeof (value as Promise<Outcome<void>>|undefined)?.then==='function';
+  const drain = () => {
+    if (busy||initializing||disposed) return;
+    busy=true;let waiting=false;
+    try{
+      while(pending.length&&!disposed){
+        const job=pending.shift()!;active=job;const result=job.run();
+        if(asynchronous(result)){
+          waiting=true;
+          const finish=(value:Outcome<void>)=>{active=null;busy=false;job.complete?.(disposed?unavailable('Operation'):value);drain();};
+          void result.then(finish,()=>{
+            const failure:Outcome<void>={ok:false,error:{code:'runtime-unavailable',message:'The requested operation could not be completed.'}};
+            try{if(!disposed){error=failure.error;emit();}}finally{finish(failure);}
+          });
+          return;
+        }
+        active=null;job.complete?.(result??{ok:true,value:undefined});
+      }
+    }finally{if(!waiting){active=null;busy=false;}}
   };
+  const enqueue=(job:Job)=>{if(disposed){job.cancel();return;}pending.push(job);drain();};
+  const perform=(operation:()=>void,cancel:()=>void=()=>{})=>enqueue({run:operation,cancel});
+  const operate=(operation:()=>Outcome<void>|Promise<Outcome<void>>):Promise<Outcome<void>>=>new Promise(resolve=>enqueue({run:operation,complete:resolve,cancel:()=>resolve(unavailable('Operation'))}));
   const accept = (result: Transition) => {
     state = { ...state, game: result.state };
     if (result.events.some(event => event.type === 'gameOver') && state.completedRunId !== result.state.runId) {
@@ -48,22 +65,32 @@ export function createController(initial: AppState, ports: PlatformPorts, capabi
     start: () => perform(() => {
       sync();
       state = { ...state, game: createGame(ports.newSeed(), ports.newId(), state.settings, caps, 'running'), completedRunId: null };
-      lastTime = ports.now(); error = null; emit();
+      lastTime = ports.now(); error = stickyError; emit();
     }),
     pause: () => perform(() => { sync(); state = { ...state, game: setPaused(state.game, true) }; emit(); }),
     resume: () => perform(() => { sync(); state = { ...state, game: setPaused(state.game, false) }; lastTime = ports.now(); emit(); }),
     action: action => perform(() => { sync(); accept(dispatchGame(state.game, action, state.settings, caps)); emit(); }),
     tick: () => perform(() => { sync(); emit(); }),
-    setSettings: patch => new Promise(resolve=>perform(()=>{
-      if(!caps.has('settings')){resolve(unavailable('Settings'));return;}
+    setSettings: patch => operate(()=>{
+      if(!caps.has('settings'))return unavailable('Settings');
       const invalid:Outcome<void>={ok:false,error:{code:'invalid-data',message:'Choose correctly typed settings; the edit was not applied.'}};
-      if(typeof patch!=='object'||patch===null||Array.isArray(patch)){error=invalid.error;emit();resolve(invalid);return;}
+      if(typeof patch!=='object'||patch===null||Array.isArray(patch)){error=invalid.error;emit();return invalid;}
       const descriptors=Object.getOwnPropertyDescriptors(patch);
-      if(Reflect.ownKeys(patch).some(key=>typeof key!=='string'||!Object.hasOwn(descriptors[key]!,'value'))){error=invalid.error;emit();resolve(invalid);return;}
+      if(Reflect.ownKeys(patch).some(key=>typeof key!=='string'||!Object.hasOwn(descriptors[key]!,'value'))){error=invalid.error;emit();return invalid;}
       const result=validateSettings({...state.settings,...Object.fromEntries(Object.entries(descriptors).map(([key,descriptor])=>[key,descriptor.value]))});
-      if(!result.ok){error=result.error;emit();resolve(result);return;}
-      sync();state={...state,settings:result.value};error=null;emit();resolve({ok:true,value:undefined});
-    },()=>resolve(unavailable('Settings')))),
+      if(!result.ok){error=result.error;emit();return result;}
+      const keys=Object.keys(descriptors) as SettingKey[];if(!keys.length)return {ok:true,value:undefined};
+      const apply=():Outcome<void>=>{sync();state={...state,settings:result.value};stickyError=null;error=null;emit();return {ok:true,value:undefined};};
+      if(!caps.has('persistentSettings'))return apply();
+      return (async()=>{
+        if(disposed)return unavailable('Settings');let saved:Outcome<void>;
+        try{saved=await ports.commitSettings({previous:structuredClone(state.settings),next:structuredClone(result.value),writeKeys:keys,reason:'edit'});}
+        catch{saved={ok:false,error:{code:'persistence-failed',message:'The setting edit could not be saved.'}};}
+        if(disposed)return unavailable('Settings');
+        if(!saved.ok){stickyError=saved.error;error=saved.error;emit();return saved;}
+        return apply();
+      })();
+    }),
     save: async () => unavailable('Saving'),
     restore: async () => unavailable('Restoring'),
     subscribe: listener => {
@@ -71,21 +98,34 @@ export function createController(initial: AppState, ports: PlatformPorts, capabi
       listeners.add(listener); listener(view());
       return () => { listeners.delete(listener); };
     },
-    suspend: async () => {
-      if (disposed) return unavailable('Suspending');
-      controller.pause();
-      try {
-        const result = await ports.writeCheckpoint(structuredClone(state));
-        if (!result.ok && !disposed) perform(() => { error = result.error; emit(); });
-        return result;
-      } catch {
-        const failure: Outcome<void> = { ok: false, error: { code: 'checkpoint-failed', message: 'The paused session could not be saved.' } };
-        if (!disposed) perform(() => { error = failure.error; emit(); });
-        return failure;
-      }
-    },
-    dispose: () => { if (!disposed) { disposed = true; release(); listeners.clear(); while(pending.length)pending.shift()!.cancel(); } }
+    suspend: () => new Promise(resolve=>perform(()=>{
+      sync();state={...state,game:setPaused(state.game,true)};emit();
+      if(disposed){resolve(unavailable('Suspending'));return;}
+      const snapshot=structuredClone(state);
+      void (async()=>{
+        let result:Outcome<void>;
+        try{result=await ports.writeCheckpoint(snapshot);}catch{result={ok:false,error:{code:'checkpoint-failed',message:'The paused session could not be saved.'}};}
+        if(!result.ok&&!disposed){const failure=result;perform(()=>{error=failure.error;emit();});}
+        resolve(result);
+      })();
+    },()=>resolve(unavailable('Suspending')))),
+    dispose: () => { if (!disposed) { disposed = true; release(); listeners.clear(); active?.cancel(); while(pending.length)pending.shift()!.cancel(); } }
   };
   release = ports.bindLifecycle(() => { void controller.suspend(); });
+  if(initializing)void (async()=>{
+    try{
+      const raw=await ports.readSettings();if(disposed)return;if(!raw.ok){error=raw.error;return;}
+      const resolution=resolveSettings(raw.value.query,raw.value.saved);
+      let saved:Outcome<void>;
+      try{saved=await ports.commitSettings({previous:structuredClone(state.settings),next:structuredClone(resolution.settings),writeKeys:[...resolution.explicit],reason:'startup'});}
+      catch{saved={ok:false,error:{code:'persistence-failed',message:'These page settings could not be saved.'}};}
+      if(disposed)return;sync();
+      const game=state.game.active?state.game:{...state.game,piecePolicy:{lockPolicy:resolution.settings.lockPolicy,hardDropLock:resolution.settings.hardDropLock}};
+      state={...state,game,settings:resolution.settings};
+      const warnings=resolution.warnings.join(' ');
+      error=!saved.ok?{...saved.error,message:[saved.error.message,warnings].filter(Boolean).join(' ')}:warnings?{code:'invalid-data',message:warnings}:null;
+    }catch{if(!disposed)error={code:'persistence-failed',message:'Browser configuration is unavailable; default settings remain usable.'};}
+    finally{initializing=false;if(!disposed){stickyError=error;busy=true;try{emit();}finally{busy=false;drain();}}}
+  })();
   return controller;
 }
