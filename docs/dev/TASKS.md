@@ -76,7 +76,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 2 — Modern piece controls
 
-- [ ] Phase 2 — Modern piece controls
+- [x] Phase 2 — Modern piece controls
     - [x] Milestone 2.1 — Sequence and piece controls
         - [x] T-011 — Implement seven-bag sequence and next preview
             Scope: src/domain/sequence.ts, projections and focused tests. Contract: R2; C2.
@@ -112,11 +112,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Expose next/held/ghost and keyboard bindings, exercise combined bag/hold/kick/drop play and rebuild the extracted browser package. Confirm no extra gameplay click targets or predecessor regressions.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/2/2.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Both browser integration cases failed for missing preview elements before implementation. Final 61 unit checks, type check/build, 20 source-app browser cases and 18 extracted-package cases pass (2 source-only exclusions). Next/held miniatures, C hold, Space delayed drop, wall movement/rotation, lock/queue behavior and two-button limit verified; full-page modern/ghost screenshots inspected. Aligned C4 mount export/mode with accepted API. Updated install/help, milestone 2.2 report/HANDOFF and stable browser candidate; no scoped TODO.
-    - [ ] Milestone 2.3 — Phase review
-        - [ ] T-017 — Review test and report Phase 2
+    - [x] Milestone 2.3 — Phase review
+        - [x] T-017 — Review test and report Phase 2
             Depends on: T-013, T-016 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/2/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
+            Verification: Whole-phase code/consumer review and single-task closing-commit audit pass with no scoped TODO. Reused current identical production evidence: 61 unit tests, check/build, 20 source-browser cases and 18 extracted-package cases (2 explicit source-only exclusions). Rebuilt clean T-016 package passes all checks and byte-matches tested runtime assets; GitHub Actions 41324234370 succeeded for that exact source. Phase report/HANDOFF and initial task/parent checkoffs included; integration and exact-source release remain subsequent gates.
 
 ## Phase 3 — Penetrator bonuses
 
