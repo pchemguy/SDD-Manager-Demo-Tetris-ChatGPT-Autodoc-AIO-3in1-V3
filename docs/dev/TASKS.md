@@ -213,7 +213,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 ## Phase 5 — Persistent configuration
 
 - [ ] Phase 5 — Persistent configuration
-    - [ ] Milestone 5.1 — Per-key configuration restoration
+    - [x] Milestone 5.1 — Per-key configuration restoration
         - [x] T-032 — Implement strict per-key query and cookie parsing
             Scope: src/rules/settings.ts and src/platform/browser/settings.ts. Contract: R6; C5/C7.
             Depends on: T-031.
@@ -225,11 +225,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-032.
             Evidence: Resolve URL then cookie then default per key. Save valid explicit URL defaults as well as nondefaults, write only those startup keys and report unavailable persistence without blocking usable resolved page settings.
             Verification: Six controller and four browser-adapter startup cases first failed; further RED checks caught warning loss, warning clearing on Start and unrelated duplicate-cookie interference. Final check/build,113 units and46 cumulative source Chromium/Firefox cases pass. C3 queues startup commands, resolves each key, synchronizes only valid explicit keys including defaults, retains usable page selections on failure, preserves warnings across Start, cancels disposed startup and checkpoints an actually paused resolved session. Startup-only cookie writes use required attributes/readback and compensate handled failures; unavailable cookies retain query data and rollback failure is reported honestly. Real-origin startup cases pass. R5 non-persistence remains covered by an explicit session-only public fixture, excluded from future package runs; general edit/history transactions remain T035/T036.
-        - [ ] T-034 — Verify real-origin configuration restoration
+        - [x] T-034 — Verify real-origin configuration restoration
             Scope: tests/integration/platform and tests/e2e. Contract: R6/R5; C5/C7.
             Depends on: T-032, T-033.
             Evidence: Check every setting across reload, mixed sources, invalid/duplicate query values and omitted keys using a real HTTP origin. Verify warning behavior, unrelated data preservation and existing session-only score boundaries.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/5/5.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Characterization passed without product repair:115 deterministic checks (113 units,2 actual composed C3/C5/C7 integration),check/build and88 cumulative source Chromium/Firefox cases pass. The42-case real HTTP matrix covers all13 canonical values/reload/omission,no omitted-key writes or metadata changes,every duplicate known query group,mixed corrupt sources,one-year/path/SameSite/HTTP attributes,unrelated data and live score/game non-persistence. HTTPS Secure is adapter-double evidence only. Public boundary/whole startup capability review passes; no scoped TODO. Existing test command/CI includes integration fixtures. Milestone5.1 report/HANDOFF and parent checkoff included; general edits/URL transactions/package remain later tasks.
     - [ ] Milestone 5.2 — Transactional setting updates
         - [ ] T-035 — Implement compensated cookie and URL setting commits
             Scope: src/platform/browser/settings.ts and adapter contract tests. Contract: R6; C7.

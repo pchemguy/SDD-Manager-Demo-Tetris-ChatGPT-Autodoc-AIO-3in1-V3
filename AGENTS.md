@@ -60,7 +60,7 @@ The project targets shared TypeScript gameplay/UI for browser, Windows Electron 
 
 The managed Linux test host requires `TETRIS_FIREFOX_SANDBOX_WORKAROUND=1` for trusted local Firefox checks after a diagnosed content-process namespace failure. It is opt-in and must not be applied to arbitrary pages. Use the absolute project-owned browser root established by Playwright configuration.
 
-`npm run test:unit` covers public domain and application behavior. Domain consumers import `src/domain/index.ts`; private shape data stays within the domain owner.
+`npm run test:unit` covers public domain/rules/application behavior and deterministic composed adapter integration under `tests/integration/`; CI uses the same command. Domain consumers import `src/domain/index.ts`; private shape data stays within the domain owner.
 
 `npm run package` and `npm run verify:package` build/check the browser candidate with Python 3.11+. `TETRIS_PACKAGED_TEST=1 npm run test:e2e` serves the extracted candidate and tests the actual runtime; source-module input consumers and authored-state public-component fixtures are excluded there; ordinary packaged-entry acceptance still runs. Release packaging requires a clean exact release source and the same checks before upload.
 
