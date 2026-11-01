@@ -168,11 +168,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 - [ ] Phase 4 — Session configuration
     - [ ] Milestone 4.1 — Session settings model
-        - [ ] T-025 — Define typed session settings and defaults
+        - [x] T-025 — Define typed session settings and defaults
             Scope: src/rules/settings.ts, src/models.ts consumers and tests/unit/rules. Contract: R5; C5.
             Depends on: T-024.
             Evidence: Validate exactly six keys, defaults, typed patches and invalid-value rejection without coercion. Keep selected values separate from active PiecePolicy and expose no persistent effects.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
+            Verification: Valid-settings acceptance first failed against the compilable unimplemented validator, then all 81 unit tests, npm run check and npm run build passed. Complete six-key typed values are copied; missing/extra keys, wrong values and accessor/inherited inputs reject without coercion or effects. Browser initializes frozen canonical defaults; v0.4.0/settings capability selected. Predecessor main integration, closed tracking and v0.3.0 exact-source release/download gate verified; Phase 4 full projection read back after reconciling collection lag.
         - [ ] T-026 — Implement dynamic midline ghost visibility
             Scope: src/domain projections and domain/render tests. Contract: R4/R5; C2/C4.
             Depends on: T-025.
