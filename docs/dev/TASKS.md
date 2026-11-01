@@ -257,7 +257,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 6 — Session results and portable files
 
-- [ ] Phase 6 — Session results and portable files
+- [x] Phase 6 — Session results and portable files
     - [x] Milestone 6.1 — Session leaderboard
         - [x] T-039 — Implement result validation and deterministic ranking
             Scope: src/rules/results.ts and tests/unit/rules. Contract: R7; C5.
@@ -310,11 +310,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Compare equivalent JSON/SQLite snapshots and preserved IDs/timestamps/settings. Exercise invalid-file no-mutation, timeout/cancel/disposal and real downloads/restores; verify local worker/WASM assets from the extracted browser package.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/6/6.3.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: M6.3 whole-capability/public-consumer review passes, no scoped TODO. Two native option cases and two max-safe score bounds observed RED before their corresponding repairs. Final198 deterministic checks (180unit +18integration),typecheck/build,156 source cases (8 build-only exclusions) and134 packaged cases (30 source-only exclusions) pass. Native downloads independently inspected: equivalent fields,stable IDs/UTC/max-safe scores,exact six settings,content detection/UTF16,current game/policy preservation. Both-format invalid/resource-heavy no-mutation, real initialization failure/retry,9999/10000ms timeout/queue release, six-cookie history compensation, owned real-worker disposal and nested extracted worker/WASM paths pass. Max-score visual overflow fixed without truncation; screenshots inspected. Rolldown helper notice included. Ten-member ZIP4da7532e9029c37aa6e49087ac55309bbe22bf10a4ba818975173c12d41c139e verified, dirty T046 identity honest. Exact T045/T046 Actions41346524190/41348687612 succeeded. Report/HANDOFF and initial milestone checkbox included; whole-phase review/integration/release remain subsequent gates.
-    - [ ] Milestone 6.4 — Phase review
-        - [ ] T-048 — Review test and report Phase 6
+    - [x] Milestone 6.4 — Phase review
+        - [x] T-048 — Review test and report Phase 6
             Depends on: T-041, T-044, T-047 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/6/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
+            Verification: Whole-phase R7/R8/public-boundary review and chronological one-task/initial-checkoff audit pass; no scoped TODO. Clean exact T047a1603c5 passed check/build,198 deterministic and134 packaged cases(30 source-only exclusions); source156(8 build-only exclusions) unchanged. Ten-member ZIP04a0025ac1bdfc1c021d1612d52dc40b50bbcc03459b2971ff72ade9672b4017 sourceDirty=false. Exact Actions41351797888 succeeded. Missing-worker, SQLite allocation and max-score overflow findings repaired with failure evidence. Phase report/HANDOFF and initial milestone/phase completion included. Integration/release/download verification remain pending subsequent effects; no optional campaign selected.
 
 ## Phase 7 — Centered panel layout
 
