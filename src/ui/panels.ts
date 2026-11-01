@@ -67,3 +67,10 @@ export function createLeaderboardPanel(){
   }));
  }};
 }
+
+/** Optional help is presentation only; hiding it never changes a setting or game policy. */
+export function createHelpPanel(modern:boolean,penetrator:boolean){
+ const element=document.createElement('section');element.className='help-panel';element.id='panel-help';element.setAttribute('aria-labelledby','help-title');
+ element.innerHTML=`<p class="eyebrow">PLAY WITH THE KEYS</p><h2 id="help-title">Controls and help</h2><p class="hint">← → move · ↑ / X rotate<br>Z rotate back · ↓ soft drop<br>${modern?'<span data-testid="modern-actions">Space hard drop · C hold</span><br>':''}${penetrator?'P activates penetrator (1 bonus)<br>':''}Esc pause / resume</p><p class="hint" data-testid="lock-info">Full grounding interval; pause freezes timers.</p>${penetrator?'<p class="hint">Four cleared lines earn one ⚡ (max 3). Hold is unavailable while active.</p>':''}<p class="hint">Start/Restart begins a fresh game. The right Start resumes a paused game. Focus the board for game keys; settings and file controls retain normal keyboard behavior.</p>`;
+ return {element};
+}

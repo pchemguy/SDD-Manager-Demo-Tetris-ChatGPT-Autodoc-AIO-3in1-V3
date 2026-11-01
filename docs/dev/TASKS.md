@@ -321,11 +321,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 - [ ] Phase 7 — Centered panel layout
     - [ ] Milestone 7.1 — Centered wide panels
-        - [ ] T-049 — Implement centered five-panel wide geometry
+        - [x] T-049 — Implement centered five-panel wide geometry
             Scope: src/ui/styles.css/panels.ts and wide-layout checks. Contract: R9; C4.
             Depends on: T-048.
             Evidence: Place leaderboard/info/board/settings/help in required order with board anchoring independent of auxiliary visibility. Retain readable info and correct board aspect/device-pixel sizing.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
+            Verification: R9 C4:8new Chromium/Firefox cases failed for absent help/backing resolution before implementation, then pass. Check/build,198 deterministic and164source browser cases(8build-only exclusions) pass. Wide1280/1440/1920 order/adjacent info/1CSSpx board-center bound survive hidden auxiliaries; board remains1:2. DPR2 backing600x1200, logical2x transform and painted lower edge pass. Wide screenshot inspected; keyboard/settings/files regressions pass. Phase entry0.7.0/panelLayout follows fully verified v0.6 source9c25ebb/release430877299/hosted bytes/Actions41353227227, two-parent integration/closures and read-back issues58–64/milestones22–24. No scoped TODO. Toggles/compact finalization remain mapped later tasks.
         - [ ] T-050 — Integrate independent auxiliary toggles and control placement
             Scope: src/ui/panels.ts and focus/visibility checks. Contract: R9; C4.
             Depends on: T-049.

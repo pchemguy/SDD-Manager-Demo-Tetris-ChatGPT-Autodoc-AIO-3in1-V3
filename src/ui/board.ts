@@ -9,6 +9,11 @@ export function createBoardRenderer(canvas:HTMLCanvasElement):(view:GameView)=>v
     ctx.fillStyle='#ffffff22';ctx.fillRect(x*30+2,y*30+2,26,3);ctx.globalAlpha=1;
   };
   return (view:GameView)=>{
+    // CSS owns logical geometry; rebuild the backing store at the actual device scale.
+    const rect=canvas.getBoundingClientRect(),ratio=canvas.ownerDocument.defaultView?.devicePixelRatio??1;
+    const width=Math.max(1,Math.round(rect.width*ratio)),height=Math.max(1,Math.round(rect.height*ratio));
+    if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}
+    ctx.setTransform(width/300,0,0,height/600,0,0);
     const g=view.state.game;
     ctx.fillStyle='#0e1926';ctx.fillRect(0,0,300,600);ctx.strokeStyle='#203043';ctx.lineWidth=.5;
     for(let x=0;x<=10;x++){ctx.beginPath();ctx.moveTo(x*30,0);ctx.lineTo(x*30,600);ctx.stroke();}
