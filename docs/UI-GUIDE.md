@@ -20,6 +20,12 @@ Settings contain Ghost, Hard drop, Next preview, Hard drop lock, Lock policy and
 
 Completed games enter the session top ten once. Restart retains the list; a fresh page ends the session unless you restore an explicit snapshot. Configuration persistence does not automatically save game/results. See [installation](../INSTALL.md) for serving, file limits, download acknowledgments and handled persistence limitations.
 
+## Compact layout and feedback
+
+Below 1280 CSS pixels, essential information and controls appear above the centered board, followed by optional leaderboard, settings and help sections. Vertical scrolling is allowed; the page fits 320px without horizontal clipping. Shared sidebar mode uses this arrangement even in a wide host window and scales the board at smaller widths. Resizing retains the current game, results, selections, selected file format, visibility and keyboard focus.
+
+Game status changes are announced once rather than every frame. File progress, success and unreadable-file feedback has a persistent polite live region in information. Controller errors use the settings alert while that panel is visible and an information alert while it is hidden. A handled invalid-file error clears on a fresh game; persistence failures retain their established recovery behavior. This is browser live-region/keyboard verification, without a claim of native speech-output testing.
+
 ## Current delivery boundary
 
-The Phase 7 wide-layout increment is verified in Chromium and Firefox. Compact/sidebar resizing and the final accessibility review are the next Phase 7 milestone; native Windows/sidebar packaging follows later phases. This guide will be updated as those verified increments land.
+The complete Phase 7 wide/compact shared UI is verified in Chromium and Firefox through source and extracted browser packages. Shared sidebar-mode consumers are source-level composition evidence, not full installed-extension acceptance. Native Windows/sidebar packaging and available platform checks follow later phases.

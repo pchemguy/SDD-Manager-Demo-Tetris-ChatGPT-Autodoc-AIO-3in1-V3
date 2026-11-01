@@ -39,7 +39,7 @@ The SQLite asset gate is available as `npm run probe:sqlite`: it rebuilds/extrac
 
 ## Layout and controls
 
-The Phase7 wide-layout increment centers the board independently of the leaderboard/settings/help visibility. Three Hide/Show controls sit above the two gameplay buttons; hiding settings also hides manual file controls. Canvas backing follows device pixels. See the [UI guide](docs/UI-GUIDE.md) for keyboard, focus, settings and manual snapshots. Final compact/accessibility verification remains the next milestone.
+The shared UI centers the board independently of leaderboard/settings/help visibility. Three Hide/Show controls sit above the two gameplay buttons; hiding settings also hides manual file controls. Canvas backing follows device pixels. See the [UI guide](docs/UI-GUIDE.md) for keyboard, focus, settings and manual snapshots. Wide order is verified from 1280px; compact information/board/auxiliary sections fit 320px and shared sidebar mode remains compact. Hidden controls leave keyboard/accessibility navigation, resize retains game/settings/results/focus, and file feedback stays accessible outside a hidden settings panel.
 
 ## Browser packaging
 
