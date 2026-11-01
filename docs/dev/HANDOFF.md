@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Milestone 2.1 implementation/review passed. T-013 publication, issue and milestone closure remain pending effects. Full implementation remains authorized.
+Checkpoint: Milestone 2.2 implementation/review passed. T-016 publication, issue and milestone closure remain pending effects. Full implementation remains authorized.
 
 ## Workflow and sources
 
@@ -18,6 +18,6 @@ Working branch: `phase/2-modern-piece-controls`, created from actual default/cre
 
 [v0.1.0](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/releases/tag/v0.1.0) is published/latest, with all three assets re-downloaded and byte-matched. Browser ZIP SHA-256: `9b9e3063cc54f1356c50d1aaaa4ebbb698eb5df0c8ae71da243a6f526fc54617`. Exact tag/package source is the phase branch-off release commit above; no release effect remains uncertain.
 
-Phase 2 source-bound tracking readback verified label, milestones 6–8 and task issues 20–26 before edits/tests. T-011/T-012 are published with closed issues. T-013 includes ordered kicks and [milestone 2.1 review](reports/phases/2/2.1.md). Publish/read back T-013, close issue 22 then milestone 6, continue T-014–T-017 and complete the phase's verified integration/release before later phases. No additional human checkpoint is pending within the retained full grant.
+Phase 2 source-bound tracking readback verified label, milestones 6–8 and task issues 20–26 before edits/tests. T-011–T-015 are published with closed issues; milestone 6 is closed/read back. T-016 includes player-facing modern controls, cumulative browser package and [milestone 2.2 review](reports/phases/2/2.2.md). Publish/read back T-016, close issue 25 then milestone 7, execute T-017, and finish the phase's verified integration/release before later phases. No additional human checkpoint is pending within the retained full grant.
 
-Current evidence: 55/55 unit tests, type check and build pass; observed RED/GREEN covers seven-bag, hold and kicks. Visible modern controls, ghost/hard drop and cumulative browser distribution remain in their next owning tasks. No task reset or work discard was performed.
+Current evidence: 61/61 unit tests, type check/build, 20 source-app browser cases and 18 extracted-package cases pass (two explicit source-only exclusions). Full-page modern/ghost screenshots inspected. C4's mount entry now matches its accepted API/mode. Final exact-source release rebuild remains pending. No task reset or work discard was performed.

@@ -95,7 +95,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Check clockwise/counterclockwise candidate order, wall/floor/stack cases, unchanged O rotation and complete failure. Recheck hold/sequence and grounded/lifted lock behavior through public engine operations.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/2/2.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Three intended wall/stack kick failures preceded implementation. Final 55 unit tests, type check and build pass. Public-engine checks cover exact left-before-right candidate order for both rotations, I wall/floor offsets, unchanged O, complete failure, preserved grounded deadlines and cleared lifted deadline. Whole milestone sequence/hold/kick code review, report and HANDOFF included; no scoped TODO and no complete SRS claim.
-    - [ ] Milestone 2.2 — Projection and hard drop
+    - [x] Milestone 2.2 — Projection and hard drop
         - [x] T-014 — Render ghost from the shared ordinary landing
             Scope: src/domain projections and src/ui/board.ts. Contract: R4; C1/C2/C4.
             Depends on: T-013.
@@ -106,11 +106,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-014.
             Evidence: Verify final pose, actual-distance points, zero-distance repeat and a full remaining interval without grounding reset. Cover failed-policy and immediate-policy public inputs while the UI still uses fixed defaults.
             Verification: Three hard-drop domain cases and both Space-binding consumer cases failed before implementation. Final 61 unit tests, type check/build and 18 Chromium/Firefox browser cases pass. Verified shared ghost/drop landing, actual-distance points, no zero-distance repeat points/reset, independent full remaining interval, captured failed/immediate policy precedence, disabled/non-running no-ops and controller single-clock integration. Space is one-shot until keyup. Modern preview/help integration remains T-016.
-        - [ ] T-016 — Integrate modern controls previews and browser distribution
+        - [x] T-016 — Integrate modern controls previews and browser distribution
             Scope: src/ui panels/help, tests/e2e, INSTALL.md and browser packaging. Contract: R2/R3/R4/R12; C4/C8.
             Depends on: T-014, T-015.
             Evidence: Expose next/held/ghost and keyboard bindings, exercise combined bag/hold/kick/drop play and rebuild the extracted browser package. Confirm no extra gameplay click targets or predecessor regressions.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/2/2.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Both browser integration cases failed for missing preview elements before implementation. Final 61 unit checks, type check/build, 20 source-app browser cases and 18 extracted-package cases pass (2 source-only exclusions). Next/held miniatures, C hold, Space delayed drop, wall movement/rotation, lock/queue behavior and two-button limit verified; full-page modern/ghost screenshots inspected. Aligned C4 mount export/mode with accepted API. Updated install/help, milestone 2.2 report/HANDOFF and stable browser candidate; no scoped TODO.
     - [ ] Milestone 2.3 — Phase review
         - [ ] T-017 — Review test and report Phase 2
             Depends on: T-013, T-016 and verified completion/closure of every delivery milestone in this phase.

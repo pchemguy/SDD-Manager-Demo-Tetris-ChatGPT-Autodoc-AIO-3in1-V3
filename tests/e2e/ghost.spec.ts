@@ -9,5 +9,5 @@ test('ordinary ghost outlines four cells at its landing without painting cell ce
   });
   expect(await pixels()).toEqual({outlines:4,centers:0});
   for(let n=0;n<5;n++)await page.keyboard.press('ArrowDown');expect(await pixels()).toEqual({outlines:4,centers:4});
-  await page.screenshot({path:test.info().outputPath('ghost.png')});
+  await page.screenshot({path:test.info().outputPath('ghost.png'),fullPage:true});
 });
