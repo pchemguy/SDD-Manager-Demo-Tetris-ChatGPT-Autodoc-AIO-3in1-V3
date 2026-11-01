@@ -1,8 +1,9 @@
 /** Shared DOM/Canvas UI; the controller owns gameplay and host adapters own effects. */
 import type { Controller } from '../application';
-import type { Cell, GameAction, GameView } from '../models';
+import type { Cell, GameView } from '../models';
 import { cells } from '../domain';
 import './style.css';
+import { bindInput } from './input';
 const colors:Record<Exclude<Cell,null>,string>={I:'#44d6df',J:'#668cff',L:'#ffae5c',O:'#f7db58',S:'#74d796',T:'#c48af5',Z:'#fa738b',penetrator:'#ffffff'};
 export function mountGame(root:HTMLElement, controller:Controller):()=>void {
   root.innerHTML=`<header><p class="eyebrow">KEYBOARD ARCADE · CLASSIC</p><h1>Tetris<span>01</span></h1><p>Find your rhythm. Leave no gaps.</p></header>
@@ -38,15 +39,8 @@ export function mountGame(root:HTMLElement, controller:Controller):()=>void {
   const focus=()=>canvas.focus({preventScroll:true});
   root.querySelector('#restart')!.addEventListener('click',()=>{controller.start();focus();});
   root.querySelector('#pause')!.addEventListener('click',()=>{const status=controller.view().state.game.status;if(status==='running')controller.pause();else if(status==='paused')controller.resume();else controller.start();focus();});
-  const keys:Record<string,GameAction>={ArrowLeft:'left',ArrowRight:'right',ArrowDown:'softDrop',ArrowUp:'rotateCW',x:'rotateCW',z:'rotateCCW'};
-  const keydown=(event:KeyboardEvent)=>{
-    if(event.target instanceof HTMLElement && event.target.closest('button,input,select,textarea'))return;
-    const key=event.key.length===1?event.key.toLowerCase():event.key;
-    if(key==='Escape'){event.preventDefault();if(event.repeat)return;const s=controller.view().state.game.status;if(s==='running')controller.pause();else if(s==='paused')controller.resume();}
-    else if(keys[key]){event.preventDefault();controller.action(keys[key]);}
-  };
-  document.addEventListener('keydown',keydown);
-  const unsubscribe=controller.subscribe(render);let frame=0,closed=false;
+  const input=bindInput(canvas,action=>controller.action(action),()=>{const s=controller.view().state.game.status;if(s==='running')controller.pause();else if(s==='paused')controller.resume();});
+  const unsubscribe=controller.subscribe(view=>{if(view.state.game.status!=='running')input.clear();render(view);});let frame=0,closed=false;
   const animate=()=>{if(closed)return;controller.tick();frame=requestAnimationFrame(animate);};frame=requestAnimationFrame(animate);
-  return ()=>{closed=true;cancelAnimationFrame(frame);unsubscribe();document.removeEventListener('keydown',keydown);controller.dispose();root.replaceChildren();};
+  return ()=>{closed=true;cancelAnimationFrame(frame);unsubscribe();input.dispose();controller.dispose();root.replaceChildren();};
 }

@@ -51,10 +51,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/1/1.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Recovered existing UI without discarding work. Label regressions failed before correction; final type check, build, 44/44 unit tests and 2/2 actual Chromium/Firefox gameplay tests pass. Inspected Canvas screenshot. Milestone 1.2 code review/report and HANDOFF included; no scoped TODO. Lifecycle/repeat acceptance remains T-007.
     - [ ] Milestone 1.3 — Browser distribution
-        - [ ] T-007 — Complete baseline lifecycle and keyboard repeat behavior
+        - [x] T-007 — Complete baseline lifecycle and keyboard repeat behavior
             Scope: src/ui/input.ts and browser lifecycle/controller integration. Contract: R1/R3/R9; C3/C4/C7.
             Depends on: T-006.
             Evidence: Verify paused timer preservation, focus/visibility suspension, held-key clearing, repeat timings and abandoned restart behavior. Confirm focused form/button input does not double-dispatch game actions and Start/resume returns keyboard focus to gameplay.
+            Verification: Four browser cases first failed for missing timed repeat and contenteditable key leakage. Added scoped keyboard owner with 150/50ms directional and 40ms soft-drop repeats, one-shot rotation/Escape, keyup/pause/blur clearing and gameplay-focus routing. Corrected the test clock to pause real-time advancement for exact boundaries. Final check/build, 44 unit tests and 8 Chromium/Firefox browser tests pass; actual button Enter and gameplay focus verified, blur modeled as an application event.
         - [ ] T-008 — Verify baseline browser gameplay and rendering
             Scope: tests/e2e, playwright.config.ts and browser test evidence. Contract: R1/R3/R9; C4/C8.
             Depends on: T-007.
