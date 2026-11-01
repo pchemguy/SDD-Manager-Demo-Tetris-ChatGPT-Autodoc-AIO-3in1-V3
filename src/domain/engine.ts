@@ -40,17 +40,18 @@ function end(g: Draft, events: GameEvent[]): void {
 }
 
 /** Atomically place only a fully in-board legal pose, then start a fresh piece. */
-function lock(g: Draft, settings: Settings, events: GameEvent[]): void {
+function lock(g: Draft, settings: Settings, events: GameEvent[], capabilities:Capabilities): void {
   if (!g.active || !canPlace(g.board, g.active, false)) { end(g, events); return; }
-  for (const { x, y } of cells(g.active)) g.board[y]![x] = g.active.kind;
+  for (const { x, y } of cells(g.active)) g.board[y]![x] = g.active.penetrator?'penetrator':g.active.kind;
   events.push({ type: 'locked', runId: g.runId });
   const result = clearAndScore(g.board, g.score, g.lines, g.level);
   g.board = result.board; g.score = result.score; g.lines = result.lines; g.level = result.level;
   if (result.cleared) events.push({ type: 'linesCleared', lines: result.cleared, runId: g.runId });
+  if(capabilities.has('penetrator')&&result.cleared===4&&g.bonuses<3){g.bonuses++;events.push({type:'bonusChanged',runId:g.runId});}
   spawn(g, settings, events);
 }
 
-function down(g: Draft, settings: Settings, events: GameEvent[], soft = false): void {
+function down(g: Draft, settings: Settings, events: GameEvent[], capabilities:Capabilities, soft = false): void {
   if (!g.active) return;
   const candidate = below(g.active);
   if (canTraverse(g.board, candidate)) {
@@ -58,7 +59,7 @@ function down(g: Draft, settings: Settings, events: GameEvent[], soft = false): 
     if (soft) g.score = addPoints(g.score, 1);
     ground(g);
   }
-  else if (g.piecePolicy.lockPolicy === 'failed') lock(g, settings, events);
+  else if (g.piecePolicy.lockPolicy === 'failed') lock(g, settings, events, capabilities);
   else ground(g);
 }
 const copyPiece = (p: Piece) => ({ ...p, origin: { ...p.origin } });
@@ -98,14 +99,14 @@ export function dispatchGame(state: GameState, action: GameAction, settings: Set
   if(action==='hardDrop'){
     const target=landing(g.board,g.active!);if(!target)return {state,events:[]};
     g.score=addPoints(g.score,2*Math.max(0,target.origin.y-g.active!.origin.y));g.active=copyPiece(target);ground(g);
-    if(g.piecePolicy.hardDropLock==='immediate'||g.piecePolicy.lockPolicy==='failed')lock(g,settings,events);
+    if(g.piecePolicy.hardDropLock==='immediate'||g.piecePolicy.lockPolicy==='failed')lock(g,settings,events,capabilities);
     return {state:g,events};
   }
   if(action==='hold'){
     const kind=g.active!.kind,replacement=g.held;g.held=kind;spawn(g,settings,events,replacement??undefined);g.holdUsed=true;
     return {state:g,events};
   }
-  if (action === 'softDrop') down(g, settings, events, true);
+  if (action === 'softDrop') down(g, settings, events, capabilities, true);
   else {
     const p = g.active!;
     let candidate: Piece = p;
@@ -122,7 +123,7 @@ export function dispatchGame(state: GameState, action: GameAction, settings: Set
 }
 
 /** Process explicit active time in event order, with lock expiry before equal-time gravity. */
-export function advanceGame(state: GameState, elapsedMs: number, settings: Settings, _capabilities: Capabilities): Transition {
+export function advanceGame(state: GameState, elapsedMs: number, settings: Settings, capabilities: Capabilities): Transition {
   if (!Number.isFinite(elapsedMs) || elapsedMs < 0) throw new RangeError('Elapsed time must be finite and non-negative');
   if (state.status !== 'running' || elapsedMs === 0) return { state, events: [] };
   const g = copy(state), events: GameEvent[] = [];
@@ -133,8 +134,8 @@ export function advanceGame(state: GameState, elapsedMs: number, settings: Setti
     g.timers.gravityRemainingMs -= step;
     if (g.timers.lockRemainingMs !== null) g.timers.lockRemainingMs -= step;
     remaining -= step;
-    if (g.timers.lockRemainingMs !== null && g.timers.lockRemainingMs <= 0) { lock(g, settings, events); continue; }
-    if (g.timers.gravityRemainingMs <= 0) { g.timers.gravityRemainingMs = interval(g.level); down(g, settings, events); }
+    if (g.timers.lockRemainingMs !== null && g.timers.lockRemainingMs <= 0) { lock(g, settings, events, capabilities); continue; }
+    if (g.timers.gravityRemainingMs <= 0) { g.timers.gravityRemainingMs = interval(g.level); down(g, settings, events, capabilities); }
   }
   return { state: g, events };
 }

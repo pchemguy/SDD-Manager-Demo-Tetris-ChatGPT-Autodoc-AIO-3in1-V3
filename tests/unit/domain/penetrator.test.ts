@@ -1,6 +1,6 @@
 /** Literal hole/blocker fixtures protect penetrator reachability independently of ordinary falling. */
 import { expect,test } from 'vitest';
-import { advanceGame, canPlace, canTraverse, cells, createGame, dispatchGame, landing } from '../../../src/domain';
+import { advanceGame, canPlace, canTraverse, cells, createGame, dispatchGame, landing, projectGame } from '../../../src/domain';
 import type { Capabilities,Cell,GameState,Piece,PieceKind,Settings } from '../../../src/models';
 const empty=()=>Array.from({length:20},()=>Array<Cell>(10).fill(null));
 const piece:Piece={kind:'O',rotation:0,origin:{x:4,y:5},penetrator:true};
@@ -56,4 +56,35 @@ test('activation clears a lifted deadline but never resets an unchanged final-gr
   const board=empty();board[8]![4]='J';board[8]![5]='J';const a=game({board,active:{...piece,origin:{x:4,y:6},penetrator:false},timers:{gravityRemainingMs:37,lockRemainingMs:200,grounded:true}});
   const b=action(a,'penetrator').state;expect(b.timers).toEqual({gravityRemainingMs:37,lockRemainingMs:null,grounded:false});
   const floor=game({active:{...piece,origin:{x:4,y:18},penetrator:false},timers:{gravityRemainingMs:37,lockRemainingMs:200,grounded:true}});expect(action(floor,'penetrator').state.timers.lockRemainingMs).toBe(200);
+});
+
+function quad(bonuses:number,penetrator=false):GameState {
+  const board=empty();for(let y=16;y<20;y++){board[y]=Array<Cell>(10).fill('J');board[y]![4]=null;}
+  return game({board,bonuses,active:{kind:'I',rotation:1,origin:{x:2,y:16},penetrator},timers:{gravityRemainingMs:1000,lockRemainingMs:1,grounded:true}});
+}
+test('exactly four rows earn one bonus capped at three; capability absence preserves classic behavior',()=>{
+  const earned=advanceGame(quad(0),1,settings,caps);expect(earned.state.bonuses).toBe(1);expect(earned.state.score).toBe(800);expect(earned.state.lines).toBe(4);expect(earned.events.filter(e=>e.type==='bonusChanged')).toHaveLength(1);
+  const capped=advanceGame(quad(3),1,settings,caps);expect(capped.state.bonuses).toBe(3);expect(capped.events.filter(e=>e.type==='bonusChanged')).toHaveLength(0);
+  expect(advanceGame(quad(0),1,settings,new Set(['modern'])).state.bonuses).toBe(0);
+});
+test.each([1,2,3])('%i cleared rows earn no bonus',count=>{
+  const board=empty();for(let y=20-count;y<20;y++){board[y]=Array<Cell>(10).fill('J');board[y]![4]=null;}
+  const a={...quad(1),board};expect(advanceGame(a,1,settings,caps).state.bonuses).toBe(1);
+});
+test('spend then four-line clear can re-earn one bonus without refund or exceeding the cap',()=>{
+  const a={...quad(3),active:{kind:'I' as const,rotation:1 as const,origin:{x:2,y:12},penetrator:false},timers:{gravityRemainingMs:1000,lockRemainingMs:null,grounded:false}};
+  const spent=action(a,'penetrator').state;expect(spent.bonuses).toBe(2);const dropped=action(spent,'hardDrop').state;const earned=advanceGame(dropped,1000,settings,caps);
+  expect(earned.state.bonuses).toBe(3);expect(earned.state.score).toBe(808);expect(earned.state.lines).toBe(4);expect(earned.state.active!.penetrator).toBe(false);
+});
+test('penetrator ghost/drop agree, delay persists, and final white locking never destroys traversed cells',()=>{
+  const board=empty();board[8]![4]='J';board[8]![5]='J';board[19]![4]='J';const a=game({board,active:{...piece,origin:{x:4,y:6},penetrator:false},held:'I'});
+  const active=action(a,'penetrator').state;const ghost=projectGame(active,settings,caps).ghost;expect(ghost!.origin).toEqual({x:4,y:17});expect(action(active,'hold').state.held).toBe('I');
+  const dropped=action(active,'hardDrop').state;expect(dropped.active).toEqual(ghost);expect(dropped.score).toBe(22);expect(dropped.board).toEqual(board);
+  const waited=advanceGame(dropped,400,settings,caps).state;const repeated=action(waited,'hardDrop').state;expect(repeated.timers.lockRemainingMs).toBe(600);expect(repeated.score).toBe(22);
+  const locked=advanceGame(repeated,600,settings,caps).state;expect(locked.board[8]![4]).toBe('J');expect(locked.board[8]![5]).toBe('J');expect(locked.board[19]![4]).toBe('J');
+  for(const y of [17,18])for(const x of [4,5])expect(locked.board[y]![x]).toBe('penetrator');expect(locked.board.flat().filter(Boolean)).toHaveLength(7);expect(locked.bonuses).toBe(1);expect(locked.active!.penetrator).toBe(false);
+});
+test('an invalid overlapping final pose ends without overwriting the board or refunding inventory',()=>{
+  const board=empty();for(let y=0;y<20;y++)board[y]![4]='J';const a=game({board,bonuses:1,active:piece,timers:{gravityRemainingMs:1000,lockRemainingMs:1,grounded:true}});
+  const b=advanceGame(a,1,settings,caps);expect(b.state.status).toBe('gameover');expect(b.state.board).toEqual(board);expect(b.state.bonuses).toBe(1);expect(b.events.filter(e=>e.type==='locked')).toHaveLength(0);
 });

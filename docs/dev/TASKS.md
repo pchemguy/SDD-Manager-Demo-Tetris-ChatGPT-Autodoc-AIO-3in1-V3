@@ -122,7 +122,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 ## Phase 3 — Penetrator bonuses
 
 - [ ] Phase 3 — Penetrator bonuses
-    - [ ] Milestone 3.1 — Penetrator mechanics
+    - [x] Milestone 3.1 — Penetrator mechanics
         - [x] T-018 — Implement lowest valid penetrator landing
             Scope: src/domain/landing.ts and tests/unit/domain. Contract: R4; C1.
             Depends on: T-017.
@@ -134,11 +134,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-018.
             Evidence: Spend one available bonus, preserve activation until lock, permit intermediate overlap and reject moves/rotations with no reachable landing below. Verify zero inventory, repeated activation and non-running no-ops.
             Verification: Four intended activation/traversal/kick/timer failures preceded implementation. Final 71 unit tests, type check/build pass. Verified one-bonus spend and event, repeated/cancel/hold no-ops, exhausted/capability/non-running/no-landing rejection, soft-drop/gravity intermediate overlap with settled cells unchanged, candidate reachability for moves/rotations, lifted versus unchanged grounded deadlines and controller single-clock integration. Final white lock and bonus awards remain T-020.
-        - [ ] T-020 — Integrate safe locking and bonus awards
+        - [x] T-020 — Integrate safe locking and bonus awards
             Scope: src/domain engine/scoring and tests/unit/domain. Contract: R4/R2/R3; C2.
             Depends on: T-018, T-019.
             Evidence: Check non-overlapping final placement, no destruction by traversal, four-line earn-one, cap-three, spend/re-earn and no refunds. Verify hold prohibition, hard-drop/ghost landing agreement and active interval behavior.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/3/3.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Three intended bonus/re-earn/white-lock failures preceded implementation. Final 78 unit tests, check/build pass. Verified exact four-line earn-one/cap-three, no awards for 1–3 rows or absent capability, spend/re-earn, no refund, ghost/drop equality and traversed-distance points, preserved delayed lock and no settled-cell destruction. Invalid overlapping final lock safely ends without writing. Whole mechanics review/report/HANDOFF included; no scoped TODO.
     - [ ] Milestone 3.2 — Visibility and bonus experience
         - [ ] T-021 — Render white penetrators and matching ghost
             Scope: src/ui/board.ts and projection/render checks. Contract: R4; C4.

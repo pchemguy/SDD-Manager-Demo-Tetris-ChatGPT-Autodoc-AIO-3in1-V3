@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Phase 3 is activated; T-018 implements lowest valid penetrator landing. Its publication and issue closure remain pending effects. Full implementation remains authorized.
+Checkpoint: Milestone 3.1 implementation/review passed. T-020 publication, issue and milestone closure remain pending effects. Full implementation remains authorized.
 
 ## Workflow and sources
 
@@ -20,6 +20,6 @@ Working branch: `phase/3-penetrator-bonuses`, created from actual default/creati
 
 Phase 3 label, milestones 9–11 and issues 27–33 with all associations are verified before task edits/tests. The initial projection could not see acknowledged issue 27 in collection readback; read-only reconciliation established that exact existing issue and six missing identities. The subsequent apply reused existing objects and verified the complete projection without duplicates.
 
-T-018 includes v0.3.0 and penetrator capability metadata plus landing/traversal definitions. Publish/read back T-018 and close issue 27, then continue T-019–T-024, complete verified Phase 3 integration/release, and the remaining full T-001–T-072 grant. No additional human checkpoint is pending.
+T-018/T-019 are published with closed issues. T-020 includes safe white-cell locking/bonus awards and [milestone 3.1 review](reports/phases/3/3.1.md). Publish/read back T-020, close issue 29 then milestone 9, continue T-021–T-024, complete verified Phase 3 integration/release, then the remaining full grant. No additional human checkpoint is pending.
 
-Current evidence: three intended landing/traversal failures before implementation, then 65/65 unit tests, type check and build pass. Literal blocker/disconnected-hole/null/bounds cases and all seven shape rotations verify deepest fully legal final poses without mutation. Activation, bonus/lock integration and penetrator UI remain their next owning tasks. No scoped TODO, reset or discarded work.
+Current evidence: 78/78 unit tests, type check/build pass. Observed RED/GREEN covers landing, activation/traversal and bonus/white lock. Whole mechanics code review passes with no scoped TODO. UI bonus/P/render scenarios and cumulative browser package remain the next owning tasks. No reset or discarded work.
