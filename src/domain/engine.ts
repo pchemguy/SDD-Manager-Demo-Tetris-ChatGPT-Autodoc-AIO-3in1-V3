@@ -1,7 +1,7 @@
 /** Pure falling-piece transitions; gravity and grounded locking have separate clocks. */
 import type { Capabilities, Cell, GameAction, GameEvent, GameState, Piece, PieceKind, Settings, Transition } from '../models';
 import { canPlace, cells } from './geometry';
-import { landing } from './landing';
+import { canTraverse, landing } from './landing';
 import { takeNext } from './sequence';
 import { addPoints, clearAndScore } from './scoring';
 
@@ -14,7 +14,7 @@ const below = (piece: Piece): Piece => ({ ...piece, origin: { ...piece.origin, y
 /** Reconcile ground contact without restarting an existing grounded deadline. */
 function ground(g: Draft): void {
   if (!g.active) return;
-  const grounded = !canPlace(g.board, below(g.active), true);
+  const grounded = !canTraverse(g.board, below(g.active));
   if (!grounded) g.timers.lockRemainingMs = null;
   else if (!g.timers.grounded || g.timers.lockRemainingMs === null) {
     g.timers.lockRemainingMs = g.piecePolicy.lockPolicy === 'interval' ? interval(g.level) : null;
@@ -53,7 +53,7 @@ function lock(g: Draft, settings: Settings, events: GameEvent[]): void {
 function down(g: Draft, settings: Settings, events: GameEvent[], soft = false): void {
   if (!g.active) return;
   const candidate = below(g.active);
-  if (canPlace(g.board, candidate, true)) {
+  if (canTraverse(g.board, candidate)) {
     g.active = copyPiece(candidate);
     if (soft) g.score = addPoints(g.score, 1);
     ground(g);
@@ -86,10 +86,15 @@ export function setPaused(state: GameState, paused: boolean): GameState {
 
 /** Apply one delivered action without host effects or mutating the caller's state. */
 export function dispatchGame(state: GameState, action: GameAction, settings: Settings, capabilities: Capabilities): Transition {
-  if (state.status !== 'running' || !state.active || action==='penetrator') return { state, events: [] };
+  if (state.status !== 'running' || !state.active) return { state, events: [] };
+  if(action==='penetrator'&&(!capabilities.has('penetrator')||state.bonuses<=0||state.active.penetrator))return {state,events:[]};
   if(action==='hardDrop'&&(!capabilities.has('modern')||!settings.hardDrop))return {state,events:[]};
   if(action==='hold'&&(!capabilities.has('modern')||!settings.hold||state.holdUsed||state.active.penetrator))return {state,events:[]};
   const g = copy(state), events: GameEvent[] = [];
+  if(action==='penetrator'){
+    const candidate={...g.active!,penetrator:true};if(!canTraverse(g.board,candidate))return {state,events:[]};
+    g.active=copyPiece(candidate);g.bonuses--;events.push({type:'bonusChanged',runId:g.runId});ground(g);return {state:g,events};
+  }
   if(action==='hardDrop'){
     const target=landing(g.board,g.active!);if(!target)return {state,events:[]};
     g.score=addPoints(g.score,2*Math.max(0,target.origin.y-g.active!.origin.y));g.active=copyPiece(target);ground(g);
@@ -110,7 +115,7 @@ export function dispatchGame(state: GameState, action: GameAction, settings: Set
     const offsets=rotating&&capabilities.has('modern')?[[0,0],[-1,0],[1,0],[-2,0],[2,0],[0,-1],[0,-2]]:[[0,0]];
     for(const [dx,dy]of offsets){
       const kicked={...candidate,origin:{x:candidate.origin.x+dx!,y:candidate.origin.y+dy!}};
-      if(canPlace(g.board,kicked,true)){g.active=copyPiece(kicked);ground(g);break;}
+      if(canTraverse(g.board,kicked)){g.active=copyPiece(kicked);ground(g);break;}
     }
   }
   return { state: g, events };

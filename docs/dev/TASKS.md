@@ -129,10 +129,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Scan through blockers to the deepest wholly in-board non-overlapping pose. Verify disconnected holes, invalid floor pose, null landing and exact agreement of candidate reachability with final placement checks.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
             Verification: Predecessor v0.2.0 integration/release and hosted bytes verified; uncertain Phase 3 create settled read-only and full projection verified without duplicates before work. Three intended landing/traversal failures preceded implementation. Final 65 unit tests, type check/build pass: pass-through blockers, disconnected holes, invalid geometric floor, null final pose, no upward repair, all shape rotations and input immutability. v0.3.0/capability/branch checkpoint included; activation and locking remain following tasks.
-        - [ ] T-019 — Implement activation and pass-through traversal
+        - [x] T-019 — Implement activation and pass-through traversal
             Scope: src/domain/engine.ts and domain/controller tests. Contract: R4/R3; C2/C3.
             Depends on: T-018.
             Evidence: Spend one available bonus, preserve activation until lock, permit intermediate overlap and reject moves/rotations with no reachable landing below. Verify zero inventory, repeated activation and non-running no-ops.
+            Verification: Four intended activation/traversal/kick/timer failures preceded implementation. Final 71 unit tests, type check/build pass. Verified one-bonus spend and event, repeated/cancel/hold no-ops, exhausted/capability/non-running/no-landing rejection, soft-drop/gravity intermediate overlap with settled cells unchanged, candidate reachability for moves/rotations, lifted versus unchanged grounded deadlines and controller single-clock integration. Final white lock and bonus awards remain T-020.
         - [ ] T-020 — Integrate safe locking and bonus awards
             Scope: src/domain engine/scoring and tests/unit/domain. Contract: R4/R2/R3; C2.
             Depends on: T-018, T-019.
