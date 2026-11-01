@@ -77,7 +77,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 ## Phase 2 — Modern piece controls
 
 - [ ] Phase 2 — Modern piece controls
-    - [ ] Milestone 2.1 — Sequence and piece controls
+    - [x] Milestone 2.1 — Sequence and piece controls
         - [x] T-011 — Implement seven-bag sequence and next preview
             Scope: src/domain/sequence.ts, projections and focused tests. Contract: R2; C2.
             Depends on: T-010.
@@ -89,11 +89,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-011.
             Evidence: Check empty hold versus swap queue consumption, spawn resets, second-use prohibition, lock reset of holdUsed and failed replacement spawn. Capture selected policy only on the replacement piece.
             Verification: Four intended hold/projection failures preceded implementation. Final 51 unit tests, type check and build pass. Verified empty hold consumes the queued next kind, nonempty swap preserves sequence, once-per-lock reset, spawn pose/timer/policy capture, input immutability, capability/setting/paused/penetrator no-ops, retained disabled-slot projection and exact-once safe above-top replacement failure. Controller consumes the same public projection; UI key/panel integration remains T-016.
-        - [ ] T-013 — Implement ordered wall kicks
+        - [x] T-013 — Implement ordered wall kicks
             Scope: src/domain geometry/engine and tests/unit/domain. Contract: R2/R3; C1/C2.
             Depends on: T-011, T-012.
             Evidence: Check clockwise/counterclockwise candidate order, wall/floor/stack cases, unchanged O rotation and complete failure. Recheck hold/sequence and grounded/lifted lock behavior through public engine operations.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/2/2.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Three intended wall/stack kick failures preceded implementation. Final 55 unit tests, type check and build pass. Public-engine checks cover exact left-before-right candidate order for both rotations, I wall/floor offsets, unchanged O, complete failure, preserved grounded deadlines and cleared lifted deadline. Whole milestone sequence/hold/kick code review, report and HANDOFF included; no scoped TODO and no complete SRS claim.
     - [ ] Milestone 2.2 — Projection and hard drop
         - [ ] T-014 — Render ghost from the shared ordinary landing
             Scope: src/domain projections and src/ui/board.ts. Contract: R4; C1/C2/C4.

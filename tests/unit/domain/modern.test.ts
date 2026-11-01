@@ -1,6 +1,6 @@
 /** Public-engine fixtures check modern rules without relying on private sequence helpers. */
 import { expect, test } from 'vitest';
-import { advanceGame, createGame, dispatchGame, projectGame } from '../../../src/domain';
+import { advanceGame, cells, createGame, dispatchGame, projectGame } from '../../../src/domain';
 import type { Capabilities, Cell, GameState, Settings } from '../../../src/models';
 const settings:Settings={ghost:'show',hardDrop:true,nextPreview:true,hardDropLock:'general',lockPolicy:'interval',hold:true};
 const caps:Capabilities=new Set(['modern']);
@@ -59,4 +59,24 @@ test('held replacement blocked above the top ends safely with one game-over even
   const b=dispatchGame(a,'hold',settings,caps).state;expect(b.holdUsed).toBe(true);expect(b.active!.kind).toBe('I');const c=advanceGame(b,1000,settings,caps);
   expect(c.state.status).toBe('gameover');expect(c.state.board).toEqual(board);expect(c.events.filter(e=>e.type==='gameOver')).toHaveLength(1);
   expect(advanceGame(c.state,5000,settings,caps).events).toEqual([]);
+});
+
+function pose(kind:'I'|'T'|'O',rotation:0|1|2|3,x:number,y:number):GameState {
+  return {...createGame(123,'kicks',settings,caps,'running'),board:empty(),active:{kind,rotation,origin:{x,y},penetrator:false}};
+}
+test('I wall and floor rotations use the first valid ordered kick',()=>{
+  const wall=pose('I',1,-2,5);expect(dispatchGame(wall,'rotateCW',settings,caps).state.active).toEqual({kind:'I',rotation:2,origin:{x:0,y:5},penetrator:false});
+  const floor={...pose('I',0,3,18),timers:{gravityRemainingMs:700,lockRemainingMs:600,grounded:true}};
+  const rotated=dispatchGame(floor,'rotateCW',settings,caps).state;expect(rotated.active!.origin).toEqual({x:3,y:16});expect(rotated.active!.rotation).toBe(1);expect(rotated.timers.lockRemainingMs).toBe(600);
+});
+test.each(['rotateCW','rotateCCW'] as const)('%s tries the left kick before an also-valid right kick',direction=>{
+  const board=empty();board[7]![4]='J';const a={...pose('T',0,3,5),board,timers:{gravityRemainingMs:700,lockRemainingMs:600,grounded:true}};
+  const b=dispatchGame(a,direction,settings,caps).state;expect(b.active!.origin).toEqual({x:2,y:5});expect(b.active!.rotation).toBe(direction==='rotateCW'?1:3);
+  if(direction==='rotateCW')expect(b.timers.lockRemainingMs).toBe(600);else expect(b.timers.lockRemainingMs).toBeNull();
+});
+test('a fully blocked rotation preserves pose and deadline; O remains unchanged',()=>{
+  const a=pose('T',0,3,5);const board=Array.from({length:20},()=>Array<Cell>(10).fill('J'));for(const {x,y}of cells(a.active!))board[y]![x]=null;
+  const blocked={...a,board,timers:{gravityRemainingMs:700,lockRemainingMs:600,grounded:true}};
+  const result=dispatchGame(blocked,'rotateCW',settings,caps).state;expect(result.active).toEqual(a.active);expect(result.timers).toEqual(blocked.timers);
+  const square=pose('O',0,4,18);expect(dispatchGame(square,'rotateCCW',settings,caps).state.active).toEqual(square.active);
 });

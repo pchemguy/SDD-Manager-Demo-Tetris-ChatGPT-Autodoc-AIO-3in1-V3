@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Phase 2 is activated; T-011 introduces seven-bag and non-consuming next projection. T-011 publication/closure remain pending effects. Full implementation remains authorized.
+Checkpoint: Milestone 2.1 implementation/review passed. T-013 publication, issue and milestone closure remain pending effects. Full implementation remains authorized.
 
 ## Workflow and sources
 
@@ -18,6 +18,6 @@ Working branch: `phase/2-modern-piece-controls`, created from actual default/cre
 
 [v0.1.0](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/releases/tag/v0.1.0) is published/latest, with all three assets re-downloaded and byte-matched. Browser ZIP SHA-256: `9b9e3063cc54f1356c50d1aaaa4ebbb698eb5df0c8ae71da243a6f526fc54617`. Exact tag/package source is the phase branch-off release commit above; no release effect remains uncertain.
 
-Phase 2 source-bound tracking readback verified label, milestones 6–8 and task issues 20–26 before edits/tests. T-011 includes v0.2.0 metadata and the modern capability. Publish/read back its commit and close issue 20, then execute T-012–T-017, review/integrate/release the complete phase, and continue the remaining authorized phases. No additional human checkpoint is pending inside the retained full T-001–T-072 grant.
+Phase 2 source-bound tracking readback verified label, milestones 6–8 and task issues 20–26 before edits/tests. T-011/T-012 are published with closed issues. T-013 includes ordered kicks and [milestone 2.1 review](reports/phases/2/2.1.md). Publish/read back T-013, close issue 22 then milestone 6, continue T-014–T-017 and complete the phase's verified integration/release before later phases. No additional human checkpoint is pending within the retained full grant.
 
-Current T-011 evidence: two intended behavior failures before implementation, then 47/47 unit tests, type check and build pass. Four consecutive bags for three seeds, preview/next-spawn agreement across boundaries, non-consumption, serializable determinism and baseline uniform behavior are checked. Player-facing modern UI and later platform packages remain their owning tasks. No task reset or work discard was performed.
+Current evidence: 55/55 unit tests, type check and build pass; observed RED/GREEN covers seven-bag, hold and kicks. Visible modern controls, ghost/hard drop and cumulative browser distribution remain in their next owning tasks. No task reset or work discard was performed.

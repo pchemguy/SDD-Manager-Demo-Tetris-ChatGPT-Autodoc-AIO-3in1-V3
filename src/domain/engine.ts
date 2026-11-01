@@ -98,7 +98,12 @@ export function dispatchGame(state: GameState, action: GameAction, settings: Set
     let candidate: Piece = p;
     if (action === 'left' || action === 'right') candidate = { ...p, origin: { ...p.origin, x: p.origin.x + (action === 'left' ? -1 : 1) } };
     else if (p.kind !== 'O') candidate = { ...p, rotation: ((p.rotation + (action === 'rotateCW' ? 1 : 3)) % 4) as Piece['rotation'] };
-    if (canPlace(g.board, candidate, true)) { g.active = copyPiece(candidate); ground(g); }
+    const rotating=(action==='rotateCW'||action==='rotateCCW')&&p.kind!=='O';
+    const offsets=rotating&&capabilities.has('modern')?[[0,0],[-1,0],[1,0],[-2,0],[2,0],[0,-1],[0,-2]]:[[0,0]];
+    for(const [dx,dy]of offsets){
+      const kicked={...candidate,origin:{x:candidate.origin.x+dx!,y:candidate.origin.y+dy!}};
+      if(canPlace(g.board,kicked,true)){g.active=copyPiece(kicked);ground(g);break;}
+    }
   }
   return { state: g, events };
 }
