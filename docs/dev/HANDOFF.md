@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Milestone 1.3 implementation and review passed; T-009 publication, issue closure and milestone closure are pending effects. Full implementation remains authorized.
+Checkpoint: Phase 1 implementation/review passed; T-010 publication, issue/review milestone closure, integration and release are pending effects. Full implementation remains authorized.
 
 ## Workflow and sources
 
@@ -16,6 +16,6 @@ Working branch: `phase/1-classic-browser-baseline`. Creation parent and integrat
 
 ## Pending work and next action
 
-Documentation issues 1–9 and milestone 1 are closed. Phase 1 associations exist for issues 10–19 and milestones 2–5. T-001–T-008 are published and their issues closed; milestones 1.1 and 1.2 are closed. T-009 includes browser packaging, direct/CI verification, installation instructions and milestone 1.3 report. Publish/read back T-009, close/read back issue 18, then milestone 4 (1.3). Continue T-010 and remaining authorized phases subject to per-task publication, dependency, review, packaging and release gates.
+Documentation issues 1–9 and milestone 1 are closed. Phase 1 associations exist for issues 10–19 and milestones 2–5. T-001–T-009 are published with closed issues; delivery milestones 1.1–1.3 are closed/read back. T-010 includes the phase review, corrected Vite runtime notice and complete source/package evidence. Publish/read back T-010, close issue 19 and milestone 5, integrate into main and publish the verified merge. Prepare v0.1.0 exact-source release commit/tag and rebuild/check its assets; publish/read back and verify hosted bytes. Only then activate Phase 2 and continue T-011–T-072 under the retained full grant.
 
-Current evidence: 44/44 unit checks, type check/build, 16/16 source-app browser tests and 14 extracted-package cases pass (two source-module consumer cases explicitly excluded). Screenshots inspected; browser candidate verified. Final exact-source rebuild and release remain pending. Native Windows and full-browser sidebars remain later evidence limits, not implicit blockers. Existing ignored credential input is available without being included in tracked artifacts. No reset or replay of completed work was performed.
+Current evidence: 44/44 unit checks, type check/build, 16/16 source-app browser tests and 14 extracted-package cases pass (two source-module consumer cases explicitly excluded). Screenshots inspected; browser candidate and required Vite notice verified. Phase report: [Phase 1](reports/phases/1/PHASE-REPORT.md). Final exact-source rebuild and release remain pending. Native Windows and full-browser sidebars remain later evidence limits, not implicit blockers. Existing ignored credential input is available without being included in tracked artifacts. No reset or replay of completed work was performed.

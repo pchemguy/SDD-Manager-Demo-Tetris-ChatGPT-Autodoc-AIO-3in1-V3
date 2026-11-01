@@ -14,7 +14,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 1 — Classic browser baseline
 
-- [ ] Phase 1 — Classic browser baseline
+- [x] Phase 1 — Classic browser baseline
     - [x] Milestone 1.1 — Deterministic classic engine
         - [x] T-001 — Establish the local toolchain and isolated runners
             Scope: package.json/lockfile, TypeScript/Vite/unit/Playwright configuration and README/AGENTS setup guidance. Contract: R1/R12; C8.
@@ -67,12 +67,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Produce/extract tetris-browser.zip and verify local asset loading, version, stable output names and absence of development secrets. Share direct/CI package checks and installation instructions; do not publish a release before phase integration.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/1/1.3.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Static ZIP candidate, INSTALL and SHA256SUMS pass stable-name/content/byte/source/version/secret checks; deliberately versioned-name and corrupt-byte candidates fail. Extracted static package passes 14 Chromium/Firefox application checks; 2 source-module consumer checks explicitly excluded, while actual input cases run. Type check/build pass; milestone 1.3 code review/report/HANDOFF included. Candidate has honest dirty-source metadata; exact clean release-source rebuild follows phase integration. CI workflow prepared, not claimed executed.
-    - [ ] Milestone 1.4 — Phase review
-        - [ ] T-010 — Review test and report Phase 1
+    - [x] Milestone 1.4 — Phase review
+        - [x] T-010 — Review test and report Phase 1
             Depends on: T-003, T-006, T-009 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/1/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
-
+            Verification: Whole-phase code/consumer review and task-commit audit pass. Fixed P1-F01 missing Vite helper notice: strengthened package check fails before notice inclusion and passes after. Final check, 44 unit tests, build, stable package verification, 16 source-browser cases and 14 extracted-package cases pass (2 explicit source-only exclusions). Phase report/HANDOFF and initial task/phase/review-milestone checkoffs included. Integration and exact-source hosted release remain subsequent gates; no scoped TODO.
 ## Phase 2 — Modern piece controls
 
 - [ ] Phase 2 — Modern piece controls
