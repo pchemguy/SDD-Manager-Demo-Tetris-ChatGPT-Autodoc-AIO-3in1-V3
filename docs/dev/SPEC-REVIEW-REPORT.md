@@ -2,9 +2,9 @@
 
 ## Current gate
 
-State: Ready for PLAN authoring. Scope: SPEC and its three focused contracts, with the canonical model/API owners. No confirmed issue remains open. This is per-document conformance review, not whole-package QC or product verification.
+State: Ready for PLAN/TASKS use after Revision 2. Scope: SPEC and its three focused contracts, with the canonical model/API owners. No confirmed issue remains open. This is per-document conformance review, not whole-package QC or product verification.
 
-Reviewed artifact states:
+Initial reviewed artifact states (Revision 2 identifies the current corrected states):
 
 - `SPEC.md`: SHA-256 `7f47f4f295f73cb4b12eeea145f7f0c81064dbae9440721fa41227017846fc4f`.
 - `spec/gameplay.md`: SHA-256 `16a1bd8a2debd89e9c858885c8d80f241fd8c6ecfe090b6e0932109ff57a2164`.
@@ -47,3 +47,9 @@ Rechecked all corrected consumer boundaries, selected/effective policy interacti
 ## Limits
 
 No application code, actual JSON Schema asset, package, test harness or release exists yet; their production and execution are implementation work. Runtime compatibility is not inferred from documentation. Individual-document readiness does not clear DOCS-009 or authorize implementation.
+
+## Revision 2
+
+S-004, found while checking TASKS consumer coverage: a Start button could retain focus while global game keys intentionally ignore focused controls. sdd-specify clarified R9: start/restart/resume button handlers return focus to a keyboard-focusable game container; settings/file controls retain normal focus behavior. This resolves the existing keyboard-playability obligation without adding a gameplay control or changing settings semantics. Also clarified the wording of the existing nonzero-uint32 seed validation rule without changing its domain.
+
+Current SPEC SHA-256: `552dfbc94a9f387b4fa0ed3c5168571c15984ed2a062d35ff8354b040bf28f44`; platform contract SHA-256: `67dab801de812545165057541d93f6b55bee9a1d95914c888ba6b158942e143a`. Gameplay/persistence artifacts and all governing design/model inputs retain their prior exact states. Rechecked keyboard button activation, form navigation, hidden panel controls and C3/C4 responsibilities; S-004 is resolved. No phase, API or model change is required. All current contract coverage is Ready; runtime execution and whole-package QC remain unperformed.

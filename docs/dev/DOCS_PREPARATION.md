@@ -8,7 +8,7 @@
 - Tracking: enabled for documentation preparation and implementation by root AGENTS.md. GitHub milestone 1 (`sdd-docs-main`) and issues 1–9 match the pinned definitions, with every association read back before repository writes.
 - Publication: each owned commit is pushed and read back before further work. Repository operations within the requested project are authorized by the development request and supplied repository credentials.
 - Reporting: Standard after Explicit bootstrap; Minimal and Explicit remain selectable.
-- Next boundary: complete DOCS-007 publication/issue closure; then DOCS-008. Autodoc stops after DOCS-008.
+- Next boundary: complete DOCS-008 publication/issue closure; stop before DOCS-009 package QC, documentation integration and implementation.
 
 ## Scope source
 
@@ -25,7 +25,7 @@ One pass covers the user's complete 2026-11-01 project request: classic baseline
 | DOCS-005 | Autodoc scoped preapproval following accepted PROJECT. Specify gameplay persistence and platform contracts. Exact artifact states: `docs/dev/SPEC.md` SHA-256 `7f47f4f295f73cb4b12eeea145f7f0c81064dbae9440721fa41227017846fc4f`; `docs/dev/spec/gameplay.md` SHA-256 `16a1bd8a2debd89e9c858885c8d80f241fd8c6ecfe090b6e0932109ff57a2164`; `docs/dev/spec/persistence.md` SHA-256 `31b6fd686c665afb7aa95bca4efc18d8b69986496b180dc37c0ae16317247739`; `docs/dev/spec/platforms.md` SHA-256 `0f729df8deef47632bafb7150fe2c0662c1a717c60a7fd24e58d6f455ac2feaf`; `docs/dev/SPEC-REVIEW-REPORT.md` SHA-256 `f3de5184805f8d20ea52b0f14c9c9487db61fd1d070b2dc9772599e0614014c1`; `docs/dev/API-DESIGN.md` SHA-256 `bf1a676e952ad41a8b9be5dd4e571d3327d63e0a73dfb8c851471618fc30b6be`; `docs/dev/ARCHITECTURE.md` SHA-256 `a66c9ad3961cee09c79af5d21496227c0f468fa60b306cc828c70d2404dc7cd4`; `docs/dev/DECOMPOSITION.md` SHA-256 `062a4c94c04036c2287e72ab0116b48d0e4ff491ac54201dd3de3f51c9172d6e`; `docs/dev/PROJECT.md` SHA-256 `744ff4d6f405ede11e8ec775787aaf85d208d791f15a85d05d3f368a15691d72`. |
 | DOCS-006 | Autodoc scoped preapproval following accepted PROJECT. Plan nine bounded releases and platform delivery gates. Exact artifact states: `docs/dev/PLAN.md` SHA-256 `176f47cc7eb8f2ba0526a940a34909fd851ad1c48a4de6fa7c0b542fd2b007f7`; `docs/dev/PLAN-REVIEW-REPORT.md` SHA-256 `e69c8570ed52fb771c16ae9929f8c9ade6a9ae91472653cf4bb472a2203d3012`. |
 | DOCS-007 | Autodoc scoped preapproval following accepted PROJECT. Allocate source tests schemas and platform packaging. Exact artifact states: `docs/dev/layout.md` SHA-256 `7ec6433ffe5ddea914022bb2256bdbe4f5af1918a91fb545f5097e510864ebd0`; `docs/dev/PLAN.md` SHA-256 `83afc13d384d3bdde5576283ebd2dd737c905ada7ec9b640c8b23d2c238cbf91`; `docs/dev/PLAN-REVIEW-REPORT.md` SHA-256 `f6084c3479d52f28789ac0319cc3c1cebaa2a9e3d57a95b7fae1a9788d8c6eed`; `AGENTS.md` SHA-256 `de927bb44a2032ea5f9769ffddf4b3bee3cc475a010e1eb518b2b7a258556935`. |
-| DOCS-008 | Not authored; document checkpoint preapproved by autodoc mode. |
+| DOCS-008 | Autodoc scoped preapproval following accepted PROJECT. Complete the reviewed autodoc task breakdown. Exact artifact states: `docs/dev/TASKS.md` SHA-256 `30ac3cfe0663adeab7cde7267064c3b23dbbc9b5c532d23297ff712307171023`; `docs/dev/TASKS-REVIEW-REPORT.md` SHA-256 `21be349ada430ad3aa9b6f79b4e690ab39010a49dbfd61874517fa56059f7e22`; `docs/dev/SPEC.md` SHA-256 `552dfbc94a9f387b4fa0ed3c5168571c15984ed2a062d35ff8354b040bf28f44`; `docs/dev/spec/platforms.md` SHA-256 `67dab801de812545165057541d93f6b55bee9a1d95914c888ba6b158942e143a`; `docs/dev/SPEC-REVIEW-REPORT.md` SHA-256 `8b2340dbffcfae2f2c4d4c351590f54d4acc3fff24c13b7c8be71e76f7b938f8`; `docs/dev/PLAN-REVIEW-REPORT.md` SHA-256 `07c9b0bd938685572260b0e218208722f45afbf7651629dc6922a54fd38c21c9`; `AGENTS.md` SHA-256 `df0902042cea6b5b4371da6fa42fe8406cffec13b0153665ba22b876e56c343f`; `README.md` SHA-256 `e8305eb19cec90e71067aa0395e13b3c8b28fca8968d37f55abbfa691d0156ea`. |
 | DOCS-009 | Not selected. Remains pending at the autodoc stop. |
 
 ## Initialization
@@ -42,7 +42,7 @@ One pass covers the user's complete 2026-11-01 project request: classic baseline
 
 ## Pending transitions
 
-Publish/read back DOCS-007 and close/read back issue 7. Proceed to DOCS-008 only after those effects are verified. Earlier required closures were read back.
+Publish/read back DOCS-008 and close/read back issue 8. Then pause before package QC; issue 9 and the preparation milestone remain open.
 
 ## Accepted product decisions
 

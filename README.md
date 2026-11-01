@@ -9,6 +9,8 @@ The project is currently in preparation. No runnable application, verified platf
 - [Project brief](docs/dev/PROJECT.md)
 - [Documentation preparation tasks](docs/dev/DOCS_TASKS.md)
 - [Preparation decisions and evidence](docs/dev/DOCS_PREPARATION.md)
+- [Architecture](docs/dev/ARCHITECTURE.md), [components](docs/dev/DECOMPOSITION.md), [models](docs/dev/MODELS.md) and [APIs](docs/dev/API-DESIGN.md)
+- [Specification](docs/dev/SPEC.md), [delivery plan](docs/dev/PLAN.md), [layout](docs/dev/layout.md) and [implementation tasks](docs/dev/TASKS.md)
 - [Workflow handoff](docs/dev/HANDOFF.md)
 
 ## Development context
