@@ -66,4 +66,6 @@ The managed Linux test host requires `TETRIS_FIREFOX_SANDBOX_WORKAROUND=1` for t
 
 Build-selected delivered features are owned by `src/capabilities.ts`; user settings do not control capability activation.
 
+Pure typed settings/defaults are owned by `src/rules/settings.ts`; session-only edits never invoke persistence. Selected settings and active PiecePolicy are separate. C4 `panels.ts` owns the six controls and pending-policy hint.
+
 The shared C4 entry is `mount(root, controller, mode)` from `src/ui/index.ts`; browser composition uses wide mode, and private board/preview modules own readonly rendering.

@@ -185,7 +185,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Apply visibility/action toggles immediately, retain disabled hold state and capture lock-policy changes only on a new piece. Check policy hints, held replacements and invalid patches with no partial selected-state change.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/4/4.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Five controller cases failed against the unavailable setter; final check/build, 95 units and all30 cumulative source Chromium/Firefox cases pass. Edits validate atomically before clock/state writes, apply current visibility/action toggles, retain disabled held kind and selected settings across restart, preserve current-piece policy/deadline until ordinary or held replacement spawn, and never call persistence. Reentrant edits serialize coherent views and disposal resolves cancelled queued promises. Whole-capability review found no scoped TODO; milestone4.1 report/HANDOFF and parent checkbox included.
-    - [ ] Milestone 4.2 — Settings panel integration
+    - [x] Milestone 4.2 — Settings panel integration
         - [x] T-028 — Build the six-control session settings panel
             Scope: src/ui/panels.ts/styles and browser UI checks. Contract: R5/R9; C4.
             Depends on: T-027.
@@ -196,11 +196,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-028.
             Evidence: Exercise hard-drop/hold enablement, preview hiding and each ghost mode in actual play. Verify stored hold retention, penetrator prohibition and correct control/view state across restart.
             Verification: Four actual-page browser cases exposed missing Disabled preview feedback and stale effective-policy text before repair. Final check/build and18 focused Chromium/Firefox cases pass. Native play verifies disabled Space/C do nothing, held kind survives disabling, hidden preview toggles coherently, restart retains selected values, old interval survives pending edits and next spawn uses immediate/failed policy. Prepared source-only public composition fixture checks hide/show/dynamic raster equality at rows9/10/11 for normal/penetrator and immutable game state, including hold prohibition after re-enabling. No production state hook added.
-        - [ ] T-030 — Verify session isolation and package configuration release
+        - [x] T-030 — Verify session isolation and package configuration release
             Scope: tests/e2e, adapter write spies and browser packaging/docs. Contract: R5/R12; C7/C8.
             Depends on: T-028, T-029.
             Evidence: Confirm settings survive game restart but reset on reload and write no cookies, query parameters or persistent browser storage. Recheck all choices plus gameplay and package the complete session-only increment.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/4/4.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Characterization passes without product repair: actual source/extracted app keeps all six selected values on Restart, resets defaults on reload, ignores/preserves preexisting setting/query data and records zero cookie/Storage/history writes. Check,95 units,42 source browser cases,package verification and32 packaged browser cases pass (10 explicit source-only exclusions). Reviewed controls/queue/ports/runtime and desktop/320px screenshots; no scoped TODO. Candidate ce201a4eb9cda8336302ff21071713c2fb628b088d49247721e2dfa28d7d10bf honestly dirty metadata matches tested local runtime; final release remains gated. Milestone4.2 report/HANDOFF/docs and parent checkoff included.
     - [ ] Milestone 4.3 — Phase review
         - [ ] T-031 — Review test and report Phase 4
             Depends on: T-027, T-030 and verified completion/closure of every delivery milestone in this phase.
