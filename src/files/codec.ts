@@ -38,7 +38,7 @@ function run<T extends Uint8Array|PortableSnapshot>(request:Omit<Extract<CodecRe
 export async function encodeSnapshot(snapshot:PortableSnapshot,format:FileFormat,signal?:AbortSignal):Promise<Outcome<Uint8Array>>{
  if(signal?.aborted)return failure('stale-session','The file operation was cancelled because this session closed.');
  const validated=validateSnapshot(snapshot);if(!validated.ok)return validated;
- if(format!=='json')return failure('runtime-unavailable','SQLite file support is not available in this increment.');
+ if(format!=='json'&&format!=='sqlite')return failure('unsupported-format','Choose JSON or SQLite for this snapshot.');
  return run<Uint8Array>({operation:'encode',snapshot:validated.value,format},signal);
 }
 /** Input is copied before transfer, size-checked before decoding, and never detached from its caller. */

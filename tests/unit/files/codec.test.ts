@@ -40,7 +40,7 @@ test('constructor, post, worker and malformed-response failures are finite and r
  failConstruction=true;expect((await decodeSnapshot(new Uint8Array([123]))).ok).toBe(false);expect(vi.getTimerCount()).toBe(0);failConstruction=false;failPosting=true;expect((await decodeSnapshot(new Uint8Array([123]))).ok).toBe(false);expect(workers[0]!.terminated).toBe(1);failPosting=false;
  for(const kind of ['error','messageerror','malformed']){const pending=decodeSnapshot(new Uint8Array([123])),worker=workers.at(-1)!;if(kind==='error')worker.onerror?.(new Event('error'));else if(kind==='messageerror')worker.onmessageerror?.(new Event('messageerror'));else worker.reply({ok:true,value:{partial:true}});const result=await pending;expect(result.ok).toBe(false);if(!result.ok)expect(result.error.code).toBe('runtime-unavailable');expect(worker.terminated).toBe(1);expect(vi.getTimerCount()).toBe(0);}
 });
-test('worker validation failures remain typed and unavailable SQLite cannot produce fake JSON bytes',async()=>{
- expect((await encodeSnapshot(snapshot,'sqlite')).ok).toBe(false);expect(workers).toHaveLength(0);
+test('worker validation failures remain typed and unknown formats cannot produce fake JSON bytes',async()=>{
+ expect((await encodeSnapshot(snapshot,'xml' as never)).ok).toBe(false);expect(workers).toHaveLength(0);
  const pending=decodeSnapshot(new Uint8Array([123])),worker=workers[0]!;worker.reply({ok:false,error:{code:'invalid-data',message:'Rejected complete candidate.'}});expect(await pending).toEqual({ok:false,error:{code:'invalid-data',message:'Rejected complete candidate.'}});expect(worker.terminated).toBe(1);
 });

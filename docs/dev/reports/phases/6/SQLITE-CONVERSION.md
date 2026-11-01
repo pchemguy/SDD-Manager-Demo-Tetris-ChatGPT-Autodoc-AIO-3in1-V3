@@ -1,0 +1,29 @@
+# SQLite snapshot conversion — T-046
+
+## Result and ownership
+
+After the published [T-045 asset gate](SQLITE-ASSET-GATE.md), C6 now encodes/decodes both JSON and SQLite through its owned worker. Public signatures remain the accepted encode/decode APIs with optional cancellation. Private SQLite helpers receive the initialized pinned runtime; UI/application consumers receive only complete PortableSnapshots or bytes, never an SQL execution API. Native format selection and cumulative cross-format/manual-file verification remain T-047.
+
+Encoding validates the complete input before creating a database, writes user_version1/application_id1413829714, the required two tables and canonical six setting strings, then exports owned bytes. It excludes gameplay/session/UI fields. Results preserve stable IDs and original UTC spellings.
+
+Imports first bound/copy bytes and check the SQLite header, then establish the 64 MiB SQLite heap ceiling, query_only and trusted_schema=OFF. Metadata versions must match. Schema inspection rejects extra application tables, all views/triggers, explicit/unexpected indexes, wrong columns/types/nullability/defaults/generated fields, altered primary keys/collations, extra uniqueness and foreign-key structure. Only the required regular tables and implicit binary-identity PK indexes are accepted; genuine sqlite_sequence/stat bookkeeping is permitted. Equivalent logical declarations, including WITHOUT ROWID and SQLite UTF-16 encodings, do not require literal CREATE TABLE spelling.
+
+Every SQL statement is fixed application code; dynamic metadata names and values are parameters. No imported SQL text is executed or file attached. A full integrity check precedes application row reads. Actual typeof values, complete result bounds and all six unique canonical setting rows are checked before common snapshot/schema/calendar/ID validation and ranking. Eleven results reject rather than truncate. Invalid rows, unsafe scores, impossible dates, unknown/duplicate settings and malformed/embedded-NUL text cannot become accepted prefixes or defaults. User/version/application mismatch is unsupported-format; malformed/inconsistent data is invalid-data. Initialization failure remains runtime-unavailable.
+
+Each prepared statement frees in finally, and every owned database closes on success/failure. Encoded bytes and decoded candidates own their data. Connection/statement counters and injected read/write failures verify cleanup. The surrounding one-operation worker still owns timeout/abort/stale-response protection and releases its runtime.
+
+## Review finding and resource repair
+
+A small imported table with a CHECK expression allocating an 80 MiB random blob passed ordinary integrity/schema/data validation before an allocation bound. A dedicated regression observed that behavior before repair. Import now applies and verifies a 64 MiB SQLite heap ceiling before metadata/integrity work; the same fixture rejects promptly and releases resources. This bounds SQLite allocations, not total browser/JavaScript process memory. Existing 4 MiB input and ten-second worker bounds remain unchanged. No player setting or file-format field was added.
+
+## Observed verification
+
+Six of the initial thirteen real-WASM conversion scenarios failed against interface scaffolding; the new resource regression failed before the heap guard; four actual browser SQL cases failed while public SQL dispatch was unavailable. Subsequent stored-text/UTF-16 cases are honest characterization of correct behavior, not invented RED. The fixture's typed wasmBinary parameter was corrected from Uint8Array to its owned ArrayBuffer; no product behavior was weakened.
+
+Final `npm run check` and `npm run test:unit` pass all198 deterministic checks:180 unit and18 integration (16 real matching-WASM SQLite tests plus2 composed browser-adapter tests). The SQLite file has many independently authored valid/invalid fixtures: exact metadata/schema/setting strings; empty/max-ten/max-safe scores; ties and retained year0001 fractions; logical equivalent declarations/internal bookkeeping; missing/extra/foreign objects and indexes; generated/default/nullable/key/collation changes; INTEGER/REAL/TEXT/BLOB/NULL storage; unsafe scores; impossible dates; missing/duplicate/unknown/noncanonical settings; corrupt/truncated/oversized files; complete NUL/malformed text; UTF-16LE/BE; fixed read-only query inspection; and cleanup on successful/injected failure paths. The matching browser loader and exact copied WASM execute in the integration host, with no host SQLite dependency.
+
+Twelve isolated Chromium/Firefox source worker checks pass, including SQL↔JSON equivalence, exact max-safe identity/time preservation, strict worker CSP with WASM permission but no JavaScript eval, failed initialization/retry, corrupt SQLite content, and previous JSON/size/cancellation behavior. Twelve extracted-package JSON/readiness regressions also pass. The final ten-member candidate is `4b731db2ec07ffe663cddf21896bd9443e1b80d244c431c76d853402222743ab`, honestly based on T-045 `156abdf4b16fc471800655b4e136b0599c143d7e` with sourceDirty=true. Its matching worker/WASM/schema/notices/source metadata pass verification. Full cumulative source/package campaigns and actual selected SQLite downloads/restores belong to the following milestone exit; no such later result is claimed here.
+
+Managed Linux, pinned Chromium headless shell and Firefox were used. Native Windows/full installed-sidebars remain later platform work. Existing npm/terminal-color notices and unused static favicon404 do not affect required checks. TODOs: None in T-046. Publish/read back and close issue55, then complete T-047 before the whole-phase review/release.
+
+Primary structural references: [SQLite PRAGMAs](https://sqlite.org/pragma.html) and [SQLite file format/internal objects](https://sqlite.org/fileformat.html).
