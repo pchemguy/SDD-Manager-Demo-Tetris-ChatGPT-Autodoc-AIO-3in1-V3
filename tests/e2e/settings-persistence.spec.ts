@@ -1,0 +1,19 @@
+/** Every delivered control choice is played, restarted and restored from its own cookie. */
+import {expect,test} from '@playwright/test';
+const variants=[['ghost','Ghost','hide','show'],['ghost','Ghost','dynamic','hide'],['ghost','Ghost','show','hide'],['hardDrop','Hard drop','true','false'],['hardDrop','Hard drop','false','true'],['nextPreview','Next preview','true','false'],['nextPreview','Next preview','false','true'],['hardDropLock','Hard drop lock','general','immediate'],['hardDropLock','Hard drop lock','immediate','general'],['lockPolicy','Lock policy','failed','interval'],['lockPolicy','Lock policy','interval','failed'],['hold','Hold','true','false'],['hold','Hold','false','true']] as const;
+for(const[key,label,value,alternate]of variants)test(`native ${key}=${value} is effective and survives Restart omitted URL and reload`,async({page,context})=>{
+ await page.clock.install({time:new Date('2026-11-01T00:00:00Z')});await page.clock.pauseAt(new Date('2026-11-01T00:00:01Z'));await context.addCookies([{name:'unrelated',value:'a%2Fb',url:'http://127.0.0.1:4173'}]);const unrelated=(await context.cookies())[0];
+ await page.goto('/?unrelated=a%20b&keep=a+b#keep%20fragment');const history=await page.evaluate(()=>window.history.length);await page.locator('#restart').click();const control=page.getByRole('combobox',{name:label,exact:true});await control.selectOption(alternate);await control.selectOption(value);await expect.poll(()=>new URL(page.url()).searchParams.getAll(key)).toEqual([value]);
+ expect(page.url()).toBe(`http://127.0.0.1:4173/?unrelated=a%20b&keep=a+b&${key}=${value}#keep%20fragment`);expect(await page.evaluate(()=>window.history.length)).toBe(history);const cookies=await context.cookies();expect(cookies.filter(c=>c.name.startsWith('tetris.')).map(c=>[c.name,c.value])).toEqual([[`tetris.${key}`,value]]);expect(cookies.find(c=>c.name==='unrelated')).toEqual(unrelated);
+ await page.locator('#restart').click();await expect(control).toHaveValue(value);
+ if(key==='hold'){await page.keyboard.press('c');if(value==='false')await expect(page.getByTestId('held-kind')).toHaveText('—');else expect(await page.getByTestId('held-kind').innerText()).not.toBe('—');}
+ if(key==='nextPreview'){if(value==='false')await expect(page.locator('#next-preview')).toBeHidden();else await expect(page.locator('#next-preview')).toBeVisible();}
+ if(key==='hardDrop'){await page.keyboard.press('Space');if(value==='false')await expect(page.getByTestId('score')).toHaveText('0');else expect(Number(await page.getByTestId('score').innerText())).toBeGreaterThan(0);}
+ if(key==='ghost'){
+  const outlines=await page.locator('canvas').evaluate((c:HTMLCanvasElement)=>{const ctx=c.getContext('2d')!;let count=0;for(let y=0;y<20;y++)for(let x=0;x<10;x++){const p=ctx.getImageData(x*30,y*30+15,1,1).data;if(Math.max(p[0]!,p[1]!,p[2]!)-Math.min(p[0]!,p[1]!,p[2]!)>40)count++;}return count;});expect(outlines).toBe(value==='hide'?0:4);
+ }
+ if(key==='lockPolicy'||key==='hardDropLock'){
+  const next=await page.getByTestId('next-kind').innerText();await page.keyboard.press('Space');if(value==='failed'||value==='immediate')expect(await page.getByTestId('next-kind').innerText()).not.toBe(next);else{await expect(page.getByTestId('next-kind')).toHaveText(next);await page.clock.runFor(999);await expect(page.getByTestId('next-kind')).toHaveText(next);await page.clock.runFor(17);expect(await page.getByTestId('next-kind').innerText()).not.toBe(next);}
+ }
+ await page.goto('/?unrelated=a%20b&keep=a+b#keep%20fragment');await expect(page.getByRole('combobox',{name:label,exact:true})).toHaveValue(value);await page.reload();await expect(page.getByRole('combobox',{name:label,exact:true})).toHaveValue(value);await expect(page.getByTestId('status')).toHaveText('idle');await expect(page.getByTestId('score')).toHaveText('0');await expect(page.getByRole('alert')).toBeHidden();
+});

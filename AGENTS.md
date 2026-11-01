@@ -62,7 +62,7 @@ The managed Linux test host requires `TETRIS_FIREFOX_SANDBOX_WORKAROUND=1` for t
 
 `npm run test:unit` covers public domain/rules/application behavior and deterministic composed adapter integration under `tests/integration/`; CI uses the same command. Domain consumers import `src/domain/index.ts`; private shape data stays within the domain owner.
 
-`npm run package` and `npm run verify:package` build/check the browser candidate with Python 3.11+. `TETRIS_PACKAGED_TEST=1 npm run test:e2e` serves the extracted candidate and tests the actual runtime; source-module input consumers and authored-state public-component fixtures are excluded there; ordinary packaged-entry acceptance still runs. Release packaging requires a clean exact release source and the same checks before upload.
+`npm run package` and `npm run verify:package` build/check the browser candidate with Python 3.11+. `TETRIS_PACKAGED_TEST=1 npm run test:e2e` serves the extracted candidate and tests the actual runtime; source-module input/adapter consumers and authored-state/session-only public-component fixtures are excluded there; ordinary packaged-entry acceptance still runs. The ZIP includes the exact source project LICENSE and third-party notices; the verifier requires and byte-checks them. Release packaging requires a clean exact release source and the same checks before upload.
 
 Build-selected delivered features are owned by `src/capabilities.ts`; user settings do not control capability activation.
 
