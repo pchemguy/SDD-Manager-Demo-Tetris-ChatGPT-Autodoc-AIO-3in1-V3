@@ -2,3 +2,5 @@
 
 /* Readonly next/held miniatures; all gameplay actions remain keyboard-only. */
 .piece-slots{display:flex;justify-content:space-between;gap:16px;margin-top:18px}.piece-slots section{flex:1}.piece-slots h3{font-size:11px;font-weight:500;color:#a7b7ca;margin:0 0 8px}.piece-slots h3 span{float:right;color:#eaf1fa}.mini-piece{display:grid;grid-template-columns:repeat(4,13px);grid-template-rows:repeat(4,13px);gap:2px;padding:5px;width:max-content;background:#0e1926;border-radius:4px}.mini-piece span{border-radius:1px}.piece-slots p{font-size:9px;line-height:1.4;color:#a7b7ca;margin:6px 0 0}
+
+.bonus-inventory{margin-top:16px;border-top:1px solid #273345;padding-top:12px}.bonus-inventory h3{display:flex;justify-content:space-between;font-size:11px;font-weight:500;color:#a7b7ca;margin:0}.bonuses{min-height:22px;font-size:19px;letter-spacing:4px;margin:7px 0 0;color:#f7db58}

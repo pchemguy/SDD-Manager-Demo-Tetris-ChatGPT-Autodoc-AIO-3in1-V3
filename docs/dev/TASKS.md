@@ -121,41 +121,48 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 3 — Penetrator bonuses
 
-- [ ] Phase 3 — Penetrator bonuses
-    - [ ] Milestone 3.1 — Penetrator mechanics
-        - [ ] T-018 — Implement lowest valid penetrator landing
+- [x] Phase 3 — Penetrator bonuses
+    - [x] Milestone 3.1 — Penetrator mechanics
+        - [x] T-018 — Implement lowest valid penetrator landing
             Scope: src/domain/landing.ts and tests/unit/domain. Contract: R4; C1.
             Depends on: T-017.
             Evidence: Scan through blockers to the deepest wholly in-board non-overlapping pose. Verify disconnected holes, invalid floor pose, null landing and exact agreement of candidate reachability with final placement checks.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
-        - [ ] T-019 — Implement activation and pass-through traversal
+            Verification: Predecessor v0.2.0 integration/release and hosted bytes verified; uncertain Phase 3 create settled read-only and full projection verified without duplicates before work. Three intended landing/traversal failures preceded implementation. Final 65 unit tests, type check/build pass: pass-through blockers, disconnected holes, invalid geometric floor, null final pose, no upward repair, all shape rotations and input immutability. v0.3.0/capability/branch checkpoint included; activation and locking remain following tasks.
+        - [x] T-019 — Implement activation and pass-through traversal
             Scope: src/domain/engine.ts and domain/controller tests. Contract: R4/R3; C2/C3.
             Depends on: T-018.
             Evidence: Spend one available bonus, preserve activation until lock, permit intermediate overlap and reject moves/rotations with no reachable landing below. Verify zero inventory, repeated activation and non-running no-ops.
-        - [ ] T-020 — Integrate safe locking and bonus awards
+            Verification: Four intended activation/traversal/kick/timer failures preceded implementation. Final 71 unit tests, type check/build pass. Verified one-bonus spend and event, repeated/cancel/hold no-ops, exhausted/capability/non-running/no-landing rejection, soft-drop/gravity intermediate overlap with settled cells unchanged, candidate reachability for moves/rotations, lifted versus unchanged grounded deadlines and controller single-clock integration. Final white lock and bonus awards remain T-020.
+        - [x] T-020 — Integrate safe locking and bonus awards
             Scope: src/domain engine/scoring and tests/unit/domain. Contract: R4/R2/R3; C2.
             Depends on: T-018, T-019.
             Evidence: Check non-overlapping final placement, no destruction by traversal, four-line earn-one, cap-three, spend/re-earn and no refunds. Verify hold prohibition, hard-drop/ghost landing agreement and active interval behavior.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/3/3.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 3.2 — Visibility and bonus experience
-        - [ ] T-021 — Render white penetrators and matching ghost
+            Verification: Three intended bonus/re-earn/white-lock failures preceded implementation. Final 78 unit tests, check/build pass. Verified exact four-line earn-one/cap-three, no awards for 1–3 rows or absent capability, spend/re-earn, no refund, ghost/drop equality and traversed-distance points, preserved delayed lock and no settled-cell destruction. Invalid overlapping final lock safely ends without writing. Whole mechanics review/report/HANDOFF included; no scoped TODO.
+    - [x] Milestone 3.2 — Visibility and bonus experience
+        - [x] T-021 — Render white penetrators and matching ghost
             Scope: src/ui/board.ts and projection/render checks. Contract: R4; C4.
             Depends on: T-020.
             Evidence: Render active/locked penetrator cells and their projection white without using white for regular kinds. Inspect overlap rendering and confirm draw order never changes settled board data.
-        - [ ] T-022 — Expose bonus inventory and penetrator hotkey
+            Verification: Characterization of existing prepared board branches, without fabricating a prior RED or rewriting correct code. Type check and 2 authored-state Chromium/Firefox render cases pass. Actual RGBA verifies pure white active/settled cells, translucent white ghost, seven distinct non-white regular kinds and retained settled data under active overlap. Full-page screenshot inspected. Test-only controller/mount fixture is outside release build inputs; ordinary packaged-entry regressions remain T-023.
+        - [x] T-022 — Expose bonus inventory and penetrator hotkey
             Scope: src/ui panels/input/help and controller integration. Contract: R4/R9; C3/C4.
             Depends on: T-021.
             Evidence: Show one lightning symbol per bonus; update on spend/award. Exercise the P hotkey, exhausted inventory and active hold prohibition with clear help and no added gameplay button.
-        - [ ] T-023 — Verify penetrator play and cumulative browser artifact
+            Verification: Four intended inventory/help browser failures preceded implementation. Final type check/build, 78 unit tests and 26 Chromium/Firefox browser cases pass. Inventory renders 3→2 lightning symbols after native P, repeated activation cannot cancel/spend, C preserves held/next state while active, hold status/help explain prohibition, and ordinary packaged-capable entry ignores exhausted P without changing Canvas. Exactly two gameplay buttons remain; full-page active/bonus screenshot inspected. Authored-state fixtures are excluded from production.
+        - [x] T-023 — Verify penetrator play and cumulative browser artifact
             Scope: tests/e2e, domain integration fixtures and browser packaging/docs. Contract: R4/R12; C1-C4/C8.
             Depends on: T-021, T-022.
             Evidence: Demonstrate a four-line award, activation through a stack and valid lock. Compare ghost/drop and bonus rendering, check ordinary controls regressions and verify the extracted browser package. Do not claim dynamic visibility before its Phase 4 selector.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/3/3.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 3.3 — Phase review
-        - [ ] T-024 — Review test and report Phase 3
+            Verification: Native-keyboard public-component four-line award/spend/overlap/pass-through/white-lock scenario passes with literal score 832 and retained barrier assertions. Review found board clipping after low gameplay-button focus: both browser tests failed before bounded focus/scroll repair. Final check/build, current 78 units, 30 source/public-component browser cases and 22 extracted-package entry cases pass (8 explicit source-only exclusions). Fixtures excluded, screenshots inspected, stable package checks pass. Milestone 3.2 report/HANDOFF included; no dynamic-visibility or native platform claim.
+    - [x] Milestone 3.3 — Phase review
+        - [x] T-024 — Review test and report Phase 3
             Depends on: T-020, T-023 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/3/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
+            Verification: Whole-phase code/consumer review and task-commit audit pass; no scoped TODO. Current identical production evidence: 78 units, check/build, 30 source/public-component browser cases and 22 packaged-entry cases (8 explicit source-only exclusions). Clean candidate passes all checks and byte-matches tested runtime/instructions/notices; exact T-023 GitHub Actions 41328256525 succeeded. Phase report/HANDOFF and initial task/parent checkoffs included; integration/exact-source release remain subsequent gates.
 
 ## Phase 4 — Session configuration
 

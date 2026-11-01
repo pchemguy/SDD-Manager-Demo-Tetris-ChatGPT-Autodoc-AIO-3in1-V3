@@ -54,3 +54,10 @@ test('controller hard drop accounts preceding time once and preserves the full g
   a.at(1000);a.c.tick();expect(a.c.view().state.game.board.flat().filter(Boolean)).toHaveLength(0);expect(a.c.view().state.game.timers.lockRemainingMs).toBe(500);
   a.at(1500);a.c.tick();expect(a.c.view().state.game.board.flat().filter(Boolean)).toHaveLength(4);
 });
+
+test('controller activation spends once and keeps time/settled board coherent through overlap',()=>{
+  const enabled:Capabilities=new Set(['modern','penetrator']);const board=Array.from({length:20},()=>Array<null|'J'>(10).fill(null));board[8]![4]='J';board[8]![5]='J';
+  const game={...createGame(123,'pen',settings,enabled,'running'),board,bonuses:1,active:{kind:'O' as const,rotation:0 as const,origin:{x:4,y:5},penetrator:false}};
+  const a=setup({game,settings,results:[],completedRunId:null},enabled);a.at(500);a.c.action('penetrator');expect(a.c.view().state.game.bonuses).toBe(0);expect(a.c.view().state.game.active!.penetrator).toBe(true);expect(a.c.view().state.game.timers.gravityRemainingMs).toBe(500);
+  a.at(1000);a.c.tick();a.c.action('softDrop');expect(a.c.view().state.game.active!.origin.y).toBe(7);expect(a.c.view().state.game.board).toEqual(board);expect(a.c.view().state.game.timers.lockRemainingMs).toBeNull();
+});
