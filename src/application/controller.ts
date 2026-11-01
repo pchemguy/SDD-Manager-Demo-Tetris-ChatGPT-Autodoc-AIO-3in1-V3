@@ -2,7 +2,7 @@
 import type { AppError, AppState, Capabilities, FileFormat, GameAction, GameView, InputFile, Outcome, SettingPatch, Transition } from '../models';
 import type { PlatformPorts } from '../platform/ports';
 import { advanceGame, createGame, dispatchGame, projectGame, setPaused } from '../domain';
-import { validateSettings } from '../rules';
+import { resolveSettings, validateSettings } from '../rules';
 export interface Controller {
   view(): GameView; start(): void; pause(): void; resume(): void; action(action: GameAction): void; tick(): void;
   setSettings(patch: SettingPatch): Promise<Outcome<void>>;
@@ -14,20 +14,22 @@ export interface Controller {
 
 /** Compose a page session; all host-dependent values enter through narrow ports. */
 export function createController(initial: AppState, ports: PlatformPorts, capabilities: Capabilities): Controller {
-  let state = structuredClone(initial), error: AppError | null = null;
+  let state = structuredClone(initial), error: AppError | null = null, startupError:AppError|null=null;
   let lastTime = ports.now(), disposed = false, busy = false;
   const caps = new Set(capabilities);
+  let initializing=caps.has('persistentSettings');
   const listeners = new Set<(view: GameView) => void>();
   const pending: Array<{run:()=>void;cancel:()=>void}> = [];
   const view = (): GameView => ({ state: structuredClone(state), ...structuredClone(projectGame(state.game, state.settings, caps)), capabilities: new Set(caps), error: structuredClone(error) });
   const emit = () => { for (const listener of [...listeners]) if (!disposed) listener(view()); };
-  const perform = (operation: () => void, cancel:()=>void=()=>{}) => {
-    if (disposed) {cancel();return;}
-    pending.push({run:operation,cancel});
-    if (busy) return;
+  const drain = () => {
+    if (busy||initializing||disposed) return;
     busy = true;
     try { while (pending.length && !disposed) pending.shift()!.run(); }
     finally { busy = false; }
+  };
+  const perform = (operation: () => void, cancel:()=>void=()=>{}) => {
+    if(disposed){cancel();return;}pending.push({run:operation,cancel});drain();
   };
   const accept = (result: Transition) => {
     state = { ...state, game: result.state };
@@ -48,7 +50,7 @@ export function createController(initial: AppState, ports: PlatformPorts, capabi
     start: () => perform(() => {
       sync();
       state = { ...state, game: createGame(ports.newSeed(), ports.newId(), state.settings, caps, 'running'), completedRunId: null };
-      lastTime = ports.now(); error = null; emit();
+      lastTime = ports.now(); error = startupError; emit();
     }),
     pause: () => perform(() => { sync(); state = { ...state, game: setPaused(state.game, true) }; emit(); }),
     resume: () => perform(() => { sync(); state = { ...state, game: setPaused(state.game, false) }; lastTime = ports.now(); emit(); }),
@@ -71,21 +73,34 @@ export function createController(initial: AppState, ports: PlatformPorts, capabi
       listeners.add(listener); listener(view());
       return () => { listeners.delete(listener); };
     },
-    suspend: async () => {
-      if (disposed) return unavailable('Suspending');
-      controller.pause();
-      try {
-        const result = await ports.writeCheckpoint(structuredClone(state));
-        if (!result.ok && !disposed) perform(() => { error = result.error; emit(); });
-        return result;
-      } catch {
-        const failure: Outcome<void> = { ok: false, error: { code: 'checkpoint-failed', message: 'The paused session could not be saved.' } };
-        if (!disposed) perform(() => { error = failure.error; emit(); });
-        return failure;
-      }
-    },
+    suspend: () => new Promise(resolve=>perform(()=>{
+      sync();state={...state,game:setPaused(state.game,true)};emit();
+      if(disposed){resolve(unavailable('Suspending'));return;}
+      const snapshot=structuredClone(state);
+      void (async()=>{
+        let result:Outcome<void>;
+        try{result=await ports.writeCheckpoint(snapshot);}catch{result={ok:false,error:{code:'checkpoint-failed',message:'The paused session could not be saved.'}};}
+        if(!result.ok&&!disposed){const failure=result;perform(()=>{error=failure.error;emit();});}
+        resolve(result);
+      })();
+    },()=>resolve(unavailable('Suspending')))),
     dispose: () => { if (!disposed) { disposed = true; release(); listeners.clear(); while(pending.length)pending.shift()!.cancel(); } }
   };
   release = ports.bindLifecycle(() => { void controller.suspend(); });
+  if(initializing)void (async()=>{
+    try{
+      const raw=await ports.readSettings();if(disposed)return;if(!raw.ok){error=raw.error;return;}
+      const resolution=resolveSettings(raw.value.query,raw.value.saved);
+      let saved:Outcome<void>;
+      try{saved=await ports.commitSettings({previous:structuredClone(state.settings),next:resolution.settings,writeKeys:resolution.explicit,reason:'startup'});}
+      catch{saved={ok:false,error:{code:'persistence-failed',message:'These page settings could not be saved.'}};}
+      if(disposed)return;sync();
+      const game=state.game.active?state.game:{...state.game,piecePolicy:{lockPolicy:resolution.settings.lockPolicy,hardDropLock:resolution.settings.hardDropLock}};
+      state={...state,game,settings:resolution.settings};
+      const warnings=resolution.warnings.join(' ');
+      error=!saved.ok?{...saved.error,message:[saved.error.message,warnings].filter(Boolean).join(' ')}:warnings?{code:'invalid-data',message:warnings}:null;
+    }catch{if(!disposed)error={code:'persistence-failed',message:'Browser configuration is unavailable; default settings remain usable.'};}
+    finally{initializing=false;if(!disposed){startupError=error;emit();drain();}}
+  })();
   return controller;
 }

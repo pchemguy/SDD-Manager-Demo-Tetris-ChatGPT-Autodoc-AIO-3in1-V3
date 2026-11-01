@@ -1,6 +1,7 @@
-/** Characterize the complete session-only increment against real origin storage and reload. */
+/** Retain R5 session-only capability composition as the default application advances to R6. */
 import {expect,test} from '@playwright/test';
-test('all six settings survive Restart, reload defaults and never write browser persistence or URL',async({page,context})=>{
+test('all six session-only settings survive Restart, reload defaults and never write persistence or URL',async({page,context})=>{
+ test.skip(process.env.TETRIS_PACKAGED_TEST==='1','Session-only public composition fixture; the delivered persistent entry has separate R6 origin acceptance.');
  await context.addCookies([{name:'tetris.ghost',value:'dynamic',url:'http://127.0.0.1:4173'},{name:'unrelated',value:'keep',url:'http://127.0.0.1:4173'}]);
  await page.addInitScript(()=>{
   const writes:string[]=[];Object.defineProperty(window,'__sessionWrites',{value:writes});
@@ -9,7 +10,7 @@ test('all six settings survive Restart, reload defaults and never write browser 
   for(const name of ['setItem','removeItem','clear'] as const){const original=Storage.prototype[name];Object.defineProperty(Storage.prototype,name,{configurable:true,value:function(this:Storage,...args:unknown[]){writes.push(name);return Reflect.apply(original,this,args);}});}
   for(const name of ['replaceState','pushState'] as const){const original=history[name];Object.defineProperty(history,name,{configurable:true,value:function(this:History,...args:unknown[]){writes.push(name);return Reflect.apply(original,this,args);}});}
  });
- await page.goto('/?ghost=hide&hold=false&unrelated=keep#anchor');const url=page.url();const cookies=await context.cookies();
+ await page.goto('/tests/fixtures/render.html?case=session&ghost=hide&hold=false&unrelated=keep#anchor');const url=page.url();const cookies=await context.cookies();
  const values=[['Ghost','dynamic'],['Hard drop','false'],['Next preview','false'],['Hard drop lock','immediate'],['Lock policy','failed'],['Hold','false']];
  await expect(page.getByRole('combobox',{name:'Ghost',exact:true})).toHaveValue('show');await expect(page.getByRole('combobox',{name:'Hold',exact:true})).toHaveValue('true');
  await page.locator('#restart').click();for(const[label,value]of values)await page.getByRole('combobox',{name:label,exact:true}).selectOption(value);await page.locator('#restart').click();

@@ -13,7 +13,7 @@ const definitions:ReadonlyArray<{key:SettingKey;label:string;options:ReadonlyArr
 /** Own only these DOM listeners; mount owns the controller subscription/lifetime. */
 export function createSettingsPanel(controller:Controller){
  const element=document.createElement('section');element.className='settings-panel';element.setAttribute('aria-labelledby','settings-title');
- element.innerHTML=`<p class="eyebrow">MAKE IT YOURS</p><h2 id="settings-title">Session settings</h2>${definitions.map(d=>`<label for="setting-${d.key}">${d.label}</label><select id="setting-${d.key}">${d.options.map(([value,label])=>`<option value="${value}">${label}</option>`).join('')}</select>`).join('')}<p class="hint" data-testid="policy-hint"></p><p class="hint">Settings last until this page reloads.</p><p role="alert" class="error" hidden></p>`;
+ element.innerHTML=`<p class="eyebrow">MAKE IT YOURS</p><h2 id="settings-title">${controller.view().capabilities.has('persistentSettings')?'Settings':'Session settings'}</h2>${definitions.map(d=>`<label for="setting-${d.key}">${d.label}</label><select id="setting-${d.key}">${d.options.map(([value,label])=>`<option value="${value}">${label}</option>`).join('')}</select>`).join('')}<p class="hint" data-testid="policy-hint"></p><p class="hint">${controller.view().capabilities.has('persistentSettings')?'Settings are restored when this page loads.':'Settings last until this page reloads.'}</p><p role="alert" class="error" hidden></p>`;
  const cleanups:Array<()=>void>=[];
  for(const definition of definitions){
   const select=element.querySelector<HTMLSelectElement>(`#setting-${definition.key}`)!;

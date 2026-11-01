@@ -18,3 +18,30 @@ test('parsing preserves padded values for strict validation instead of silently 
  if(r.ok){const v=resolveSettings(r.value.query,r.value.saved);expect(v.settings).toMatchObject({ghost:'show',hardDrop:false,nextPreview:false,hold:true});expect(v.warnings).toHaveLength(2);expect(v.explicit).toEqual([]);}
  expect(h.writes()).toBe(0);
 });
+
+import {DEFAULT_SETTINGS} from '../../../src/rules';
+import type {SettingsTransaction} from '../../../src/models';
+function cookieHost(initial:Record<string,string>,failure:'once'|'permanent'|null=null,blocked=false){
+ const jar=new Map(Object.entries(initial)),writes:string[]=[];let attempts=0;
+ const window={location:{search:'?hold=false',protocol:'https:',href:'https://example.test/?hold=false#keep'},document:{get cookie(){if(blocked)throw Error('blocked read');return [...jar].map(([k,v])=>`${k}=${v}`).join('; ');},set cookie(value:string){writes.push(value);attempts++;if((failure==='once'&&attempts===2)||(failure==='permanent'&&attempts>=2))throw Error('blocked write');const token=value.split(';',1)[0]!,i=token.indexOf('='),key=token.slice(0,i);if(value.includes('Max-Age=0'))jar.delete(key);else jar.set(key,token.slice(i+1));}},history:{replaceState(){throw Error('startup must not replace URL');}}} as unknown as Window;
+ return{window,jar,writes};
+}
+const startup:SettingsTransaction={previous:DEFAULT_SETTINGS,next:{...DEFAULT_SETTINGS,ghost:'show',hold:false},writeKeys:['ghost','hold'],reason:'startup'};
+test('startup writes and verifies only explicit cookies including a default with the required origin attributes',async()=>{
+ const h=cookieHost({'tetris.ghost':'hide','tetris.hardDrop':'false',unrelated:'keep'});const result=await createBrowserPorts(h.window).commitSettings(startup);expect(result.ok).toBe(true);expect(Object.fromEntries(h.jar)).toEqual({'tetris.ghost':'show','tetris.hardDrop':'false',unrelated:'keep','tetris.hold':'false'});expect(h.writes).toHaveLength(2);for(const value of h.writes){expect(value).toContain('Path=/');expect(value).toContain('SameSite=Lax');expect(value).toContain('Max-Age=31536000');expect(value).toContain('Secure');}expect(h.window.location.href).toBe('https://example.test/?hold=false#keep');
+});
+test('a handled startup write failure compensates prior cookie values before returning failure',async()=>{
+ const before={'tetris.ghost':'hide',unrelated:'keep'},h=cookieHost(before,'once');const result=await createBrowserPorts(h.window).commitSettings(startup);expect(result.ok).toBe(false);if(!result.ok){expect(result.error.code).toBe('persistence-failed');expect(result.error.message).toContain('restored');}expect(Object.fromEntries(h.jar)).toEqual(before);
+});
+test('an external failure that prevents compensation reports the unverified rollback honestly',async()=>{
+ const h=cookieHost({'tetris.ghost':'hide'},'permanent');const result=await createBrowserPorts(h.window).commitSettings(startup);expect(result.ok).toBe(false);if(!result.ok)expect(result.error.message).toContain('could not be fully restored');expect(h.jar.get('tetris.ghost')).toBe('show');
+});
+test('unavailable cookie access retains raw URL resolution and reports non-persistence without writes',async()=>{
+ const h=cookieHost({},null,true),ports=createBrowserPorts(h.window),read=await ports.readSettings();expect(read.ok).toBe(true);if(read.ok)expect(resolveSettings(read.value.query,read.value.saved).settings.hold).toBe(false);const result=await ports.commitSettings({...startup,writeKeys:[]});expect(result.ok).toBe(false);if(!result.ok)expect(result.error.code).toBe('persistence-failed');expect(h.writes).toEqual([]);
+});
+
+test('duplicate unrelated setting cookies do not block valid explicit startup keys',async()=>{
+ const h=cookieHost({'tetris.ghost':'hide'}),descriptor=Object.getOwnPropertyDescriptor(h.window.document,'cookie')!;
+ Object.defineProperty(h.window.document,'cookie',{...descriptor,get(){return descriptor.get!.call(h.window.document)+'; tetris.nextPreview=true; tetris.nextPreview=false';}});
+ expect((await createBrowserPorts(h.window).commitSettings(startup)).ok).toBe(true);expect(h.jar.get('tetris.ghost')).toBe('show');expect(h.jar.get('tetris.hold')).toBe('false');
+});
