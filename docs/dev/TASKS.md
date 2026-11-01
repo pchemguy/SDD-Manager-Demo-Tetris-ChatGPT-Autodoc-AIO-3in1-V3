@@ -167,7 +167,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 ## Phase 4 — Session configuration
 
 - [ ] Phase 4 — Session configuration
-    - [ ] Milestone 4.1 — Session settings model
+    - [x] Milestone 4.1 — Session settings model
         - [x] T-025 — Define typed session settings and defaults
             Scope: src/rules/settings.ts, src/models.ts consumers and tests/unit/rules. Contract: R5; C5.
             Depends on: T-024.
@@ -179,11 +179,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-025.
             Evidence: Check hide/show/dynamic modes at y=9/y=10 and straddling projected shapes for normal and penetrator pieces. Preserve shared landing/drop calculations and all non-visibility state.
             Verification: Two normal/penetrator above-midline fixtures failed before implementation, then all 88 units and npm run check passed. Hide/show/dynamic tested at bottom rows 9,10 and11, including a straddling O; dynamic displays when any projected cell reaches row10. Projection preserves state/other fields and all modes retain identical shared landing, hard-drop pose and score.
-        - [ ] T-027 — Apply settings through the controller policy boundary
+        - [x] T-027 — Apply settings through the controller policy boundary
             Scope: src/application/controller.ts and tests/unit/application. Contract: R5/R2/R3; C3.
             Depends on: T-025, T-026.
             Evidence: Apply visibility/action toggles immediately, retain disabled hold state and capture lock-policy changes only on a new piece. Check policy hints, held replacements and invalid patches with no partial selected-state change.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/4/4.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Five controller cases failed against the unavailable setter; final check/build, 95 units and all30 cumulative source Chromium/Firefox cases pass. Edits validate atomically before clock/state writes, apply current visibility/action toggles, retain disabled held kind and selected settings across restart, preserve current-piece policy/deadline until ordinary or held replacement spawn, and never call persistence. Reentrant edits serialize coherent views and disposal resolves cancelled queued promises. Whole-capability review found no scoped TODO; milestone4.1 report/HANDOFF and parent checkbox included.
     - [ ] Milestone 4.2 — Settings panel integration
         - [ ] T-028 — Build the six-control session settings panel
             Scope: src/ui/panels.ts/styles and browser UI checks. Contract: R5/R9; C4.

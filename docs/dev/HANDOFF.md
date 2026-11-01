@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Phase 3 integration and v0.3.0 release/download verification completed; Phase 4 tracking is fully verified and T-025 is active.
+Checkpoint: Phase 3 integration and v0.3.0 release/download verification completed; Phase 4 settings-model milestone is verified; T-027 publication/tracking closure is the next effect.
 
 ## Workflow and sources
 
@@ -18,6 +18,6 @@ Working branch: `phase/4-session-configuration`, created from main release commi
 
 [v0.3.0](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/releases/tag/v0.3.0) is published/latest; all three assets were re-downloaded and byte-matched. Browser ZIP SHA-256: `032722a6eebdc34706864a679a189b17b56f0e3009589d6173366d33ecb658df`. Exact tag/package source is the branch-off release commit above.
 
-Phase 4 label, milestones 12–14 and issues 34–40 are fully read-back verified before task edits/tests. Collection readback initially lagged acknowledged issues 38 and 40; read-only reconciliation verified existing identities and bounded creation reused prior objects without duplicates. T-025 begins session-only settings, followed by T-026–T-072 under the retained full grant. No additional human checkpoint is pending.
+Phase 4 label, milestones 12–14 and issues 34–40 are fully read-back verified before task edits/tests. Collection readback initially lagged acknowledged issues 38 and 40; read-only reconciliation verified existing identities and bounded creation reused prior objects without duplicates. T-025/T-026 are published with issues 34/35 closed. T-027 closes [Milestone 4.1](reports/phases/4/4.1.md): publish/read back, close issue 36 then milestone 12. Continue T-028–T-072 under the retained full grant. No additional human checkpoint is pending.
 
-Predecessor evidence: 78 units, check/build, 30 source/public-component browser cases and 22 packaged-entry cases pass (eight source-only exclusions). Exact release source was rebuilt, checked, tested and downloaded byte-matched. Phase 4 verification will be recorded per task and milestone; no reset or discarded work.
+Predecessor evidence: 78 units, check/build, 30 source/public-component browser cases and 22 packaged-entry cases pass (eight source-only exclusions). Exact release source was rebuilt, checked, tested and downloaded byte-matched. Current milestone verification: 95 units, check/build and 30 source/public-component Chromium/Firefox cases pass. Session settings use no persistence; six-control UI and reload/write-spy acceptance remain T-028–T-030. No reset or discarded work.
