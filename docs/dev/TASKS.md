@@ -50,7 +50,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Render board/score/level/status, route movement/rotation/soft drop and expose exactly the two specified clickable gameplay buttons. Demonstrate a playable full run from the actual browser app with inspected Canvas output.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/1/1.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Recovered existing UI without discarding work. Label regressions failed before correction; final type check, build, 44/44 unit tests and 2/2 actual Chromium/Firefox gameplay tests pass. Inspected Canvas screenshot. Milestone 1.2 code review/report and HANDOFF included; no scoped TODO. Lifecycle/repeat acceptance remains T-007.
-    - [ ] Milestone 1.3 — Browser distribution
+    - [x] Milestone 1.3 — Browser distribution
         - [x] T-007 — Complete baseline lifecycle and keyboard repeat behavior
             Scope: src/ui/input.ts and browser lifecycle/controller integration. Contract: R1/R3/R9; C3/C4/C7.
             Depends on: T-006.
@@ -61,11 +61,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-007.
             Evidence: Exercise the actual application in isolated managed Chromium headless shell and Firefox with finite session/teardown bounds. Check game over/restart, timing and Canvas output; report unavailable modes distinctly and repair feasible required failures.
             Verification: 16/16 actual-app Chromium headless-shell and managed Firefox tests pass, covering full run/gameover/restart, exact repeats, gravity without score, cell-by-cell Canvas translation/inverse rotation, paused-frame stability and no overflow at 320/768/1440px. Screenshots retained locally and 320px output inspected. Fixed test-clock past-time race and replaced 60000ms RAF replay with clock fast-forward; no product requirement was weakened. Native OS focus/full sidebar modes remain unverified and outside this baseline.
-        - [ ] T-009 — Package the deployable browser baseline
+        - [x] T-009 — Package the deployable browser baseline
             Scope: scripts build/package/verify, .github/workflows/verify.yml, INSTALL.md and release candidate assets. Contract: R12; C8.
             Depends on: T-007, T-008.
             Evidence: Produce/extract tetris-browser.zip and verify local asset loading, version, stable output names and absence of development secrets. Share direct/CI package checks and installation instructions; do not publish a release before phase integration.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/1/1.3.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Static ZIP candidate, INSTALL and SHA256SUMS pass stable-name/content/byte/source/version/secret checks; deliberately versioned-name and corrupt-byte candidates fail. Extracted static package passes 14 Chromium/Firefox application checks; 2 source-module consumer checks explicitly excluded, while actual input cases run. Type check/build pass; milestone 1.3 code review/report/HANDOFF included. Candidate has honest dirty-source metadata; exact clean release-source rebuild follows phase integration. CI workflow prepared, not claimed executed.
     - [ ] Milestone 1.4 — Phase review
         - [ ] T-010 — Review test and report Phase 1
             Depends on: T-003, T-006, T-009 and verified completion/closure of every delivery milestone in this phase.

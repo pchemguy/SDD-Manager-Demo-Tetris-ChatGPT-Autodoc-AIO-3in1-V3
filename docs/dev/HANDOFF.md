@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Milestone 1.2 implementation and review passed; T-006 publication, issue closure and milestone closure are pending effects. Full implementation remains authorized.
+Checkpoint: Milestone 1.3 implementation and review passed; T-009 publication, issue closure and milestone closure are pending effects. Full implementation remains authorized.
 
 ## Workflow and sources
 
@@ -16,6 +16,6 @@ Working branch: `phase/1-classic-browser-baseline`. Creation parent and integrat
 
 ## Pending work and next action
 
-Documentation issues 1–9 and milestone 1 are closed. Phase 1 associations exist for issues 10–19 and milestones 2–5. T-001–T-005 are published and their issues closed; milestone 1.1 is closed. T-006 now includes the recovered UI, corrected labels, acceptance evidence and milestone 1.2 review. Publish/read back T-006, close/read back issue 15, then milestone 3 (1.2). Continue T-007–T-010 and remaining authorized phases subject to per-task publication, dependency, review, packaging and release gates.
+Documentation issues 1–9 and milestone 1 are closed. Phase 1 associations exist for issues 10–19 and milestones 2–5. T-001–T-008 are published and their issues closed; milestones 1.1 and 1.2 are closed. T-009 includes browser packaging, direct/CI verification, installation instructions and milestone 1.3 report. Publish/read back T-009, close/read back issue 18, then milestone 4 (1.3). Continue T-010 and remaining authorized phases subject to per-task publication, dependency, review, packaging and release gates.
 
-Current evidence: 44/44 unit checks, type check/build and 2/2 actual-browser tests pass; screenshot inspected. No package or release is delivered yet. Native Windows and full-browser sidebars remain later evidence limits, not implicit blockers. Existing ignored credential input is available without being included in tracked artifacts. No reset or replay of completed work was performed.
+Current evidence: 44/44 unit checks, type check/build, 16/16 source-app browser tests and 14 extracted-package cases pass (two source-module consumer cases explicitly excluded). Screenshots inspected; browser candidate verified. Final exact-source rebuild and release remain pending. Native Windows and full-browser sidebars remain later evidence limits, not implicit blockers. Existing ignored credential input is available without being included in tracked artifacts. No reset or replay of completed work was performed.

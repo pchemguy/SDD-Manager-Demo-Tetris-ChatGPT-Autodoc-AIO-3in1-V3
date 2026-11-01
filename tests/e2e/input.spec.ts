@@ -23,6 +23,7 @@ test('form and editable focus retain keys; button Enter dispatches once and rest
   await page.locator('#pause').focus();await page.keyboard.press('Enter');await expect(page.getByTestId('status')).toHaveText('running');await expect(page.locator('canvas')).toBeFocused();
 });
 test('directional delay is 150/50ms and rotations ignore repeated keydown until release',async({page})=>{
+  test.skip(process.env.TETRIS_PACKAGED_TEST==='1','Source adapter consumer only; full game input checks also run on the package.');
   await page.evaluate(async()=>{
     const {bindInput}=await import('/src/ui/input.ts' as string);
     const target=document.createElement('div');target.id='input-consumer';target.tabIndex=0;target.dataset.actions='[]';document.body.append(target);

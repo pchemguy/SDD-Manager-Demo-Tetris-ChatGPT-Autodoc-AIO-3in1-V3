@@ -7,7 +7,7 @@ process.env.PLAYWRIGHT_BROWSERS_PATH = path.resolve('.cache/ms-playwright');
 export default defineConfig({
   testDir: './tests/e2e', timeout: 15_000, globalTimeout: 120_000,
   use: { baseURL: 'http://127.0.0.1:4173', headless: true, actionTimeout: 5_000 },
-  webServer: { command: 'npm run dev -- --port 4173', url: 'http://127.0.0.1:4173', reuseExistingServer: false, timeout: 20_000 },
+  webServer: { command: process.env.TETRIS_PACKAGED_TEST==='1' ? 'python -m http.server 4173 --bind 127.0.0.1 --directory dist/package-smoke' : 'npm run dev -- --port 4173', url: 'http://127.0.0.1:4173', reuseExistingServer: false, timeout: 20_000 },
   projects: [
     { name: 'chromium', use: { browserName: 'chromium' } },
     { name: 'firefox', use: { browserName: 'firefox', launchOptions: {

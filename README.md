@@ -2,7 +2,7 @@
 
 A Tetris development project targeting a static browser application, a Windows Electron application and desktop Chromium/Firefox sidebar extensions. Delivery begins with a playable classic browser baseline and adds the requested capabilities through bounded increments.
 
-Implementation is underway. The classic engine, scoring, controller and playable Canvas browser UI are present. Verified release packages are not available yet.
+Implementation is underway. The classic engine, scoring, controller and playable Canvas browser UI are present. A verified browser ZIP candidate can be built locally; a published release remains pending phase review/integration.
 
 ## Project documents
 
@@ -33,3 +33,9 @@ npm run dev
 Browser acceptance uses the project-local `.cache/ms-playwright` binary root. Provision the pinned managed Chromium headless shell and Firefox with the local Playwright CLI. Follow the repository browser policy for download/runtime recovery; never reuse a personal browser profile. `npm run probe:browsers` checks two isolated input/Canvas/font/screenshot/teardown cycles per browser, not game acceptance. Run `npm run test:unit` for domain/controller checks and `npm run test:e2e` for actual browser gameplay. The baseline supports arrow movement, Up/X and Z rotation, Down soft drop, Escape pause/resume, and the two session buttons. Left/right repeat after 150 ms and then every 50 ms; soft drop repeats every 40 ms. Pause and focus loss release held keys. Form/editable focus retains normal keys.
 
 On this managed Linux host, Firefox content processes hit a diagnosed `/proc/self/uid_map: EPERM`. The process-local `TETRIS_FIREFOX_SANDBOX_WORKAROUND=1` flag enables the documented content-sandbox override only for trusted local probes/tests. Leave it unset on environments that do not require it. No host security setting is changed.
+
+## Browser packaging
+
+`npm run package` builds `dist/release/tetris-browser.zip`, `INSTALL.md` and `SHA256SUMS.txt`. `npm run verify:package` checks the stable inventory, SHA-256 bytes, safe ZIP members, local assets, source/version and credential exclusions, then extracts to `dist/package-smoke`. Use `TETRIS_PACKAGED_TEST=1 npm run test:e2e` to test that extracted distribution. On the diagnosed Linux host, also set the Firefox workaround described above. Python 3.11+ is required for packaging/static smoke serving. See [installation instructions](INSTALL.md).
+
+The verification workflow runs the same checks on push/PR. Local success does not claim that GitHub Actions has run successfully.
