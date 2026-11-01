@@ -56,10 +56,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-006.
             Evidence: Verify paused timer preservation, focus/visibility suspension, held-key clearing, repeat timings and abandoned restart behavior. Confirm focused form/button input does not double-dispatch game actions and Start/resume returns keyboard focus to gameplay.
             Verification: Four browser cases first failed for missing timed repeat and contenteditable key leakage. Added scoped keyboard owner with 150/50ms directional and 40ms soft-drop repeats, one-shot rotation/Escape, keyup/pause/blur clearing and gameplay-focus routing. Corrected the test clock to pause real-time advancement for exact boundaries. Final check/build, 44 unit tests and 8 Chromium/Firefox browser tests pass; actual button Enter and gameplay focus verified, blur modeled as an application event.
-        - [ ] T-008 — Verify baseline browser gameplay and rendering
+        - [x] T-008 — Verify baseline browser gameplay and rendering
             Scope: tests/e2e, playwright.config.ts and browser test evidence. Contract: R1/R3/R9; C4/C8.
             Depends on: T-007.
             Evidence: Exercise the actual application in isolated managed Chromium headless shell and Firefox with finite session/teardown bounds. Check game over/restart, timing and Canvas output; report unavailable modes distinctly and repair feasible required failures.
+            Verification: 16/16 actual-app Chromium headless-shell and managed Firefox tests pass, covering full run/gameover/restart, exact repeats, gravity without score, cell-by-cell Canvas translation/inverse rotation, paused-frame stability and no overflow at 320/768/1440px. Screenshots retained locally and 320px output inspected. Fixed test-clock past-time race and replaced 60000ms RAF replay with clock fast-forward; no product requirement was weakened. Native OS focus/full sidebar modes remain unverified and outside this baseline.
         - [ ] T-009 — Package the deployable browser baseline
             Scope: scripts build/package/verify, .github/workflows/verify.yml, INSTALL.md and release candidate assets. Contract: R12; C8.
             Depends on: T-007, T-008.

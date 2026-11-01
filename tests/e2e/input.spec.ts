@@ -1,6 +1,6 @@
 /** Deterministic application input checks through browser-delivered events and clock. */
 import { expect, test } from '@playwright/test';
-test.beforeEach(async ({page})=>{await page.clock.install({time:new Date('2026-11-01T00:00:00Z')});await page.clock.pauseAt(new Date('2026-11-01T00:00:00Z'));await page.goto('/');await page.locator('#restart').click();await expect(page.locator('canvas')).toBeFocused();});
+test.beforeEach(async ({page})=>{await page.clock.install({time:new Date('2026-11-01T00:00:00Z')});await page.clock.pauseAt(new Date('2026-11-01T00:00:01Z'));await page.goto('/');await page.locator('#restart').click();await expect(page.locator('canvas')).toBeFocused();});
 test('soft drop uses a 40ms repeat clock and clears held keys on pause and focus loss',async({page})=>{
   const score=page.getByTestId('score');
   await page.keyboard.down('ArrowDown');await expect(score).toHaveText('1');
