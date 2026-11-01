@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: main preparation, autodoc/onepass DOCS-008 completion awaiting publication and issue closure; stop before DOCS-009.
+Checkpoint: DOCS-009 whole-package QC passed; publication, issue closure and explicit preparation integration pending. Full implementation authorized.
 
 Outcome: PROJECT was accepted by the user; ARCHITECTURE, DECOMPOSITION with MODELS/API-DESIGN, SPEC with three contract artifacts, PLAN, layout and TASKS are prepared under scoped autodoc preapproval. Required SPEC/PLAN/TASKS conformance reports are present. Nine planned phases contain 21 delivery milestones, nine phase reviews and 72 unchecked implementation tasks. No product implementation exists.
 
@@ -14,7 +14,7 @@ Outcome: PROJECT was accepted by the user; ARCHITECTURE, DECOMPOSITION with MODE
 
 - Objective: prepare the user's complete browser Tetris, Windows Electron and Chromium/Firefox sidebar project in autodoc/onepass mode.
 - Approval basis: user accepted PROJECT and its consequential choices with “k” on 2026-11-01. Later document checkpoints through TASKS are preapproved by mode selection; scoped correction evidence is in the adjacent reports and DOCS_PREPARATION.
-- Exact stop: after DOCS-008, before package QC, documentation integration and implementation. No implementation range has been selected.
+- Authorized range: the user’s “Run QC and full implement” selects DOCS-009, preparation integration and T-001–T-072, with phase verification/integration/releases. Stop at complete delivery or a concrete unresolved blocker.
 - Tracking: root AGENTS.md enables preparation and implementation tracking. Milestone 1 and issues 1–9 were verified before writes.
 - Reporting: Standard.
 
@@ -28,6 +28,6 @@ Outcome: PROJECT was accepted by the user; ARCHITECTURE, DECOMPOSITION with MODE
 ## Pending work and next action
 
 - Issues 1–7 were closed/read back after their verified publication. Publish/read back this DOCS-008 commit, then close/read back issue 8 before reporting the pass complete.
-- Issue 9 and the preparation milestone remain open. Whole-package QC, documentation integration and implementation-phase activation have not run.
-- Next eligible human direction: advance to DOCS-009 whole-package QC, or request a document revision/reset. Completing this pass grants no implementation range.
+- DOCS-009 passed; publish its completion and close issue 9, explicitly merge/verify/publish into main, then close the preparation milestone. Phase activation has not run.
+- Next eligible action: finish preparation publication/integration, then activate Phase 1 and execute the authorized full range.
 - Product builds, tests, packages and releases have not been created or verified.
