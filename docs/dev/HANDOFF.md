@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Phase implementation/review is integrated into main; merge publication and v0.3.0 release remain pending effects.
+Checkpoint: Phase implementation/review is integrated into main; merge publication and v0.4.0 release remain pending effects.
 
 ## Workflow and sources
 
@@ -12,14 +12,12 @@ The user's “Run QC and full implement” on 2026-11-01 authorizes T-001–T-07
 
 ## Branches and return
 
-Working branch: `main`, receiving completed `phase/3-penetrator-bonuses` at `65ce2aeedad625c89ca0ded85e892f444c3328ba`. Source creation parent/integration target was main at `f6888905635e3601aafce9fd9f76b326b02c88dd`. No suspended parent. Phase 2 integrated at `46647bbf297886b0a8df5235b5514f0cd2e0f372`; all seven task issues and three milestones are closed. Earlier phases remain summarized by their reports.
+Working branch: `main`, receiving completed `phase/4-session-configuration` at `bb84fff14a4a292d42b532abd114e352e9948b97`. Source creation parent/integration target was main at `98a542420026603160b734840be3d43765e06fae`. No suspended parent. Phase 3 integrated at `417fb6715148c86dccffa58010b36771ba248dc9`; all seven task issues 27–33 and milestones 9–11 are closed/read back.
 
 ## Pending work and next action
 
-[v0.2.0](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/releases/tag/v0.2.0) is published/latest; all three assets were re-downloaded and byte-matched. Browser ZIP SHA-256: `49e358d91daf10c8d7c14a7e1d861ad9a3b8933f57dd321ab3aeed47b3369582`. Exact tag/package source is the branch-off release commit above.
+[v0.3.0](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/releases/tag/v0.3.0) is published/latest; all three assets were re-downloaded and byte-matched. Browser ZIP SHA-256: `032722a6eebdc34706864a679a189b17b56f0e3009589d6173366d33ecb658df`. Exact tag/package source is the branch-off release commit above.
 
-Phase 3 label, milestones 9–11 and issues 27–33 with all associations are verified before task edits/tests. The initial projection could not see acknowledged issue 27 in collection readback; read-only reconciliation established that exact existing issue and six missing identities. The subsequent apply reused existing objects and verified the complete projection without duplicates.
+Phase 4 label, milestones 12–14 and issues 34–40 are fully read-back verified before task edits/tests. Collection readback initially lagged acknowledged issues 38 and 40; read-only reconciliation verified existing identities and bounded creation reused prior objects without duplicates. T-025/T-026 are published with issues 34/35 closed. T-027 is published with issue 36/milestone 12 closed/read back. T-028/T-029 are published, issues 37/38 closed. T-030 is published; issue 39/milestone 13 are closed/read back. T-031 includes [Phase 4 review](reports/phases/4/PHASE-REPORT.md). T-031 is published and issue 40/milestone 14 are closed/read back. Publish/read back this explicit verified merge and complete v0.4.0 exact-source release/download verification. Only then activate Phase 5 and continue T-032–T-072. No additional human checkpoint is pending.
 
-T-018–T-023 are published with closed issues; milestones 9 and 10 are closed/read back. T-024 includes [Phase 3 review](reports/phases/3/PHASE-REPORT.md). T-024 is published and issue 33/milestone 11 are closed/read back. Publish/read back this explicit verified merge and complete v0.3.0 exact-source release/download verification. Only then activate Phase 4 and continue T-025–T-072. No additional human checkpoint is pending.
-
-Current evidence: 78 unit checks, check/build, 30 source app/public-component browser cases and 22 packaged-entry cases pass (eight explicit source-only exclusions). Exact T-023 GitHub Actions run 41328256525 succeeded. Clean candidate hash 7ab087f71950ee7aa044b567ac0cb3ba60fc3a2310962006395d74e274624fb7 byte-matches tested runtime/instructions/notices. Whole-phase review/task persistence audit passes; no scoped TODO. Final release-source rebuild remains pending; no reset or discarded work.
+Predecessor evidence: 78 units, check/build, 30 source/public-component browser cases and 22 packaged-entry cases pass (eight source-only exclusions). Exact release source was rebuilt, checked, tested and downloaded byte-matched. Current milestone verification: 95 units, check/build, 42 source/public-component and 32 packaged-entry Chromium/Firefox cases pass (10 source-only exclusions). Six controls/current/pending feedback, native disabled actions and ghost raster boundaries pass; restart/reload and storage/history spies prove session-only behavior. Clean candidate ZIP 97e915fab3c5da7bee99e77f72a179f65c220bd46776b76fe8157ef0c4ba5496 at T-030 source byte-matches tested runtime; exact T-030 Actions 41331208378 succeeded. Whole-phase review/task audit passes; no scoped TODO. Exact release rebuild remains subsequent. Optional comprehensive prerelease review reminder emitted once for v0.4.0; not a selected campaign. No reset or discarded work.

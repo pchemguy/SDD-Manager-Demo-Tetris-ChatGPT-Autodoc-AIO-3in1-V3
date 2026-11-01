@@ -1,0 +1,25 @@
+# Phase 4 — Session configuration
+
+## Delivered boundary and source
+
+T-025–T-030 deliver v0.4.0's six session-only settings and selectable dynamic ghost. Both delivery milestones are complete: issues 34–39 and milestones 12/13 are closed/read back. This dedicated T-031 review closes Phase 4 on `phase/4-session-configuration`; reviewed published source is `9d91147ab952bc1401037e6a4397053c31acae22`, based on released v0.3.0 `98a542420026603160b734840be3d43765e06fae`. The complete T-025–T-030 task-commit audit passes: one leading task ID, one initial task checkbox and verified result/evidence per closing commit, each published/read back before progression.
+
+## Whole-phase code and consumer review
+
+Reviewed the complete coherent C2/C3/C4/C5 capability and browser composition/ports, including defaults and exact typed settings, patch-to-complete validation, selected versus captured PiecePolicy, dynamic projection/shared landing, pending/current policy text, immediate action/visibility gating, held-slot retention, restart/reload behavior, subscription/reentrant queue/disposal and UI listener lifetimes. Domain and rules remain pure; UI requests changes through C3. Invalid patches cannot partly change settings or game, while valid session edits never reach persistence. New policies capture at ordinary or held-replacement spawn without resetting an existing grounded deadline. Ghost visibility alone changes at the midline and cannot change drop/scoring/locking.
+
+Review also assessed cumulative gameplay/input/render consumers, six-control native form semantics, responsive width/board visibility, README/INSTALL/navigation and build/version/capability/package/CI ownership. The two usability findings fixed in T-029 (blank disabled preview and stale policy help) are verified by actual browser play. No scoped blocker, unresolved defect, eligible deferred code issue or TODO remains. This phase does not claim final five-panel geometry or later persistence/files/native variants.
+
+## Execution evidence and package
+
+On managed Linux, pinned project-owned Chromium headless shell and patched Firefox run with the documented trusted-local Firefox sandbox opt-in. Current unchanged production/test coverage passes: `npm run check`; 95 unit tests; 42 source/public-component browser cases; build/package verification; and 32 extracted-package cases with 10 explicit source-module/authored-state exclusions. The latest clean-source campaign reran check, all 95 units, build/package, `npm run verify:package -- --clean-source` and packaged Chromium/Firefox acceptance against exact source above. The 42-case source campaign from T-030 covers identical production/tests; no product/test changes followed it. Exact-source GitHub Actions [41331208378](https://github.com/pchemguy/SDD-Manager-Demo-Tetris-ChatGPT-Autodoc-AIO-3in1-V3/actions/runs/41331208378) completed successfully.
+
+Evidence includes every choice/default, no coercion or partial invalid patch, all above/midline/straddling normal/penetrator raster modes, disabled Space/C with unchanged canvas/score, retained held kind, penetrator hold prohibition, next preview hiding, native select focus, old/new policy boundaries and remaining timers, restart retention, reload defaults and zero cookie/Storage/history writes while preserving ignored preexisting cookies/query/fragment. Desktop/320px screenshots were inspected; 320/768/1440 widths and complete desktop board focus pass. Prior ordinary/modern/penetrator, bag, score, collision, input-repeat and lifecycle regressions remain passing.
+
+Clean candidate SHA-256: `97e915fab3c5da7bee99e77f72a179f65c220bd46776b76fe8157ef0c4ba5496`. Metadata is version 0.4.0, source `9d91147ab952bc1401037e6a4397053c31acae22`, sourceDirty=false. Six safe allowlisted ZIP members contain local JS/CSS, metadata, matching instructions and notices; tested runtime bytes match, test fixtures/credentials are excluded. Independent stable release names remain `tetris-browser.zip`, `INSTALL.md`, `SHA256SUMS.txt`. This candidate is not the later merge/release-source artifact; exact final source must be rebuilt/rechecked and hosted assets downloaded/byte-matched.
+
+## Exit and next effects
+
+R5 and dynamic R4/Phase 4 PLAN exits pass. TODOs: None. Native Windows execution and full installed-browser sidebar checks are unavailable/not applicable to this browser-only phase; no compatibility claim is inferred. Optional comprehensive prerelease review was recommended once for v0.4.0; no separate campaign was selected or claimed. The required phase review and authorized release checks continue.
+
+Publish/read back T-031, close issue 40 and milestone 14, explicitly integrate/publish the two-parent main merge, create the default-branch exact-message v0.4.0 release source, rebuild/test it, verify tag/assets/latest/body and re-download all three stable assets. Only after that release gate activate Phase 5 and continue the retained T-001–T-072 full implementation grant. No new human checkpoint is pending.
