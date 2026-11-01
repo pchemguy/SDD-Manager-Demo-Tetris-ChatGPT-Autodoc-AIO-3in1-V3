@@ -8,7 +8,7 @@
 - Tracking: enabled for documentation preparation and implementation by root AGENTS.md. GitHub milestone 1 (`sdd-docs-main`) and issues 1–9 match the pinned definitions, with every association read back before repository writes.
 - Publication: each owned commit is pushed and read back before further work. Repository operations within the requested project are authorized by the development request and supplied repository credentials.
 - Reporting: Standard after Explicit bootstrap; Minimal and Explicit remain selectable.
-- Next boundary: continue through DOCS-008 and stop before DOCS-009 package QC, integration or implementation.
+- Next boundary: complete DOCS-003 publication/issue closure; then DOCS-004. Autodoc stops after DOCS-008.
 
 ## Scope source
 
@@ -20,7 +20,12 @@ One pass covers the user's complete 2026-11-01 project request: classic baseline
 | --- | --- |
 | DOCS-001 | Complete at `d5f876ec4743832d91c06671774b417f67fb9b96`; supervised exact remote readback passed. Issue 1 is closed as completed, with association and state read back. |
 | DOCS-002 | Onepass PROJECT proposal SHA-256 `b7a026207dced33bdb2f6867d4b830f0fd640e3518bd5a4ddac392095e257a15`. Purpose, full scope, platform order and consequential recommendations checked against the user request; no product verification claimed. Human approval: the user’s “k” response accepted the published proposal at `0a1dcb82993be5d84eeb31b3d20dcc911813ac29`, including its consequential choices. DOCS-002 is complete in this approval commit. |
-| DOCS-003–008 | Not authored. Later document checkpoints are preapproved within the requested scope, subject to technical QC. |
+| DOCS-003 | Autodoc scoped preapproval following accepted PROJECT. Define shared runtime and platform architecture. Exact artifact states: `docs/dev/ARCHITECTURE.md` SHA-256 `8694fb9226255cb635399aa683828bb40e7ca48c8338318c7ee424a0fc69abbd`. |
+| DOCS-004 | Not authored; document checkpoint preapproved by autodoc mode. |
+| DOCS-005 | Not authored; document checkpoint preapproved by autodoc mode. |
+| DOCS-006 | Not authored; document checkpoint preapproved by autodoc mode. |
+| DOCS-007 | Not authored; document checkpoint preapproved by autodoc mode. |
+| DOCS-008 | Not authored; document checkpoint preapproved by autodoc mode. |
 | DOCS-009 | Not selected. Remains pending at the autodoc stop. |
 
 ## Initialization
@@ -37,7 +42,7 @@ One pass covers the user's complete 2026-11-01 project request: classic baseline
 
 ## Pending transitions
 
-Publish/read back this approval commit and close/read back issue 2 before ARCHITECTURE. Issues 3–9 and the preparation milestone remain open. No implementation range, package QC or documentation integration is selected.
+Publish/read back DOCS-003 and close/read back issue 3. Proceed to DOCS-004 only after those effects are verified. Earlier required closures were read back.
 
 ## Accepted product decisions
 
