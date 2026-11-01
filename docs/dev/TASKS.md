@@ -141,10 +141,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/3/3.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Three intended bonus/re-earn/white-lock failures preceded implementation. Final 78 unit tests, check/build pass. Verified exact four-line earn-one/cap-three, no awards for 1–3 rows or absent capability, spend/re-earn, no refund, ghost/drop equality and traversed-distance points, preserved delayed lock and no settled-cell destruction. Invalid overlapping final lock safely ends without writing. Whole mechanics review/report/HANDOFF included; no scoped TODO.
     - [ ] Milestone 3.2 — Visibility and bonus experience
-        - [ ] T-021 — Render white penetrators and matching ghost
+        - [x] T-021 — Render white penetrators and matching ghost
             Scope: src/ui/board.ts and projection/render checks. Contract: R4; C4.
             Depends on: T-020.
             Evidence: Render active/locked penetrator cells and their projection white without using white for regular kinds. Inspect overlap rendering and confirm draw order never changes settled board data.
+            Verification: Characterization of existing prepared board branches, without fabricating a prior RED or rewriting correct code. Type check and 2 authored-state Chromium/Firefox render cases pass. Actual RGBA verifies pure white active/settled cells, translucent white ghost, seven distinct non-white regular kinds and retained settled data under active overlap. Full-page screenshot inspected. Test-only controller/mount fixture is outside release build inputs; ordinary packaged-entry regressions remain T-023.
         - [ ] T-022 — Expose bonus inventory and penetrator hotkey
             Scope: src/ui panels/input/help and controller integration. Contract: R4/R9; C3/C4.
             Depends on: T-021.
