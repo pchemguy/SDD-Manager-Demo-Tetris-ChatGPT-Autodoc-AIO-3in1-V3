@@ -13,20 +13,26 @@ export function mount(root:HTMLElement, controller:Controller, mode:'wide'|'side
     <dl><div><dt>Score</dt><dd data-testid="score">0</dd></div><div><dt>Level</dt><dd data-testid="level">1</dd></div><div><dt>Lines</dt><dd data-testid="lines">0</dd></div></dl>
     ${modern?'<div class="piece-slots"><section><h3>Next <span data-testid="next-kind">—</span></h3><div class="mini-piece" id="next-preview"></div></section><section><h3>Hold <span data-testid="held-kind">—</span></h3><div class="mini-piece" id="held-preview"></div><p data-testid="hold-state">Available</p></section></div>':''}
     ${penetrator?'<section class="bonus-inventory" aria-label="Penetrator bonuses"><h3>Penetrator <span data-testid="bonus-count">0</span></h3><p class="bonuses" data-testid="bonuses" aria-label="No bonuses"></p></section>':''}
-    <p class="status" data-testid="status" role="status">idle</p>${panelLayout?'':`<p class="hint">← → move · ↑ / X rotate<br>Z rotate back · ↓ soft drop<br>${modern?'<span data-testid="modern-actions">Space hard drop · C hold</span><br>':''}${penetrator?'P activates penetrator (1 bonus)<br>':''}Esc pause / resume</p><p class="hint" data-testid="lock-info">Full grounding interval; pause freezes timers.</p>${penetrator?'<p class="hint">Four cleared lines earn one ⚡ (max 3). Hold is unavailable while active.</p>':''}`}
+    <p class="status" data-testid="status" role="status">idle</p>${panelLayout?'<p class="hint" data-testid="file-announcement" aria-live="polite" aria-atomic="true" hidden></p><p class="error" data-testid="global-error" role="alert" aria-atomic="true" hidden></p>':''}${panelLayout?'':`<p class="hint">← → move · ↑ / X rotate<br>Z rotate back · ↓ soft drop<br>${modern?'<span data-testid="modern-actions">Space hard drop · C hold</span><br>':''}${penetrator?'P activates penetrator (1 bonus)<br>':''}Esc pause / resume</p><p class="hint" data-testid="lock-info">Full grounding interval; pause freezes timers.</p>${penetrator?'<p class="hint">Four cleared lines earn one ⚡ (max 3). Hold is unavailable while active.</p>':''}`}
     <div class="game-actions"><button id="restart">Start</button><button id="pause">Start</button></div></section>
     <section class="board-wrap" aria-label="Tetris board"><canvas width="300" height="600" tabindex="0" aria-label="Game board. Use keyboard controls."></canvas><p class="board-caption">10 × 20 · PLAYFIELD</p></section></div>`;
   const leaderboardPanel=capabilities.has('leaderboard')?createLeaderboardPanel():null;
   if(leaderboardPanel)root.querySelector('.game-layout')!.prepend(leaderboardPanel.element);
-  const settingsPanel=capabilities.has('settings')?createSettingsPanel(controller):null;
+  const announceFile=panelLayout?(message:string)=>{const region=root.querySelector<HTMLElement>('[data-testid=file-announcement]')!;if(region.textContent!==message)region.textContent=message;region.hidden=!message;}:undefined;
+  const settingsPanel=capabilities.has('settings')?createSettingsPanel(controller,announceFile):null;
   if(settingsPanel)root.querySelector('.game-layout')!.append(settingsPanel.element);
   const helpPanel=panelLayout?createHelpPanel(modern,penetrator):null;
   if(helpPanel)root.querySelector('.game-layout')!.append(helpPanel.element);
+  const announceError=(view:GameView)=>{
+    const region=root.querySelector<HTMLElement>('[data-testid=global-error]');if(!region)return;
+    const message=view.error?.message??'';if(region.textContent!==message)region.textContent=message;
+    const hidden=!message||Boolean(settingsPanel&&!settingsPanel.element.hidden);if(region.hidden!==hidden)region.hidden=hidden;
+  };
   const auxiliary=panelLayout?createPanelControls([
     ...(leaderboardPanel?[{name:'leaderboard',element:leaderboardPanel.element}]:[]),
     ...(settingsPanel?[{name:'settings',element:settingsPanel.element}]:[]),
     ...(helpPanel?[{name:'help',element:helpPanel.element}]:[])
-  ]):null;
+  ],()=>announceError(controller.view())):null;
   if(auxiliary)root.querySelector('.game-actions')!.before(auxiliary.element);
   const host=root.ownerDocument.defaultView!,wideQuery=host.matchMedia('(min-width:1280px)');
   const arrange=()=>{
@@ -54,7 +60,7 @@ export function mount(root:HTMLElement, controller:Controller, mode:'wide'|'side
     set('lock-info',`${g.active?'Current':'Next'} piece: ${policy.lockPolicy==='interval'?'full interval':'failed step'} / ${policy.hardDropLock==='general'?'general':'immediate'} hard drop. Pause freezes timers.`);
     if(modern){set('modern-actions',`Space hard drop${view.state.settings.hardDrop?'':' (disabled)'} · C hold${view.state.settings.hold?'':' (disabled)'}`);root.querySelector<HTMLElement>('#next-preview')!.hidden=!view.state.settings.nextPreview;set('next-kind',view.state.settings.nextPreview?view.next??'—':'Disabled');set('held-kind',view.held??'—');set('hold-state',g.active?.penetrator?'Unavailable (penetrator)':!view.state.settings.hold?'Disabled':g.holdUsed?'Used until lock':'Available');renderPreview(root.querySelector('#next-preview')!,view.next,'Next');renderPreview(root.querySelector('#held-preview')!,view.held,'Hold');}
     if(penetrator){set('bonus-count',g.bonuses);set('bonuses','⚡'.repeat(g.bonuses));const inventory=root.querySelector('[data-testid=bonuses]')!;const label=`${g.bonuses} penetrator bonuses`;if(inventory.getAttribute('aria-label')!==label)inventory.setAttribute('aria-label',label);}
-    leaderboardPanel?.render(view);settingsPanel?.render(view);drawBoard(view);
+    leaderboardPanel?.render(view);settingsPanel?.render(view);announceError(view);drawBoard(view);
   };
   const focus=()=>{canvas.focus({preventScroll:true});canvas.scrollIntoView({block:'center',inline:'nearest'});};
   root.querySelector('#restart')!.addEventListener('click',()=>{controller.start();focus();});
