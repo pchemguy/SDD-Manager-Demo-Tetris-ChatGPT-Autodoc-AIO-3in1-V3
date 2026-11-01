@@ -1,0 +1,35 @@
+import { expect, test } from '@playwright/test';
+test('classic app is playable through keyboard, pause and restart', async ({ page }) => {
+  await page.clock.install();
+  await page.goto('/');
+  await expect(page.getByRole('heading', {name:'Game info and controls'})).toBeVisible();
+  await expect(page.getByRole('button')).toHaveCount(2);
+  await expect(page.getByTestId('status')).toHaveText('idle');
+  await expect(page.locator('#restart')).toHaveText('Start');
+  await expect(page.locator('#pause')).toHaveText('Start');
+  await page.locator('#restart').click();
+  await expect(page.getByTestId('status')).toHaveText('running');
+  await expect(page.locator('#restart')).toHaveText('Restart');
+  await expect(page.locator('#pause')).toHaveText('Pause');
+  for(let n=0;n<6;n++) await page.keyboard.press('ArrowDown');
+  await expect(page.getByTestId('score')).toHaveText('6');
+  const painted = await page.locator('canvas').evaluate((canvas:HTMLCanvasElement)=>{
+    const data=canvas.getContext('2d')!.getImageData(0,0,canvas.width,canvas.height).data;
+    let colored=0;for(let i=0;i<data.length;i+=4) if(Math.max(data[i]!,data[i+1]!,data[i+2]!)-Math.min(data[i]!,data[i+1]!,data[i+2]!)>50 && Math.max(data[i]!,data[i+1]!,data[i+2]!)>150) colored++;
+    return colored;
+  });
+  expect(painted).toBeGreaterThan(500);
+  await page.keyboard.press('Escape');
+  await expect(page.getByTestId('status')).toHaveText('paused');
+  await page.getByRole('button', {name:'Start',exact:true}).click();
+  await expect(page.getByTestId('status')).toHaveText('running');
+  await page.keyboard.press('z');await page.keyboard.press('ArrowLeft');
+  await page.getByRole('button', {name:'Restart',exact:true}).click();
+  await expect(page.getByTestId('score')).toHaveText('0');
+  await page.clock.fastForward(600000);
+  await expect(page.getByTestId('status')).toHaveText('gameover');
+  await page.getByRole('button', {name:'Restart',exact:true}).click();
+  await expect(page.getByTestId('status')).toHaveText('running');
+  await page.keyboard.press('ArrowDown');
+  await page.screenshot({path:test.info().outputPath('classic.png')});
+});

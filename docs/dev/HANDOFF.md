@@ -1,33 +1,21 @@
 # Project handoff
 
-Checkpoint: accepted preparation merged into main; merge publication and documentation milestone closure require readback. Full implementation authorized.
-
-Outcome: PROJECT was accepted by the user; ARCHITECTURE, DECOMPOSITION with MODELS/API-DESIGN, SPEC with three contract artifacts, PLAN, layout and TASKS are prepared under scoped autodoc preapproval. Required SPEC/PLAN/TASKS conformance reports are present. Nine planned phases contain 21 delivery milestones, nine phase reviews and 72 unchecked implementation tasks. No product implementation exists.
+Checkpoint: Phase 1 implementation/review is integrated into main; merge publication and v0.1.0 release remain pending effects. Full implementation remains authorized.
 
 ## Workflow and sources
 
-- Workflow/stage/owner: main development, completed document pass at the sdd-tasks → sdd-manage return boundary.
-- Governing records: [DOCS_TASKS](DOCS_TASKS.md) owns checkoffs; [DOCS_PREPARATION](DOCS_PREPARATION.md) owns mode, decisions and evidence. Recover later state from these records and Git.
-- Package: repository-provided SDD Manager 0.16.1 at `.agents/plugins/sdd-manager`.
+Main development, implementation owner sdd-implement. [TASKS](TASKS.md) is the sole executable owner. [DOCS_PREPARATION](DOCS_PREPARATION.md) retains accepted autodoc preparation and the full implementation grant; preparation/QC is integrated into main `eeb0dcc81ccb6e34687623eab665a6e51f1f4e1b`. Repository SDD Manager version is 0.16.1. Reports: [engine](reports/phases/1/1.1.md), [playable browser session](reports/phases/1/1.2.md).
 
 ## Scope and human decisions
 
-- Objective: prepare the user's complete browser Tetris, Windows Electron and Chromium/Firefox sidebar project in autodoc/onepass mode.
-- Approval basis: user accepted PROJECT and its consequential choices with “k” on 2026-11-01. Later document checkpoints through TASKS are preapproved by mode selection; scoped correction evidence is in the adjacent reports and DOCS_PREPARATION.
-- Authorized range: the user’s “Run QC and full implement” selects DOCS-009, preparation integration and T-001–T-072, with phase verification/integration/releases. Stop at complete delivery or a concrete unresolved blocker.
-- Tracking: root AGENTS.md enables preparation and implementation tracking. Milestone 1 and issues 1–9 were verified before writes.
-- Reporting: Standard.
+The user's “Run QC and full implement” on 2026-11-01 authorizes T-001–T-072, phase reviews, verified integration and versioned releases with every applicable platform artifact. The later request explicitly delegates recovery and continuation to a monitored subagent. Stop at complete delivery or a concrete unresolved blocker. Tracking is enabled by root AGENTS.md. Reporting: Standard; parent receives task/milestone progress and blockers.
 
 ## Branches and return
 
-- Working branch at this checkpoint: actual default `main`; preparation source `design-docs/main`.
-- Creation parent and integration target: actual default branch `main`.
-- Branch-off commit: `93682b5b82b4b06d82f2a9cefada7345cb7ac341`.
-- Suspended parent: none. `design-docs/ai-logs` retains only the integrated scaffold checkpoint.
+Working branch: `main`, receiving completed `phase/1-classic-browser-baseline` at `c8853db4009b694a3e514483508ccf0c71855528`. Creation parent and integration target: actual default branch `main`. Branch-off commit: `eeb0dcc81ccb6e34687623eab665a6e51f1f4e1b`. No suspended parent. The retained design branches are already integrated and do not own current product work.
 
 ## Pending work and next action
 
-- Issues 1–7 were closed/read back after their verified publication. Publish/read back this DOCS-008 commit, then close/read back issue 8 before reporting the pass complete.
-- All nine DOCS issues are closed/read back. Publish/read back this verified two-parent merge, then close/read back the preparation milestone. Phase activation has not run.
-- Next eligible action: finish preparation publication/integration, then activate Phase 1 and execute the authorized full range.
-- Product builds, tests, packages and releases have not been created or verified.
+Documentation issues 1–9 and milestone 1 are closed. Phase 1 associations exist for issues 10–19 and milestones 2–5. T-001–T-009 are published with closed issues; delivery milestones 1.1–1.3 are closed/read back. T-010 includes the phase review, corrected Vite runtime notice and complete source/package evidence. T-010 is published, issue 19 and milestone 5 are closed/read back. Publish/read back this explicit verified phase merge. Prepare v0.1.0 exact-source release commit/tag and rebuild/check its assets; publish/read back and verify hosted bytes. Only then activate Phase 2 and continue T-011–T-072 under the retained full grant.
+
+Current evidence: 44/44 unit checks, type check/build, 16/16 source-app browser tests and 14 extracted-package cases pass (two source-module consumer cases explicitly excluded). Screenshots inspected; browser candidate and required Vite notice verified. Phase report: [Phase 1](reports/phases/1/PHASE-REPORT.md). Final exact-source rebuild and release remain pending. Native Windows and full-browser sidebars remain later evidence limits, not implicit blockers. Existing ignored credential input is available without being included in tracked artifacts. No reset or replay of completed work was performed.

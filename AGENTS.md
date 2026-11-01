@@ -54,6 +54,12 @@ Maintain project-specific navigation and validated setup/check commands here as 
 
 Read [PROJECT](docs/dev/PROJECT.md), [ARCHITECTURE](docs/dev/ARCHITECTURE.md), [DECOMPOSITION](docs/dev/DECOMPOSITION.md), [MODELS](docs/dev/MODELS.md), [API-DESIGN](docs/dev/API-DESIGN.md), [SPEC](docs/dev/SPEC.md), [PLAN](docs/dev/PLAN.md) and [layout](docs/dev/layout.md) as their current owners. Focused behavioral contracts are linked from SPEC. [DOCS_PREPARATION](docs/dev/DOCS_PREPARATION.md) owns preparation decisions/evidence; DOCS_TASKS owns preparation checkoffs. HANDOFF remains the recovery entry.
 
-The project targets shared TypeScript gameplay/UI for browser, Windows Electron and Chromium/Firefox sidebars. Source/test/build locations in layout are planned, not implemented. No application setup/build/test command has been validated yet; record actual commands here when implementation establishes them. Preserve platform separation and the central browser/Windows policies above.
+The project targets shared TypeScript gameplay/UI for browser, Windows Electron and Chromium/Firefox sidebars. The classic engine, controller, browser ports and Canvas UI are implemented; later capability paths in layout remain planned. Node 24 with pinned dependencies supports validated `npm run check`, `npm run build` and the bounded browser probe. Use `npm run test:unit` for domain/controller checks and `npm run test:e2e` for the actual browser game. Preserve platform separation and the central browser/Windows policies above.
 
-[TASKS](docs/dev/TASKS.md) is the sole implementation task owner; its adjacent review report assesses derivation. The current autodoc stopping boundary and any later grants remain in DOCS_PREPARATION/HANDOFF. No product implementation or phase activation has occurred.
+[TASKS](docs/dev/TASKS.md) is the sole implementation task owner; its adjacent review report assesses derivation. The current autodoc stopping boundary and any later grants remain in DOCS_PREPARATION/HANDOFF. Phase 1 is activated; recover the current task from TASKS/Git and HANDOFF.
+
+The managed Linux test host requires `TETRIS_FIREFOX_SANDBOX_WORKAROUND=1` for trusted local Firefox checks after a diagnosed content-process namespace failure. It is opt-in and must not be applied to arbitrary pages. Use the absolute project-owned browser root established by Playwright configuration.
+
+`npm run test:unit` covers public domain and application behavior. Domain consumers import `src/domain/index.ts`; private shape data stays within the domain owner.
+
+`npm run package` and `npm run verify:package` build/check the browser candidate with Python 3.11+. `TETRIS_PACKAGED_TEST=1 npm run test:e2e` serves the extracted candidate and tests the actual runtime; only the source-module input consumer case is excluded there. Release packaging requires a clean exact release source and the same checks before upload.

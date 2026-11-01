@@ -67,3 +67,7 @@ These checks validate a planned breakdown. No product tests, builds, native runt
 ## Revision 2
 
 K-002: the final staged whitespace check detected one extra blank line at TASKS EOF. Removed that trailing blank line without changing task text, IDs, dependencies or hierarchy. Current TASKS SHA-256 is `30ac3cfe0663adeab7cde7267064c3b23dbbc9b5c532d23297ff712307171023`. Rechecked the same structural counts/dependencies and staged whitespace; all pass. This formatting correction changes no governing contract, strategy or implementation scope. No findings remain open.
+
+## Revision 3 — Clock-interface conformance
+
+Reviewed SPEC/API-DESIGN Revision 3's single-clock tick refinement. T-005 already owns serial command/time dispatch through clock ports, T-006 owns animation-frame integration and T-007 owns lifecycle behavior. Existing PLAN/layout/task boundaries and IDs remain sufficient. No delivery, dependency or scope change is needed; the affected consumer checks must verify interleaved frame/input time and pause/resume. Current governing SPEC SHA-256: `fc1f3a9632935fce0c85b949efbb045a8e4b6ac2f98bc00be0a01d8fd8a997a8`; API-DESIGN SHA-256: `287c4ae148b9398e252f87c09bd9a5269b86f4d77a40f167d17b0102e5e92d32`. Unchanged strategy/task decomposition remains Ready within the reviewed scope.
