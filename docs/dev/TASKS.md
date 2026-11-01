@@ -84,10 +84,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Check nonbiased seeded bag shuffling, every bag containing all seven kinds, refill boundaries and preview reads without consumption. Preserve serializable generator state and baseline play.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
             Verification: Verified predecessor v0.1.0 integration/release, all hosted bytes and Phase 2 tracking before work. Two intended modern factory/preview failures preceded implementation. Final 47 unit tests, type check and build pass: four complete bags for three seeds, immutable preview/next-spawn agreement across refill boundaries, serializable determinism, disabled preview and retained unbiased baseline uniform sequence. v0.2.0/capability metadata and phase branch-off checkpoint included.
-        - [ ] T-012 — Implement once-per-piece hold
+        - [x] T-012 — Implement once-per-piece hold
             Scope: src/domain/engine.ts and controller views/tests. Contract: R2/R3; C2/C3.
             Depends on: T-011.
             Evidence: Check empty hold versus swap queue consumption, spawn resets, second-use prohibition, lock reset of holdUsed and failed replacement spawn. Capture selected policy only on the replacement piece.
+            Verification: Four intended hold/projection failures preceded implementation. Final 51 unit tests, type check and build pass. Verified empty hold consumes the queued next kind, nonempty swap preserves sequence, once-per-lock reset, spawn pose/timer/policy capture, input immutability, capability/setting/paused/penetrator no-ops, retained disabled-slot projection and exact-once safe above-top replacement failure. Controller consumes the same public projection; UI key/panel integration remains T-016.
         - [ ] T-013 — Implement ordered wall kicks
             Scope: src/domain geometry/engine and tests/unit/domain. Contract: R2/R3; C1/C2.
             Depends on: T-011, T-012.

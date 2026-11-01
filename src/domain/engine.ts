@@ -1,4 +1,4 @@
-/** Pure classic game transitions; gravity and grounded locking have separate clocks. */
+/** Pure falling-piece transitions; gravity and grounded locking have separate clocks. */
 import type { Capabilities, Cell, GameAction, GameEvent, GameState, Piece, PieceKind, Settings, Transition } from '../models';
 import { canPlace, cells } from './geometry';
 import { takeNext } from './sequence';
@@ -21,9 +21,9 @@ function ground(g: Draft): void {
   g.timers.grounded = grounded;
 }
 
-function spawn(g: Draft, settings: Settings, events: GameEvent[]): void {
-  const [kind, sequence] = takeNext(g.sequence);
-  g.sequence = copySequence(sequence);
+function spawn(g: Draft, settings: Settings, events: GameEvent[], replacement?:PieceKind): void {
+  let kind=replacement;
+  if(kind===undefined){const [next,sequence]=takeNext(g.sequence);kind=next;g.sequence=copySequence(sequence);}
   g.active = { kind, rotation: 0, origin: { x: kind === 'O' ? 4 : 3, y: -2 }, penetrator: false };
   g.holdUsed = false;
   g.piecePolicy = { lockPolicy: settings.lockPolicy, hardDropLock: settings.hardDropLock };
@@ -83,10 +83,15 @@ export function setPaused(state: GameState, paused: boolean): GameState {
   return state;
 }
 
-/** Apply one baseline action without host effects or mutating the caller's state. */
-export function dispatchGame(state: GameState, action: GameAction, settings: Settings, _capabilities: Capabilities): Transition {
-  if (state.status !== 'running' || !state.active || ['hold','hardDrop','penetrator'].includes(action)) return { state, events: [] };
+/** Apply one delivered action without host effects or mutating the caller's state. */
+export function dispatchGame(state: GameState, action: GameAction, settings: Settings, capabilities: Capabilities): Transition {
+  if (state.status !== 'running' || !state.active || ['hardDrop','penetrator'].includes(action)) return { state, events: [] };
+  if(action==='hold'&&(!capabilities.has('modern')||!settings.hold||state.holdUsed||state.active.penetrator))return {state,events:[]};
   const g = copy(state), events: GameEvent[] = [];
+  if(action==='hold'){
+    const kind=g.active!.kind,replacement=g.held;g.held=kind;spawn(g,settings,events,replacement??undefined);g.holdUsed=true;
+    return {state:g,events};
+  }
   if (action === 'softDrop') down(g, settings, events, true);
   else {
     const p = g.active!;
@@ -116,7 +121,7 @@ export function advanceGame(state: GameState, elapsedMs: number, settings: Setti
   return { state: g, events };
 }
 
-/** Baseline projections expose no undelivered modern controls. */
+/** Expose only delivered projections without consuming queue or mutating simulation. */
 export function projectGame(state: GameState, settings: Settings, capabilities: Capabilities): Readonly<{ ghost: Piece | null; next: PieceKind | null; held: PieceKind | null }> {
-  return { ghost: null, next: capabilities.has('modern')&&settings.nextPreview ? state.sequence.pending[0]??null : null, held: null };
+  return { ghost: null, next: capabilities.has('modern')&&settings.nextPreview ? state.sequence.pending[0]??null : null, held: capabilities.has('modern')?state.held:null };
 }
