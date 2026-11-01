@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Phase 1 activated; T-001 toolchain setup is current. Full implementation remains authorized.
+Checkpoint: Milestone 1.1 implementation/review passed; T-003 publication and milestone closure are pending. Full implementation remains authorized.
 
 Outcome: PROJECT was accepted by the user; ARCHITECTURE, DECOMPOSITION with MODELS/API-DESIGN, SPEC with three contract artifacts, PLAN, layout and TASKS are prepared under scoped autodoc preapproval. Required SPEC/PLAN/TASKS conformance reports are present. Nine planned phases contain 21 delivery milestones, nine phase reviews and 72 unchecked implementation tasks. No product implementation exists.
 
@@ -29,7 +29,7 @@ Outcome: PROJECT was accepted by the user; ARCHITECTURE, DECOMPOSITION with MODE
 
 - Issues 1–7 were closed/read back after their verified publication. Publish/read back this DOCS-008 commit, then close/read back issue 8 before reporting the pass complete.
 - All nine DOCS issues and milestone 1 are closed/read back after published preparation merge. Phase 1 label, milestones 2–5 and task issues 10–19 are verified with associations.
-- Current action: T-001 setup; then T-002–T-010, Phase 1 integration/release, and subsequent eligible phases through T-072. Do not re-ask the authorized range.
-- Product builds, tests, packages and releases have not been created or verified.
+- Current boundary: publish T-003 and close issue 12, verify issues 10–12 complete, then close/read back milestone 2. Continue T-004–T-010 only after the relevant dependency/closure gates; full T-001–T-072 authority remains active.
+- Domain milestone evidence: reports/phases/1/1.1.md. Final unit suite 29/29, type check and scaffold build pass. Browser runtime probes passed; playable UI, platform packages and releases are not delivered yet.
 
 Projection recovery: the first 300-second utility invocation created seven issues then reported source_not_committed at its final check. Worktree/request/HEAD TASKS hashes were identical. Read-only reconciliation verified existing effects and only three missing issues; the second apply completed all ten associations without duplicate objects. No source change or credential replacement was made.

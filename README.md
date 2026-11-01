@@ -2,7 +2,7 @@
 
 A Tetris development project targeting a static browser application, a Windows Electron application and desktop Chromium/Firefox sidebar extensions. Delivery begins with a playable classic browser baseline and adds the requested capabilities through bounded increments.
 
-Implementation is underway. The current task establishes the toolchain and an empty browser composition shell; playable gameplay and verified release packages are not available yet.
+Implementation is underway. The pinned toolchain, pure classic engine and an empty browser composition shell are present; playable browser UI and verified release packages are not available yet.
 
 ## Project documents
 

@@ -1,6 +1,6 @@
 # Implementation tasks
 
-The complete executable hierarchy derives from [PLAN](PLAN.md), [SPEC](SPEC.md), [layout](layout.md), [DECOMPOSITION](DECOMPOSITION.md), [MODELS](MODELS.md) and [API-DESIGN](API-DESIGN.md). All tasks are initially unchecked; no implementation has been performed.
+The complete executable hierarchy derives from [PLAN](PLAN.md), [SPEC](SPEC.md), [layout](layout.md), [DECOMPOSITION](DECOMPOSITION.md), [MODELS](MODELS.md) and [API-DESIGN](API-DESIGN.md). Checkoffs record verified implementation progress; task commits and reports establish completion.
 
 ## Execution and evidence rules
 
@@ -15,7 +15,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 ## Phase 1 — Classic browser baseline
 
 - [ ] Phase 1 — Classic browser baseline
-    - [ ] Milestone 1.1 — Deterministic classic engine
+    - [x] Milestone 1.1 — Deterministic classic engine
         - [x] T-001 — Establish the local toolchain and isolated runners
             Scope: package.json/lockfile, TypeScript/Vite/unit/Playwright configuration and README/AGENTS setup guidance. Contract: R1/R12; C8.
             Depends on: none; accepted/published preparation and Phase 1 activation.
@@ -27,11 +27,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-001.
             Evidence: Check all seven matrices, rotations, bounds, above-top placement, collisions and ordinary lowest reachable landing through public consumers. Leave inputs immutable and compare expected board/pose fixtures.
             Verification: RED: the public geometry suite collected nine tests and observed seven intended behavioral failures against empty API stubs (missing cells, legal placement and landing). GREEN: npm run test:unit passes all nine tests; npm run check and npm run build pass. Coverage includes all seven four-cell shapes, matrix rotations, active-above-top versus lock bounds, settled collision, first-blocker landing, invalid/top-out landing and caller immutability. No browser or gameplay-engine claim is made by this pure-domain task.
-        - [ ] T-003 — Implement deterministic falling and interval locking
+        - [x] T-003 — Implement deterministic falling and interval locking
             Scope: src/domain engine/sequence and tests/unit/domain. Contract: R1/R3; C2.
             Depends on: T-001, T-002.
             Evidence: Create idle/running games with explicit seeds, support baseline movement and pause transitions, uniform sequence, gravity and independent grounded interval timers. Verify exact expiry, lift/re-ground, no-reset movement and top-out without a DOM.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/1/1.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: RED: eight intended engine failures against stubs; after initial green, independent review found nonzero-source sampling bias and six fixed-seed regressions failed before correction. GREEN: all 29 unit tests, npm run check and npm run build pass. Independent focused recheck confirmed the sampler correction and milestone readiness. Full independent grounding intervals, no grounded reset, lifting reset, pause preservation, exact lock/gravity order, leftover elapsed time, immutable state and safe top-out are verified. Includes Milestone 1.1 whole-capability code review/report and HANDOFF; TODO None. Scoring/UI/modern features remain assigned later work.
     - [ ] Milestone 1.2 — Playable browser session
         - [ ] T-004 — Implement line clearing scoring and level progression
             Scope: src/domain scoring/engine and tests/unit/domain. Contract: R1/R3; C2.
