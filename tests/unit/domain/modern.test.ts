@@ -80,3 +80,11 @@ test('a fully blocked rotation preserves pose and deadline; O remains unchanged'
   const result=dispatchGame(blocked,'rotateCW',settings,caps).state;expect(result.active).toEqual(a.active);expect(result.timers).toEqual(blocked.timers);
   const square=pose('O',0,4,18);expect(dispatchGame(square,'rotateCCW',settings,caps).state.active).toEqual(square.active);
 });
+
+test('ghost uses ordinary reachable landing, including zero distance, without state mutation',()=>{
+  const board=empty();board[15]![4]='J';const a={...pose('O',0,4,5),board};const before=JSON.stringify(a);
+  expect(projectGame(a,settings,caps).ghost).toEqual({kind:'O',rotation:0,origin:{x:4,y:13},penetrator:false});expect(JSON.stringify(a)).toBe(before);
+  const grounded=pose('O',0,4,18);expect(projectGame(grounded,settings,caps).ghost).toEqual(grounded.active);
+  expect(projectGame(a,{...settings,ghost:'hide'},caps).ghost).toBeNull();expect(projectGame(a,settings,new Set()).ghost).toBeNull();
+  board[0]=Array<Cell>(10).fill('J');expect(projectGame({...a,active:{kind:'O',rotation:0,origin:{x:4,y:-2},penetrator:false}},settings,caps).ghost).toBeNull();
+});

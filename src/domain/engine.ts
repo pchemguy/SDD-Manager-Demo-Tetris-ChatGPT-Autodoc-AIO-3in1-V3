@@ -1,6 +1,7 @@
 /** Pure falling-piece transitions; gravity and grounded locking have separate clocks. */
 import type { Capabilities, Cell, GameAction, GameEvent, GameState, Piece, PieceKind, Settings, Transition } from '../models';
 import { canPlace, cells } from './geometry';
+import { landing } from './landing';
 import { takeNext } from './sequence';
 import { addPoints, clearAndScore } from './scoring';
 
@@ -128,5 +129,5 @@ export function advanceGame(state: GameState, elapsedMs: number, settings: Setti
 
 /** Expose only delivered projections without consuming queue or mutating simulation. */
 export function projectGame(state: GameState, settings: Settings, capabilities: Capabilities): Readonly<{ ghost: Piece | null; next: PieceKind | null; held: PieceKind | null }> {
-  return { ghost: null, next: capabilities.has('modern')&&settings.nextPreview ? state.sequence.pending[0]??null : null, held: capabilities.has('modern')?state.held:null };
+  return { ghost: capabilities.has('modern')&&settings.ghost!=='hide'&&state.active ? landing(state.board,state.active) : null, next: capabilities.has('modern')&&settings.nextPreview ? state.sequence.pending[0]??null : null, held: capabilities.has('modern')?state.held:null };
 }

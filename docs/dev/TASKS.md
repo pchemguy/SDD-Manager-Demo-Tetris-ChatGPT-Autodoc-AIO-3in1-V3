@@ -96,10 +96,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/2/2.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Three intended wall/stack kick failures preceded implementation. Final 55 unit tests, type check and build pass. Public-engine checks cover exact left-before-right candidate order for both rotations, I wall/floor offsets, unchanged O, complete failure, preserved grounded deadlines and cleared lifted deadline. Whole milestone sequence/hold/kick code review, report and HANDOFF included; no scoped TODO and no complete SRS claim.
     - [ ] Milestone 2.2 — Projection and hard drop
-        - [ ] T-014 — Render ghost from the shared ordinary landing
+        - [x] T-014 — Render ghost from the shared ordinary landing
             Scope: src/domain projections and src/ui/board.ts. Contract: R4; C1/C2/C4.
             Depends on: T-013.
             Evidence: Use the same landing result as drop, including zero-distance projection, and verify ghost rendering never changes the board or simulation. Keep default ghost visibility shown until configurable modes are delivered.
+            Verification: One public projection case and both browser outline cases failed before implementation. Final 56 unit tests, check/build and 18 Chromium/Firefox browser tests pass. Literal blocker/zero-distance/null fixtures verify non-mutating landing; actual Canvas edge/center pixels verify four translucent outlined ghost cells separate from active fills. Screenshot inspected. Board presentation extracted into its planned private owner; no gameplay state mutation or new click target.
         - [ ] T-015 — Implement delayed hard drop and policy precedence
             Scope: src/domain/engine.ts, input binding and domain/controller tests. Contract: R2/R3; C2/C3/C4.
             Depends on: T-014.
