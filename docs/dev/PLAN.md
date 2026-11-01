@@ -10,8 +10,8 @@ The sequence deliberately delivers six session-only settings before cookie/query
 | --- | --- | --- | --- |
 | 1 | v0.1.0 | Playable classic browser game and deployable build | R1, default R3, initial R9 controls, R12 |
 | 2 | v0.2.0 | Modern piece controls and projections | R2, ordinary ghost/hard-drop parts of R3–R4 |
-| 3 | v0.3.0 | Penetrator bonuses and dynamic ghost | Remaining R4 and its R2–R3 interactions |
-| 4 | v0.4.0 | Six configurable session-only settings | R5 |
+| 3 | v0.3.0 | Penetrator bonuses and landing preview | Penetrator R4 and its R2–R3 interactions |
+| 4 | v0.4.0 | Six session-only settings and selectable dynamic ghost | R5 and dynamic-visibility R4 |
 | 5 | v0.5.0 | URL/cookie persistent configuration | R6 browser contracts |
 | 6 | v0.6.0 | Session top ten with JSON/SQLite Save/Restore | R7–R8 |
 | 7 | v0.7.0 | Centered, toggleable, responsive panel layout | Complete R9 |
@@ -53,27 +53,27 @@ Build on the usable baseline with seven-bag, hold, wall kicks, next preview, gho
 
 Exit: R2, normal ghost/hard-drop R3–R4 and classic regressions pass. Demonstrate repeated hold/drop/play with preview consistency; input/help evidence informs whether control clarity needs an in-scope correction before integration.
 
-## Phase 3 — Penetrator and conditional ghost
+## Phase 3 — Penetrator bonuses
 
-Add the distinctive bonus mechanic and dynamic ghost rule without broadening configuration or persistence.
+Add the distinctive bonus mechanic and matching landing preview without broadening configuration or persistence. Selectable dynamic ghost arrives with the session settings panel.
 
 | Milestone | Outcome and exit evidence |
 | --- | --- |
 | 3.1 — Penetrator mechanics | Valid-final-landing search, pass-through movement, lock safety and bonus earn/spend/cap work together. Shared ghost/hard-drop comparison covers stacked boards and invalid geometric-floor poses. |
-| 3.2 — Visibility and bonus experience | Dynamic y=10 visibility, entirely white penetrator rendering, bonus symbols, hold prohibition and help integrate with the browser UI and package. Demonstrate activation through a stack without destroying cells. |
-| 3.3 — Phase review | Review/test/report complete R4 and interactions with R2/R3; retain cumulative browser artifact evidence. |
+| 3.2 — Visibility and bonus experience | Entirely white penetrator/ghost rendering, bonus symbols, hold prohibition and help integrate with the browser UI and package. Demonstrate activation through a stack without destroying cells. |
+| 3.3 — Phase review | Review/test/report penetrator R4 and interactions with R2/R3; retain cumulative browser artifact evidence. |
 
-Exit: zero/capped inventory, activation, grounded timing, locking and midline boundaries pass. Dynamic mode is covered by the public settings projection seam before its selectable UI arrives in Phase 4; fixed defaults remain shown ghost until then.
+Exit: zero/capped inventory, activation, grounded timing, locking and ghost/drop agreement pass. Fixed default ghost visibility remains show; dynamic mode is scheduled with its selectable control in Phase 4 and is not claimed as delivered by Phase 3.
 
 ## Phase 4 — Session configuration
 
-Deliver all six choices in a settings panel, intentionally without reload persistence. A real session-only release is required before the persistence phase.
+Deliver all six choices and the selectable dynamic-midline ghost behavior in a settings panel, intentionally without reload persistence. A real session-only release is required before the persistence phase.
 
 | Milestone | Outcome and exit evidence |
 | --- | --- |
-| 4.1 — Session settings model | Typed defaults/patch validation and selected-versus-active policy effects integrate with the controller, including disabled action/held-slot behavior. |
+| 4.1 — Session settings model | Typed defaults/patch validation, dynamic-midline ghost projection and selected-versus-active policy effects integrate with the controller, including disabled action/held-slot behavior. |
 | 4.2 — Settings panel integration | Six accessible controls, next-piece policy feedback and a settings panel work in browser play. Reload/write-spy checks prove defaults reset and no persistent storage/URL writes occur. Prepare the cumulative browser package. |
-| 4.3 — Phase review | Review/test/report R5 and all setting/gameplay interactions while verifying explicit non-persistence. |
+| 4.3 — Phase review | Review/test/report R5, dynamic-visibility R4 and all setting/gameplay interactions while verifying explicit non-persistence. |
 
 Exit: every choice is demonstrable; configuration survives Restart and is lost on reload. Files/leaderboard and finalized five-panel geometry remain later scope.
 

@@ -2,7 +2,7 @@
 
 ## Current gate
 
-State: Ready for layout authoring; TASKS readiness is pending combined PLAN/layout review. This is strategy-only review, not whole-package QC or implementation evidence.
+State: Ready for TASKS after combined PLAN/layout review (Revision 1). This is strategy-only review, not whole-package QC or implementation evidence.
 
 Reviewed PLAN SHA-256: `176f47cc7eb8f2ba0526a940a34909fd851ad1c48a4de6fa7c0b542fd2b007f7`.
 Governing SPEC SHA-256: `7f47f4f295f73cb4b12eeea145f7f0c81064dbae9440721fa41227017846fc4f`; selected contract artifacts and model/API identities are the current states recorded in SPEC-REVIEW-REPORT. Their requirement/design coverage is unchanged since that passing review.
@@ -36,3 +36,13 @@ Repeated two-milestone phases were assessed together: their separation reflects 
 | R12 | Every phase; candidate packages before phase exit, exact release-source rebuild/readback after integration. |
 
 No confirmed strategy finding. Later contractual scope is honestly scheduled, not required at earlier phase exits. Task-level count assessment and physical ownership await their owning stages. Native/full-browser unavailable checks are disclosed, not invented blocking tasks. Strategy is Ready within this scope.
+
+## Revision 1
+
+Combined review on 2026-11-01 by sdd-plan. Current PLAN SHA-256: `83afc13d384d3bdde5576283ebd2dd737c905ada7ec9b640c8b23d2c238cbf91`; layout SHA-256: `7ec6433ffe5ddea914022bb2256bdbe4f5af1918a91fb545f5097e510864ebd0`. Governing SPEC/model/API identities remain those assessed by SPEC-REVIEW-REPORT; no behavioral or public surface changes were made.
+
+P-001 (PLAN Phase 3 dynamic-ghost delivery mapping): the initial strategy counted dynamic visibility before a player could select it. Corrected by assigning selectable dynamic visibility to Phase 4 with its session settings control; Phase 3 delivers penetrator/landing preview and does not claim an inaccessible configuration feature. Rechecked R4/R5 coverage and dependent milestone descriptions; resolved. Versions, platform order and phase/milestone identities remain stable.
+
+Reviewed component-to-source/public-entry, schema/validator/worker, asset/build and test/evidence ownership in both directions. C1–C8 each have physical owners, public consumers and appropriate check locations. Shared sources exclude platform imports; worker and SQLite assets have explicit build/package owners. Root guidance navigation is updated without claiming unimplemented commands are validated. Planned paths are identified as planned.
+
+The 21 delivery milestones plus nine phase reviews retain their initial count rationale; no padding or hidden new scope was introduced. Each milestone has a feasible task-sized edit and verification route. All local links, end-state content boundaries and R1–R12 delivery routes were rechecked. No unresolved strategy or physical-placement finding remains. Ready for TASKS, subject to its own conformance review; whole-package QC and implementation remain outside this result.

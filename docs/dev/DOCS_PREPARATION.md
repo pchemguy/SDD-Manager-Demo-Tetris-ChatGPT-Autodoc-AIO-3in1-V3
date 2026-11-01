@@ -8,7 +8,7 @@
 - Tracking: enabled for documentation preparation and implementation by root AGENTS.md. GitHub milestone 1 (`sdd-docs-main`) and issues 1–9 match the pinned definitions, with every association read back before repository writes.
 - Publication: each owned commit is pushed and read back before further work. Repository operations within the requested project are authorized by the development request and supplied repository credentials.
 - Reporting: Standard after Explicit bootstrap; Minimal and Explicit remain selectable.
-- Next boundary: complete DOCS-006 publication/issue closure; then DOCS-007. Autodoc stops after DOCS-008.
+- Next boundary: complete DOCS-007 publication/issue closure; then DOCS-008. Autodoc stops after DOCS-008.
 
 ## Scope source
 
@@ -24,7 +24,7 @@ One pass covers the user's complete 2026-11-01 project request: classic baseline
 | DOCS-004 | Autodoc scoped preapproval following accepted PROJECT. Define component APIs and canonical models. Exact artifact states: `docs/dev/DECOMPOSITION.md` SHA-256 `08ea3b921375fed503617e1635644f2897fa3c7680d7222955fafe6d52609ef5`; `docs/dev/MODELS.md` SHA-256 `003883fcc48fa5d4142078a8a4e6f4857dc8cf62a936c07443ef2d9c3e9a4eef`; `docs/dev/API-DESIGN.md` SHA-256 `93aff72efc21209e9395cf225c887e441cdc25d2a5ef9a0c68598d9a9e4107f9`. |
 | DOCS-005 | Autodoc scoped preapproval following accepted PROJECT. Specify gameplay persistence and platform contracts. Exact artifact states: `docs/dev/SPEC.md` SHA-256 `7f47f4f295f73cb4b12eeea145f7f0c81064dbae9440721fa41227017846fc4f`; `docs/dev/spec/gameplay.md` SHA-256 `16a1bd8a2debd89e9c858885c8d80f241fd8c6ecfe090b6e0932109ff57a2164`; `docs/dev/spec/persistence.md` SHA-256 `31b6fd686c665afb7aa95bca4efc18d8b69986496b180dc37c0ae16317247739`; `docs/dev/spec/platforms.md` SHA-256 `0f729df8deef47632bafb7150fe2c0662c1a717c60a7fd24e58d6f455ac2feaf`; `docs/dev/SPEC-REVIEW-REPORT.md` SHA-256 `f3de5184805f8d20ea52b0f14c9c9487db61fd1d070b2dc9772599e0614014c1`; `docs/dev/API-DESIGN.md` SHA-256 `bf1a676e952ad41a8b9be5dd4e571d3327d63e0a73dfb8c851471618fc30b6be`; `docs/dev/ARCHITECTURE.md` SHA-256 `a66c9ad3961cee09c79af5d21496227c0f468fa60b306cc828c70d2404dc7cd4`; `docs/dev/DECOMPOSITION.md` SHA-256 `062a4c94c04036c2287e72ab0116b48d0e4ff491ac54201dd3de3f51c9172d6e`; `docs/dev/PROJECT.md` SHA-256 `744ff4d6f405ede11e8ec775787aaf85d208d791f15a85d05d3f368a15691d72`. |
 | DOCS-006 | Autodoc scoped preapproval following accepted PROJECT. Plan nine bounded releases and platform delivery gates. Exact artifact states: `docs/dev/PLAN.md` SHA-256 `176f47cc7eb8f2ba0526a940a34909fd851ad1c48a4de6fa7c0b542fd2b007f7`; `docs/dev/PLAN-REVIEW-REPORT.md` SHA-256 `e69c8570ed52fb771c16ae9929f8c9ade6a9ae91472653cf4bb472a2203d3012`. |
-| DOCS-007 | Not authored; document checkpoint preapproved by autodoc mode. |
+| DOCS-007 | Autodoc scoped preapproval following accepted PROJECT. Allocate source tests schemas and platform packaging. Exact artifact states: `docs/dev/layout.md` SHA-256 `7ec6433ffe5ddea914022bb2256bdbe4f5af1918a91fb545f5097e510864ebd0`; `docs/dev/PLAN.md` SHA-256 `83afc13d384d3bdde5576283ebd2dd737c905ada7ec9b640c8b23d2c238cbf91`; `docs/dev/PLAN-REVIEW-REPORT.md` SHA-256 `f6084c3479d52f28789ac0319cc3c1cebaa2a9e3d57a95b7fae1a9788d8c6eed`; `AGENTS.md` SHA-256 `de927bb44a2032ea5f9769ffddf4b3bee3cc475a010e1eb518b2b7a258556935`. |
 | DOCS-008 | Not authored; document checkpoint preapproved by autodoc mode. |
 | DOCS-009 | Not selected. Remains pending at the autodoc stop. |
 
@@ -42,7 +42,7 @@ One pass covers the user's complete 2026-11-01 project request: classic baseline
 
 ## Pending transitions
 
-Publish/read back DOCS-006 and close/read back issue 6. Proceed to DOCS-007 only after those effects are verified. Earlier required closures were read back.
+Publish/read back DOCS-007 and close/read back issue 7. Proceed to DOCS-008 only after those effects are verified. Earlier required closures were read back.
 
 ## Accepted product decisions
 
