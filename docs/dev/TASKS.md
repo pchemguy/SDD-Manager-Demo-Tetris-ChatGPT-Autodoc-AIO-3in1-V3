@@ -447,10 +447,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Declare side_panel, minimum API version and minimal permissions. Open from a user gesture and bind the shared page/session broker; verify no host-page content script, backend or gameplay service worker.
             Verification: Two manifest/action checks observed RED then pass. Both TypeScript configurations and229 deterministic checks pass. Manifest uses local sidebar entry, Chrome116 minimum, storage/sidePanel permissions only and no host scripts/popup/backend. Shared background event composition and native action configuration are recorded separately from unavailable full-browser execution. Official Chrome sidePanel/CSP documentation checked; icon PNGs generated reproducibly and inspected. Extension icons remain in platform ownership to preserve strict browser/desktop inventories. Bundling/package acceptance follows T067/T068.
 
-        - [ ] T-067 — Verify Chromium bundled assets and CSP
+        - [x] T-067 — Verify Chromium bundled assets and CSP
             Scope: Chromium build target, standalone validator/worker/WASM assets and manifest checks. Contract: R11/R8; C8.
             Depends on: T-066.
             Evidence: Check local resources, wasm-capable CSP without runtime eval/remote code, entry resolution and version agreement. Exercise shared-page settings/files/session acceptance with isolated browser facilities.
+            Verification: Build-inventory test failed before producer existed, then passes with actual local sidebar/background/codec/schema/WASM/icons. Both TS configurations and230 deterministic checks pass. Built extension CSP/shared page passes Chromium and Firefox2/2 runtime cases for native Blob JSON/SQLite Save/Restore, local-only requests, settings and paused reopen. Initial HTTP-recorder URL used root rather than declared sidebar.html; sender rejection diagnosed and fixture corrected without changing product authentication. Build uses standalone validator/no remote runtime; background executes under host recorder without gameplay timers. Native extension installation/open-close excluded under central policy.
+
         - [ ] T-068 — Package and verify Chromium development distribution
             Scope: scripts packaging/verifier, tests/packages, INSTALL.md and Chromium ZIP. Contract: R11/R12; C8.
             Depends on: T-066, T-067.

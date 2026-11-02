@@ -24,7 +24,8 @@
     "verify:windows": "python scripts/verify-windows.py --extract dist/windows-smoke",
     "package:all": "npm run build && npm run build:desktop && python scripts/release-packages.py",
     "verify:all": "python scripts/release-packages.py --verify --extract",
-    "fetch:electron": "python scripts/fetch-electron.py"
+    "fetch:electron": "python scripts/fetch-electron.py",
+    "build:chromium": "npm run build:assets && npm run build:schemas && node scripts/build-extension.mjs chromium"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",
