@@ -440,7 +440,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/9/9.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Milestone9.1 report/HANDOFF included. Two cadence/failure tests and recovery-warning regression observed RED before fixes. Independent whole-capability review resolved M9.1-F01–F03; final wrapper recheck4/4. Check passes both TS configurations;227 deterministic checks/browser build pass. Four actual shared-page sidebar checks and isolated whole source suite pass:198 Chromium/Firefox cases,10 explicit build/transport exclusions. Initial generator/HMR interference diagnosed and isolated rerun passed. Native sidebar/Windows execution remains explicitly excluded.
 
-    - [ ] Milestone 9.2 — Chromium sidebar delivery
+    - [x] Milestone 9.2 — Chromium sidebar delivery
         - [x] T-066 — Wire the Chromium MV3 sidebar shell
             Scope: platforms/chromium manifest, sidebar HTML and Chromium background/action wiring. Contract: R11; C7/C8.
             Depends on: T-065.
@@ -453,11 +453,13 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Check local resources, wasm-capable CSP without runtime eval/remote code, entry resolution and version agreement. Exercise shared-page settings/files/session acceptance with isolated browser facilities.
             Verification: Build-inventory test failed before producer existed, then passes with actual local sidebar/background/codec/schema/WASM/icons. Both TS configurations and230 deterministic checks pass. Built extension CSP/shared page passes Chromium and Firefox2/2 runtime cases for native Blob JSON/SQLite Save/Restore, local-only requests, settings and paused reopen. Initial HTTP-recorder URL used root rather than declared sidebar.html; sender rejection diagnosed and fixture corrected without changing product authentication. Build uses standalone validator/no remote runtime; background executes under host recorder without gameplay timers. Native extension installation/open-close excluded under central policy.
 
-        - [ ] T-068 — Package and verify Chromium development distribution
+        - [x] T-068 — Package and verify Chromium development distribution
             Scope: scripts packaging/verifier, tests/packages, INSTALL.md and Chromium ZIP. Contract: R11/R12; C8.
             Depends on: T-066, T-067.
             Evidence: Extract/load unpacked where available and verify manifest, sidebar entry, assets and feasible runtime/adapters. Record full-browser native open/close exclusions honestly; do not release the extensions platform before Firefox is ready.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/9/9.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Report/HANDOFF and milestone9.2 closure included. Both TS configurations/232 deterministic checks pass. Actual16member Chromium ZIP4d86ec53362dd4801a4e2ea381bf99716c532bc1b164e81bf80358b6c424afc1 extracted and its actualCSP/runtime passed2 Chromium/Firefox cases. Candidate source645f77e is explicitlydirty, final release rebuild remains required. Independent whole-capability review resolved stable-basename and test-server containment findings after RED regressions; package/extraction/six hostile mutations/renamedZIP/path recheck pass. No scoped TODO. Native full-browser sidebar load/action/open-close remains unavailable/excluded; extension platform release awaits Firefox.
+
     - [ ] Milestone 9.3 — Firefox sidebar delivery
         - [ ] T-069 — Wire the Firefox sidebar and background script
             Scope: platforms/firefox manifest and Firefox adapter/assembly entry. Contract: R11; C7/C8.

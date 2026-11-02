@@ -25,7 +25,9 @@
     "package:all": "npm run build && npm run build:desktop && python scripts/release-packages.py",
     "verify:all": "python scripts/release-packages.py --verify --extract",
     "fetch:electron": "python scripts/fetch-electron.py",
-    "build:chromium": "npm run build:assets && npm run build:schemas && node scripts/build-extension.mjs chromium"
+    "build:chromium": "npm run build:assets && npm run build:schemas && node scripts/build-extension.mjs chromium",
+    "package:chromium": "npm run build:chromium && python scripts/package-extension.py --platform chromium",
+    "verify:chromium": "python scripts/package-extension.py --platform chromium --verify --extract dist/chromium-smoke"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

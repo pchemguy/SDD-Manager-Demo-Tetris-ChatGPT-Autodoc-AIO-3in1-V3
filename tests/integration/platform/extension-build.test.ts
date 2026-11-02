@@ -3,6 +3,7 @@ import {test,expect} from 'vitest';
 import {execFileSync} from 'node:child_process';
 import {readFileSync,readdirSync,existsSync} from 'node:fs';
 import {runInNewContext} from 'node:vm';
+import {resolve} from 'node:path';
 test('Chromium build contains local sidebar/codec/schema/WASM and an executable timer-free broker',()=>{
  execFileSync(process.execPath,['scripts/build-extension.mjs','chromium'],{timeout:30000,stdio:'pipe'});
  const root='dist/chromium/',m=JSON.parse(readFileSync(root+'manifest.json','utf8'));expect(existsSync(root+m.side_panel.default_path)).toBe(true);
@@ -13,3 +14,10 @@ test('Chromium build contains local sidebar/codec/schema/WASM and an executable 
  const events:string[]=[];const chrome={runtime:{id:'owned',getURL:(p:string)=>`chrome-extension://owned/${p}`,onMessage:{addListener:()=>events.push('messages')}},storage:{session:{}},windows:{onRemoved:{addListener:()=>events.push('cleanup')}},sidePanel:{setPanelBehavior:async()=>{events.push('action');}}};
  const background=readFileSync(root+'background.js','utf8');expect(background).not.toMatch(/setInterval|requestAnimationFrame|node:|from ["']electron/);runInNewContext(background,{chrome,console,structuredClone});expect(events).toEqual(['messages','cleanup','action']);
 },40000);
+test('Chromium producer/verifier rejects unsafe, corrupt, secret and wrong-source archives',()=>{
+ const result=execFileSync('python',['tests/packages/extension-package.py'],{timeout:30000,encoding:'utf8'});expect(result).toContain('"mutationsRejected": 6');
+},40000);
+test('test-only transport rejects decoded absolute and traversal targets outside its root',async()=>{
+ const {resolveTestAsset}=await import('../../../scripts/extension-test-path.mjs' as string);
+ const root=resolve('dist/chromium');expect(resolveTestAsset(root,'/%2Ftmp/secret')).toBeNull();expect(resolveTestAsset(root,'/%2e%2e%2Fsecret')).toBeNull();expect(resolveTestAsset(root,'/assets/runtime.js')).toBe(resolve(root,'assets/runtime.js'));
+});
