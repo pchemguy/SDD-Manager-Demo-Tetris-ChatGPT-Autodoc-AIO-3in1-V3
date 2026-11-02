@@ -387,10 +387,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
     - [ ] Milestone 8.2 — Windows portable delivery
 
 
-        - [ ] T-059 — Produce the unsigned Windows portable runtime
+        - [x] T-059 — Produce the unsigned Windows portable runtime
             Scope: scripts/package.mjs and Windows assembly inputs. Contract: R10/R12; C8.
             Depends on: T-058.
             Evidence: Build tetris-windows-x64.zip with the executable, Electron runtime, shared application/assets and license notices. Verify version/source agreement and no need for Node.js, server or developer files.
+            Verification: Pinned official Electron runtime downloaded via official GitHub asset API and matched158187314bytes/SHA7c342aee45d5b4ccafe5dfe9037028796b082735a576e21e2b4e2d8422ebb727. Actual candidate ZIP e6bef9027cde580890cf0c93b8cffe16e8b18cc3f13e921d28da544cc205f4aa has86members/158490616bytes; CRC, Tetris.exe, bundled application/worker/WASM/schema, runtime45.2.1/app0.8.0 and source18cc225 identity pass. Wrong runtime identity is rejected before assembly. Both TS configurations pass. Mechanical assembly uses actual artifact and negative input checks, no fabricated test-first claim. Candidate sourceDirty=true; final clean exact-source packaging follows integration. Native Windows launch untested; independent comprehensive artifact acceptance remains T-060.
+
         - [ ] T-060 — Verify the extracted Windows artifact and retained browser build
             Scope: scripts/verify-packages.mjs, tests/packages and package evidence. Contract: R10/R12; C8.
             Depends on: T-059.
