@@ -1,6 +1,7 @@
 """Independently inspect the actual portable ZIP and its pristine pinned runtime."""
 from pathlib import Path,PurePosixPath
 import argparse,hashlib,json,struct,subprocess,zipfile,shutil
+from desktop_inventory import validate_application
 ROOT=Path(__file__).resolve().parents[1]
 def digest(data):return hashlib.sha256(data).hexdigest()
 def verify(archive,runtime,extract=None):
@@ -16,6 +17,8 @@ def verify(archive,runtime,extract=None):
             if p.is_absolute() or '..'in p.parts or '\\'in info.filename or ':'in info.filename or info.is_dir() or (info.external_attr>>16)&0o170000==0o120000:raise ValueError('Unsafe package member')
         expected={('Tetris.exe' if n=='electron.exe' else n) for n in original.namelist() if not n.endswith('/') and n!='resources/default_app.asar'}
         app=ROOT/'dist/desktop';appfiles={p.relative_to(app).as_posix():p for p in app.rglob('*') if p.is_file()}
+        validate_application({n:p.read_bytes() for n,p in appfiles.items()})
+        validate_application({n.removeprefix('resources/app/'):z.read(n) for n in names if n.startswith('resources/app/')})
         expected|={'resources/app/'+n for n in appfiles};expected|={'BUILD-INFO.json','INSTALL.md'}
         if set(names)!=expected:raise ValueError('Runtime/application inventory mismatch')
         for info in original.infolist():

@@ -13,3 +13,5 @@ playwright-report/
 
 /RELEASE-NOTES.md
 /.release-highlights.md
+
+__pycache__/

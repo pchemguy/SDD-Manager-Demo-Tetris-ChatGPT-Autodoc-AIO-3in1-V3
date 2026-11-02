@@ -1,6 +1,7 @@
 """Assemble a portable unsigned Windows x64 runtime from the pinned official ZIP."""
 from pathlib import Path,PurePosixPath
 import argparse,hashlib,json,subprocess,zipfile
+from desktop_inventory import validate_application
 ROOT=Path(__file__).resolve().parents[1]
 def sha(data):return hashlib.sha256(data).hexdigest()
 def assemble(runtime,out):
@@ -9,6 +10,8 @@ def assemble(runtime,out):
     if len(raw)!=pin['bytes'] or sha(raw)!=pin['sha256']:raise ValueError('Runtime size/SHA-256 does not match the pinned official distribution')
     app=ROOT/'dist/desktop';project=json.loads((ROOT/'package.json').read_text());package=json.loads((app/'package.json').read_text())
     if package['version']!=project['version'] or package['main']!='main.js':raise ValueError('Build the matching desktop application first')
+    appfiles={p.relative_to(app).as_posix():p.read_bytes() for p in app.rglob('*') if p.is_file()}
+    validate_application(appfiles)
     files={}
     with zipfile.ZipFile(runtime) as z:
         if z.testzip():raise ValueError('Corrupt runtime ZIP')
@@ -21,8 +24,7 @@ def assemble(runtime,out):
             files[name]=z.read(info)
     if not {'Tetris.exe','LICENSE','LICENSES.chromium.html','icudtl.dat','version'}<=files.keys():raise ValueError('Incomplete Electron runtime')
     if files['version'].decode().strip()!=pin['version']:raise ValueError('Electron version mismatch')
-    for path in app.rglob('*'):
-        if path.is_file():files['resources/app/'+path.relative_to(app).as_posix()]=path.read_bytes()
+    for name,data in appfiles.items():files['resources/app/'+name]=data
     metadata={'version':project['version'],'platform':'windows-x64','source':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'sourceDirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()),'electron':pin}
     files['BUILD-INFO.json']=(json.dumps(metadata,indent=2,sort_keys=True)+'\n').encode()
     files['INSTALL.md']=(ROOT/'INSTALL.md').read_bytes()
