@@ -92,11 +92,11 @@ Downloads and input-file acquisition remain host/DOM details. The UI file input 
 
 | Request | Success response | Provider and consumers |
 | --- | --- | --- |
-| `{type:'acquire', windowId}` | `{generation, revision, checkpoint: Checkpoint \| null}` | Background coordinator → panel adapter |
+| `{type:'acquire', windowId}` | `{generation, revision, checkpoint: Checkpoint \| null, warning?: AppError}` | Background coordinator → panel adapter |
 | `{type:'checkpoint', windowId, generation, revision, state}` | `{revision}` | Panel adapter → background coordinator → storage.session |
 | `{type:'release', windowId, generation}` | `{released:true}` | Panel lifecycle → coordinator; best-effort only |
 
-Every failure returns `{error: AppError}`. Runtime message sender identity, window identity, supported version, generation and revision are checked before a write. Generation is assigned by the coordinator, never trusted from an acquiring caller. Acquire invalidates a prior writer; checkpoint revisions must increase monotonically. The same message envelope is implemented by Chromium's background service worker and Firefox's background script. The coordinator acknowledges only completed session writes and performs no gameplay transitions.
+Every failure returns `{error: AppError}`. Runtime message sender identity, window identity, supported version, generation and revision are checked before a write. Generation is assigned by the coordinator, never trusted from an acquiring caller. Acquire invalidates a prior writer; checkpoint revisions must increase by one from the acquired revision. A corrupt stored checkpoint yields a fresh null checkpoint with an optional warning, preserving R11 error feedback. The session generation counter survives coordinator restarts and window cleanup within the browser session; it never reuses a removed window's lease. Reacquired checkpoints use the new generation and revision zero. The same message envelope is implemented by Chromium's background service worker and Firefox's background script. The coordinator acknowledges only completed session writes and performs no gameplay transitions.
 
 ## C8 package boundary
 

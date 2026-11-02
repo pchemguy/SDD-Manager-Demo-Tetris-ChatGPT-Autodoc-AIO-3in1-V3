@@ -420,11 +420,13 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 - [ ] Phase 9 — Chromium and Firefox sidebars
     - [ ] Milestone 9.1 — Shared sidebar sessions
-        - [ ] T-063 — Implement versioned sidebar session coordination
+        - [x] T-063 — Implement versioned sidebar session coordination
             Scope: src/platform/extension/session.ts/background.ts and adapter tests. Contract: R11; C7.
             Depends on: T-062.
             Evidence: Acquire window-scoped writer generations, serialize acknowledged revisions into storage.session and reject stale writers. Validate checkpoints, clear closed-window sessions and recover coordinator restarts without advancing gameplay.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
+            Verification: Four baseline tests observed RED against the stub; eight session/background checks now pass, including paused timer-preserving recovery, stale/revision rejection, complete invalid-state validation, acknowledged serialization, storage failure, window cleanup and restart boundaries. Full 216 deterministic checks, both TypeScript configurations and browser build pass. R11/API warning and revision clarification conform to existing accepted scope; SPEC/PLAN/layout/TASKS readiness remains unchanged. Phase 8 release and Phase 9 tracking/publication gates read back. Native sidebar/Windows execution excluded as documented.
+
         - [ ] T-064 — Implement extension-local settings and file adapters
             Scope: src/platform/extension/index.ts, shared ports and adapter contract fixtures. Contract: R11/R6/R8; C7.
             Depends on: T-063.
