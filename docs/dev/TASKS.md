@@ -364,7 +364,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 8 — Windows desktop delivery
 
-- [ ] Phase 8 — Windows desktop delivery
+- [x] Phase 8 — Windows desktop delivery
     - [x] Milestone 8.1 — Local desktop runtime
         - [x] T-056 — Establish the isolated Electron local-origin shell
             Scope: src/platform/electron main/origin and pinned Electron configuration. Contract: R10; C7.
@@ -408,11 +408,13 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/8/8.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Milestone8.2 code/consumer review passes after M8.2-F01 inventory repair/recheck. Cumulative browser/Windows four-asset builder and both strict verifiers pass; checksum/versioned-name negatives reject. Current candidate source288ad237/sourceDirty=true:browser4109cef8,Windows6418d191,INSTALLd385087f; exact hashes/report8/8.2.md.207 deterministic/bothTS checks pass; T060 full extractedWindows/browser each168cases/36exclusions retained, fresh cumulative4-case Chromium/Firefox game/settings/file smoke passes. Actual screenshot inspected. Inactive generated transfer copy was preserved outside release inventory after no open owner; strict gate unchanged and rechecked. CI YAML parses and desktop job uses same commands; new job not claimed run. INSTALL distinguishes unsigned portable/noNode/server from signed/store/native-tested packages. Report/HANDOFF included; TODO None.
 
-    - [ ] Milestone 8.3 — Phase review
-        - [ ] T-062 — Review test and report Phase 8
+    - [x] Milestone 8.3 — Phase review
+        - [x] T-062 — Review test and report Phase 8
             Depends on: T-058, T-061 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/8/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
+
+            Verification: Distinct independent whole-phase code/consumer review and six-task initial-closing-commit audit pass; two forward corrections explicitly distinguished and M8.2-F01 resolved. Clean exact dd91ad81659e25898697739e8873c0a584c7b0cd passes207 deterministic,bothTS configs,194source/168extractedWindows-renderer/168extracted-browser cases(10/36/36scope exclusions),both platform verifiers and four stable assets with sourceDirty=false; Actions41383953642 completed success. Clean /tmp candidate avoids mirrored-output transfer copies without weakening strict inventory. Phase report/HANDOFF include hashes, limits and remaining integration/release/Phase9. Native Electron/Windows not executed, not claimed. Optional v0.8 prerelease advisory emitted once; no separate campaign selected. TODO None.
 
 ## Phase 9 — Chromium and Firefox sidebars
 
