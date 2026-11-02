@@ -427,10 +427,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
             Verification: Four baseline tests observed RED against the stub; eight session/background checks now pass, including paused timer-preserving recovery, stale/revision rejection, complete invalid-state validation, acknowledged serialization, storage failure, window cleanup and restart boundaries. Full 216 deterministic checks, both TypeScript configurations and browser build pass. R11/API warning and revision clarification conform to existing accepted scope; SPEC/PLAN/layout/TASKS readiness remains unchanged. Phase 8 release and Phase 9 tracking/publication gates read back. Native sidebar/Windows execution excluded as documented.
 
-        - [ ] T-064 — Implement extension-local settings and file adapters
+        - [x] T-064 — Implement extension-local settings and file adapters
             Scope: src/platform/extension/index.ts, shared ports and adapter contract fixtures. Contract: R11/R6/R8; C7.
             Depends on: T-063.
             Evidence: Persist only six settings in storage.local, keep results/game in session storage and adapt Blob download/file input without host-page URL/cookie changes. Check acknowledgement, failures and coherent settings/restore commits.
+            Verification: Three intended adapter failures observed before implementation. Six adapter checks now pass for per-key settings, no cookie/history access, empty startup preservation, complete Restore transactions, partial-write compensation, paused reopening, stale leases, malformed RPC replies, timeout and Blob download bytes/cleanup. Full 222 deterministic checks and both TypeScript configurations pass. Shared file picker/codec remain with C4/C6; extension adapter requests no download permission.
+
         - [ ] T-065 — Integrate paused sidebar reopening and compact UI
             Scope: src/entry/sidebar.ts, shared lifecycle/UI and integration tests. Contract: R11/R9/R3; C3/C4/C7.
             Depends on: T-063, T-064.
