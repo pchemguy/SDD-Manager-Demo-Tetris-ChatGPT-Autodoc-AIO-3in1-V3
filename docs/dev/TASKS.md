@@ -383,8 +383,9 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Depends on: T-056, T-057.
             Evidence: Check blur pauses and explicit resume, close ends session, traversal/foreign-origin requests fail and local assets resolve. Separate actual host runtime evidence from unavailable native Windows behavior.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/8/8.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 8.2 — Windows portable delivery
             Verification: Milestone8.1 complete: independent whole-capability code review,206 deterministic checks,both TS configs and10 actual built-desktop-handler Firefox cases pass;2 source/nested-browser cases explicitly excluded. Real settings reload/query/cookies, synthetic blur pause/explicit resume, JSON/SQLite downloads/restores and failure/rollback/timeout paths pass under production CSP via labeled HTTP transport. Repaired portable test-server path and exact-count clock race. Native recorder/protocol checks7/7; no native Electron/Windows claim. Chromium provisioning CDN HTML/OCI config timeouts recorded. Report8/8.1.md and HANDOFF included; no scoped TODO.
+    - [ ] Milestone 8.2 — Windows portable delivery
+
 
         - [ ] T-059 — Produce the unsigned Windows portable runtime
             Scope: scripts/package.mjs and Windows assembly inputs. Contract: R10/R12; C8.
