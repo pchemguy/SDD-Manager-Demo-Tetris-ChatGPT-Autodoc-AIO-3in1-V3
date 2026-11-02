@@ -46,3 +46,7 @@ The shared UI centers the board independently of leaderboard/settings/help visib
 `npm run package` builds `dist/release/tetris-browser.zip`, `INSTALL.md` and `SHA256SUMS.txt`. `npm run verify:package` checks the stable inventory, SHA-256 bytes, safe ZIP members, local assets, source/version, project/third-party license bytes and credential exclusions, then extracts to `dist/package-smoke`. Use `TETRIS_PACKAGED_TEST=1 npm run test:e2e` to test that extracted distribution. On the diagnosed Linux host, also set the Firefox workaround described above. Python 3.11+ is required for packaging/static smoke serving. See [installation instructions](INSTALL.md).
 
 The verification workflow runs the same checks on push/PR. Local success does not claim that GitHub Actions has run successfully.
+
+### Desktop application assembly
+
+`npm run build:desktop` produces `dist/desktop/` with a bundled Electron main process and the shared renderer. `ASSETS.json` fingerprints every renderer resource before the secure local-origin handler loads it. The renderer uses the existing browser cookie/query and manual file adapters on `app://tetris/`; there is no Node or preload bridge. This directory is a build input, not the Windows portable distribution. Windows runtime assembly and artifact verification follow in the desktop delivery tasks.
