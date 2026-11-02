@@ -467,10 +467,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Use sidebar_action and a supported background script, keep shared application/session logic and confirm minimum API/tool compatibility. Verify platform-specific API differences without duplicating gameplay.
             Verification: Two shell tests observed RED then pass;235 deterministic checks and both TypeScript configurations pass. Firefox-specific MV3 sidebar_action/background.scripts uses storage permission only, synchronous action.open and shared session/game/UI code. Actual Firefox assembly background executes under recorder without imports/game timers. Its actualCSP/shared runtime passes Chromium/Firefox2/2 JSON/SQLite/local-settings/paused-reopen cases. Official Mozilla MV3/background and Firefox115/storage.session compatibility checked. Native temporary installation and pinned validation remain T070; package/cumulative release remains T071.
 
-        - [ ] T-070 — Validate Firefox runtime permissions and temporary installation
+        - [x] T-070 — Validate Firefox runtime permissions and temporary installation
             Scope: Firefox validation tools/config, platform tests and INSTALL.md. Contract: R11/R8; C8.
             Depends on: T-069.
             Evidence: Pin the validator and check manifest/CSP/version/assets, bundled worker/WASM and shared session/file behavior. State unsigned temporary installation limits and actual full-browser evidence/exclusions.
+            Verification: Pinned web-ext10.8.0 and lockfile. Lint-gate regression observed RED before implementation;237 deterministic checks and both TS configurations pass. Actual bundled Firefox lint reports0errors/0notices with5 explicitly reviewed warnings:3 code-owned static-template assignments and2 no-data metadata compatibility notices for pre140/pre142; unsupported other warnings fail. Manifest declares no data collection and retains desktop115 API minimum. Bounded isolated managed Firefox157 temporary install acknowledged, then SDK runner exited successfully; no owned Firefox process remains. Earlier CLI timeout was replaced by clean owned SDK teardown. INSTALL/README distinguish unsigned temporary loading and native-load evidence from unverified visible sidebar action/open-close and minimum-version execution.
+
         - [ ] T-071 — Package Firefox and verify all delivered distributions
             Scope: scripts packaging/verifier, tests/packages, all four candidate ZIPs and install/release inputs. Contract: R11/R12; C8.
             Depends on: T-069, T-070.

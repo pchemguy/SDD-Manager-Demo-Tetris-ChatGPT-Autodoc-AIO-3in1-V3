@@ -28,7 +28,8 @@
     "build:chromium": "npm run build:assets && npm run build:schemas && node scripts/build-extension.mjs chromium",
     "package:chromium": "npm run build:chromium && python scripts/package-extension.py --platform chromium",
     "verify:chromium": "python scripts/package-extension.py --platform chromium --verify --extract dist/chromium-smoke",
-    "build:firefox": "npm run build:assets && npm run build:schemas && node scripts/build-extension.mjs firefox"
+    "build:firefox": "npm run build:assets && npm run build:schemas && node scripts/build-extension.mjs firefox",
+    "validate:firefox": "node scripts/validate-firefox.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",
@@ -38,7 +39,8 @@
     "electron": "45.2.1",
     "typescript": "7.0.2",
     "vite": "8.3.5",
-    "vitest": "5.0.5"
+    "vitest": "5.0.5",
+    "web-ext": "10.8.0"
   },
   "dependencies": {
     "sql.js": "1.15.2"
