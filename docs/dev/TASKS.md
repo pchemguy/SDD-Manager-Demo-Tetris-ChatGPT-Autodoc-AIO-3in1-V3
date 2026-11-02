@@ -418,7 +418,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 9 — Chromium and Firefox sidebars
 
-- [ ] Phase 9 — Chromium and Firefox sidebars
+- [x] Phase 9 — Chromium and Firefox sidebars
     - [x] Milestone 9.1 — Shared sidebar sessions
         - [x] T-063 — Implement versioned sidebar session coordination
             Scope: src/platform/extension/session.ts/background.ts and adapter tests. Contract: R11; C7.
@@ -480,9 +480,11 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/9/9.3.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Milestone9.3 report/HANDOFF and parent closure included. Firefox package and sidebar lifetime regressions observed RED, then pass. Independent whole-capability/cumulative review has no blocker. Both TS configurations/238 deterministic checks,4source sidebar cases, all6candidate asset verifiers and12extracted runtime cases pass;3cumulative negative gates reject. Report records exact candidate hashes/sourceDirty:true, pinned Firefox lint reviewedwarnings and native temporary-install acknowledgement/clean teardown. Strict gate rejected obsolete mirrored chunk; fresh isolated extension outputs pass unchanged. CI/instructions cover all4platforms; no scoped TODO. Native Windows/fullChromium/visibleFirefoxsidebar integration excluded as specified. Final clean-source build/release remains afterT072/integration.
 
-    - [ ] Milestone 9.4 — Phase review
-        - [ ] T-072 — Review test and report Phase 9
+    - [x] Milestone 9.4 — Phase review
+        - [x] T-072 — Review test and report Phase 9
             Depends on: T-065, T-068, T-071 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/9/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
             Final outcome: include `docs/dev/reports/IMPLEMENTATION-REPORT.md`, aggregate all unresolved eligible milestone/phase TODOs with options/provenance, and assess complete R1-R12 plus all four distributions without claiming future release publication.
+
+            Verification: Distinct independent wholePhase9 and wholeproject R1-R12 code/consumer reviews complete. FinalP9-F01/R6-F01 fixed to required complete versioned extensionlocalobject;4RED assertions then240 deterministic/bothTS, independentrecheck, repaired4extracted+4source cases and nativeFirefox temporaryload/cleanexit pass. Fullsource198/12scopeexclusions, extractedbrowser168/42 and Windowsrenderer168/42 pass; sourcefull precededextensiononlyrepair and affectedcasesrerun. Repairedcumulativeall6candidateverifiers pass with explicitdirty metadata/hashes inreport; finalcleanrelease pending. T001–071 initialclosings auditedunique; T072report/implementationreport/HANDOFF/parentchecks close together. Issues72–80/milestones28–30closed; T071CI41395272676success predateslastrepair. No unresolvedeligibleTODO. NativeWindows/fullChromium/visibleFirefoxsidebar exclusions remain explicit. Next completefinalaudit/hostedclosure, mainintegration and cleanv1release withallassets/hostedbytes.

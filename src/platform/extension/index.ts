@@ -1,5 +1,5 @@
 /** Sidebar host ports: six local settings, session RPC and ordinary DOM file downloads. */
-import type {AppError,AppState,Checkpoint,Outcome,RawSettings,SettingKey,SettingsTransaction} from '../../models';
+import type {AppError,AppState,Checkpoint,Outcome,RawSettings,SettingKey,Settings,SettingsTransaction} from '../../models';
 import type {PlatformPorts} from '../ports';
 import type {StorageArea} from './session';
 import {createBrowserPorts} from '../browser';
@@ -8,7 +8,12 @@ import {integer,record,validateCheckpoint,validateState} from './validation';
 export interface ExtensionAPI{runtime:{sendMessage(message:unknown):Promise<unknown>};windows:{getCurrent():Promise<{id?:number}>};storage:{local:StorageArea}}
 export interface ExtensionConnection{ports:PlatformPorts;warning:AppError|null;release():Promise<void>}
 const failure=(code:AppError['code'],message:string)=>({ok:false as const,error:{code,message}});
-const settingKey=(key:SettingKey)=>`tetris.setting.${key}`;
+const settingsKey='tetris.settings';
+function savedSettings(raw:unknown):Outcome<Settings>{
+ if(!record(raw,['formatVersion','settings']))return failure('invalid-data','Extension settings must be one complete versioned object.');
+ if(raw.formatVersion!==1)return failure('unsupported-format','The saved extension settings version is unsupported.');
+ return validateSettings(raw.settings);
+}
 const keys=Object.keys(DEFAULT_SETTINGS) as SettingKey[];
 function appError(value:unknown):value is AppError{return record(value,['code','message'])&&['invalid-data','unsupported-format','persistence-failed','file-failed','checkpoint-failed','stale-session','runtime-unavailable'].includes(value.code as string)&&typeof value.message==='string';}
 /** Acquire before composing C3. A failed/expired RPC never advances the local revision. */
@@ -35,23 +40,30 @@ export async function connectExtension(api:ExtensionAPI,host:Window=window,timeo
    const next=validateSettings(tx.next),previous=validateSettings(tx.previous),selected=new Set(tx.writeKeys);
    if(!next.ok||!previous.ok||!['startup','edit','restore'].includes(tx.reason)||selected.size!==tx.writeKeys.length||tx.writeKeys.some(k=>!keys.includes(k))||tx.reason==='restore'&&selected.size!==6||tx.reason==='edit'&&keys.some(k=>previous.value[k]!==next.value[k]&&!selected.has(k)))return failure('invalid-data','Invalid extension settings transaction.');
    if(!selected.size)return {ok:true,value:undefined};
-   const before:Record<string,unknown>={},values:Record<string,unknown>={};
-   try{for(const k of tx.writeKeys){const key=settingKey(k),raw=await local.get(key);if(raw[key]!==undefined)before[key]=raw[key];values[key]=next.value[k];}}
+   let before:unknown;
+   try{before=structuredClone((await local.get(settingsKey))[settingsKey]);}
    catch{return failure('persistence-failed','Previous extension settings could not be read; no edit was applied.');}
+   const complete={formatVersion:1,settings:next.value};
    try{
-    await local.set(values);
-    for(const [key,value]of Object.entries(values))if((await local.get(key))[key]!==value)throw Error('acknowledgement');
+    await local.set({[settingsKey]:complete});
+    const acknowledged=savedSettings((await local.get(settingsKey))[settingsKey]);
+    if(!acknowledged.ok||keys.some(k=>acknowledged.value[k]!==next.value[k]))throw Error('acknowledgement');
     return {ok:true,value:undefined};
    }catch{
     let restored=true;
-    try{if(Object.keys(before).length)await local.set(before);for(const key of Object.keys(values))if(!Object.hasOwn(before,key))await local.remove(key);
-     for(const key of Object.keys(values))if(JSON.stringify((await local.get(key))[key])!==JSON.stringify(before[key]))restored=false;
+    try{if(before===undefined)await local.remove(settingsKey);else await local.set({[settingsKey]:before});
+     if(JSON.stringify((await local.get(settingsKey))[settingsKey])!==JSON.stringify(before))restored=false;
     }catch{restored=false;}
     return failure('persistence-failed',restored?'Extension settings could not be saved; previous values were restored.':'Extension settings could not be saved or fully rolled back.');
    }
   }
+
   const ports:PlatformPorts={...createBrowserPorts(host),
-   readSettings:async()=>{try{const saved:Partial<Record<SettingKey,string>>={};for(const k of keys){const raw=(await local.get(settingKey(k)))[settingKey(k)];if(raw!==undefined)saved[k]=typeof raw==='string'||typeof raw==='boolean'?String(raw):'';}return {ok:true,value:{query:{} as RawSettings,saved}};}catch{return failure('persistence-failed','Extension settings storage is unavailable.');}},
+   readSettings:async()=>{try{
+    const raw=(await local.get(settingsKey))[settingsKey];if(raw===undefined)return {ok:true,value:{query:{},saved:{}}};
+    const complete=savedSettings(raw);if(!complete.ok)return complete;
+    const saved=Object.fromEntries(keys.map(k=>[k,String(complete.value[k])])) as RawSettings;return {ok:true,value:{query:{},saved}};
+   }catch{return failure('persistence-failed','Extension settings storage is unavailable.');}},
    commitSettings:commit,
    loadCheckpoint:async()=>({ok:true,value:structuredClone(checkpoint)}),
    writeCheckpoint:(state:AppState)=>{
