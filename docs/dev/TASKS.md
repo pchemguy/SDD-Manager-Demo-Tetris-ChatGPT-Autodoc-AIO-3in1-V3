@@ -418,53 +418,73 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 9 — Chromium and Firefox sidebars
 
-- [ ] Phase 9 — Chromium and Firefox sidebars
-    - [ ] Milestone 9.1 — Shared sidebar sessions
-        - [ ] T-063 — Implement versioned sidebar session coordination
+- [x] Phase 9 — Chromium and Firefox sidebars
+    - [x] Milestone 9.1 — Shared sidebar sessions
+        - [x] T-063 — Implement versioned sidebar session coordination
             Scope: src/platform/extension/session.ts/background.ts and adapter tests. Contract: R11; C7.
             Depends on: T-062.
             Evidence: Acquire window-scoped writer generations, serialize acknowledged revisions into storage.session and reject stale writers. Validate checkpoints, clear closed-window sessions and recover coordinator restarts without advancing gameplay.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
-        - [ ] T-064 — Implement extension-local settings and file adapters
+            Verification: Four baseline tests observed RED against the stub; eight session/background checks now pass, including paused timer-preserving recovery, stale/revision rejection, complete invalid-state validation, acknowledged serialization, storage failure, window cleanup and restart boundaries. Full 216 deterministic checks, both TypeScript configurations and browser build pass. R11/API warning and revision clarification conform to existing accepted scope; SPEC/PLAN/layout/TASKS readiness remains unchanged. Phase 8 release and Phase 9 tracking/publication gates read back. Native sidebar/Windows execution excluded as documented.
+
+        - [x] T-064 — Implement extension-local settings and file adapters
             Scope: src/platform/extension/index.ts, shared ports and adapter contract fixtures. Contract: R11/R6/R8; C7.
             Depends on: T-063.
             Evidence: Persist only six settings in storage.local, keep results/game in session storage and adapt Blob download/file input without host-page URL/cookie changes. Check acknowledgement, failures and coherent settings/restore commits.
-        - [ ] T-065 — Integrate paused sidebar reopening and compact UI
+            Verification: Three intended adapter failures observed before implementation. Six adapter checks now pass for per-key settings, no cookie/history access, empty startup preservation, complete Restore transactions, partial-write compensation, paused reopening, stale leases, malformed RPC replies, timeout and Blob download bytes/cleanup. Full 222 deterministic checks and both TypeScript configurations pass. Shared file picker/codec remain with C4/C6; extension adapter requests no download permission.
+
+        - [x] T-065 — Integrate paused sidebar reopening and compact UI
             Scope: src/entry/sidebar.ts, shared lifecycle/UI and integration tests. Contract: R11/R9/R3; C3/C4/C7.
             Depends on: T-063, T-064.
             Evidence: Restore the last acknowledged game paused with remaining timers/results, clear pressed input and handle corrupt/stale checkpoints/storage failure. Exercise close/reopen/window/browser-session boundaries and resizing with no background game loop.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/9/9.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 9.2 — Chromium sidebar delivery
-        - [ ] T-066 — Wire the Chromium MV3 sidebar shell
+            Verification: Milestone9.1 report/HANDOFF included. Two cadence/failure tests and recovery-warning regression observed RED before fixes. Independent whole-capability review resolved M9.1-F01–F03; final wrapper recheck4/4. Check passes both TS configurations;227 deterministic checks/browser build pass. Four actual shared-page sidebar checks and isolated whole source suite pass:198 Chromium/Firefox cases,10 explicit build/transport exclusions. Initial generator/HMR interference diagnosed and isolated rerun passed. Native sidebar/Windows execution remains explicitly excluded.
+
+    - [x] Milestone 9.2 — Chromium sidebar delivery
+        - [x] T-066 — Wire the Chromium MV3 sidebar shell
             Scope: platforms/chromium manifest, sidebar HTML and Chromium background/action wiring. Contract: R11; C7/C8.
             Depends on: T-065.
             Evidence: Declare side_panel, minimum API version and minimal permissions. Open from a user gesture and bind the shared page/session broker; verify no host-page content script, backend or gameplay service worker.
-        - [ ] T-067 — Verify Chromium bundled assets and CSP
+            Verification: Two manifest/action checks observed RED then pass. Both TypeScript configurations and229 deterministic checks pass. Manifest uses local sidebar entry, Chrome116 minimum, storage/sidePanel permissions only and no host scripts/popup/backend. Shared background event composition and native action configuration are recorded separately from unavailable full-browser execution. Official Chrome sidePanel/CSP documentation checked; icon PNGs generated reproducibly and inspected. Extension icons remain in platform ownership to preserve strict browser/desktop inventories. Bundling/package acceptance follows T067/T068.
+
+        - [x] T-067 — Verify Chromium bundled assets and CSP
             Scope: Chromium build target, standalone validator/worker/WASM assets and manifest checks. Contract: R11/R8; C8.
             Depends on: T-066.
             Evidence: Check local resources, wasm-capable CSP without runtime eval/remote code, entry resolution and version agreement. Exercise shared-page settings/files/session acceptance with isolated browser facilities.
-        - [ ] T-068 — Package and verify Chromium development distribution
+            Verification: Build-inventory test failed before producer existed, then passes with actual local sidebar/background/codec/schema/WASM/icons. Both TS configurations and230 deterministic checks pass. Built extension CSP/shared page passes Chromium and Firefox2/2 runtime cases for native Blob JSON/SQLite Save/Restore, local-only requests, settings and paused reopen. Initial HTTP-recorder URL used root rather than declared sidebar.html; sender rejection diagnosed and fixture corrected without changing product authentication. Build uses standalone validator/no remote runtime; background executes under host recorder without gameplay timers. Native extension installation/open-close excluded under central policy.
+
+        - [x] T-068 — Package and verify Chromium development distribution
             Scope: scripts packaging/verifier, tests/packages, INSTALL.md and Chromium ZIP. Contract: R11/R12; C8.
             Depends on: T-066, T-067.
             Evidence: Extract/load unpacked where available and verify manifest, sidebar entry, assets and feasible runtime/adapters. Record full-browser native open/close exclusions honestly; do not release the extensions platform before Firefox is ready.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/9/9.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 9.3 — Firefox sidebar delivery
-        - [ ] T-069 — Wire the Firefox sidebar and background script
+            Verification: Report/HANDOFF and milestone9.2 closure included. Both TS configurations/232 deterministic checks pass. Actual16member Chromium ZIP4d86ec53362dd4801a4e2ea381bf99716c532bc1b164e81bf80358b6c424afc1 extracted and its actualCSP/runtime passed2 Chromium/Firefox cases. Candidate source645f77e is explicitlydirty, final release rebuild remains required. Independent whole-capability review resolved stable-basename and test-server containment findings after RED regressions; package/extraction/six hostile mutations/renamedZIP/path recheck pass. No scoped TODO. Native full-browser sidebar load/action/open-close remains unavailable/excluded; extension platform release awaits Firefox.
+
+    - [x] Milestone 9.3 — Firefox sidebar delivery
+        - [x] T-069 — Wire the Firefox sidebar and background script
             Scope: platforms/firefox manifest and Firefox adapter/assembly entry. Contract: R11; C7/C8.
             Depends on: T-068.
             Evidence: Use sidebar_action and a supported background script, keep shared application/session logic and confirm minimum API/tool compatibility. Verify platform-specific API differences without duplicating gameplay.
-        - [ ] T-070 — Validate Firefox runtime permissions and temporary installation
+            Verification: Two shell tests observed RED then pass;235 deterministic checks and both TypeScript configurations pass. Firefox-specific MV3 sidebar_action/background.scripts uses storage permission only, synchronous action.open and shared session/game/UI code. Actual Firefox assembly background executes under recorder without imports/game timers. Its actualCSP/shared runtime passes Chromium/Firefox2/2 JSON/SQLite/local-settings/paused-reopen cases. Official Mozilla MV3/background and Firefox115/storage.session compatibility checked. Native temporary installation and pinned validation remain T070; package/cumulative release remains T071.
+
+        - [x] T-070 — Validate Firefox runtime permissions and temporary installation
             Scope: Firefox validation tools/config, platform tests and INSTALL.md. Contract: R11/R8; C8.
             Depends on: T-069.
             Evidence: Pin the validator and check manifest/CSP/version/assets, bundled worker/WASM and shared session/file behavior. State unsigned temporary installation limits and actual full-browser evidence/exclusions.
-        - [ ] T-071 — Package Firefox and verify all delivered distributions
+            Verification: Pinned web-ext10.8.0 and lockfile. Lint-gate regression observed RED before implementation;237 deterministic checks and both TS configurations pass. Actual bundled Firefox lint reports0errors/0notices with5 explicitly reviewed warnings:3 code-owned static-template assignments and2 no-data metadata compatibility notices for pre140/pre142; unsupported other warnings fail. Manifest declares no data collection and retains desktop115 API minimum. Bounded isolated managed Firefox157 temporary install acknowledged, then SDK runner exited successfully; no owned Firefox process remains. Earlier CLI timeout was replaced by clean owned SDK teardown. INSTALL/README distinguish unsigned temporary loading and native-load evidence from unverified visible sidebar action/open-close and minimum-version execution.
+
+        - [x] T-071 — Package Firefox and verify all delivered distributions
             Scope: scripts packaging/verifier, tests/packages, all four candidate ZIPs and install/release inputs. Contract: R11/R12; C8.
             Depends on: T-069, T-070.
             Evidence: Verify Firefox ZIP extraction and feasible acceptance, then browser/Windows/Chromium cumulative asset/source/version checks. Prepare checksums and complete instructions with no standalone Node/server/remote-runtime requirement.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/9/9.3.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 9.4 — Phase review
-        - [ ] T-072 — Review test and report Phase 9
+            Verification: Milestone9.3 report/HANDOFF and parent closure included. Firefox package and sidebar lifetime regressions observed RED, then pass. Independent whole-capability/cumulative review has no blocker. Both TS configurations/238 deterministic checks,4source sidebar cases, all6candidate asset verifiers and12extracted runtime cases pass;3cumulative negative gates reject. Report records exact candidate hashes/sourceDirty:true, pinned Firefox lint reviewedwarnings and native temporary-install acknowledgement/clean teardown. Strict gate rejected obsolete mirrored chunk; fresh isolated extension outputs pass unchanged. CI/instructions cover all4platforms; no scoped TODO. Native Windows/fullChromium/visibleFirefoxsidebar integration excluded as specified. Final clean-source build/release remains afterT072/integration.
+
+    - [x] Milestone 9.4 — Phase review
+        - [x] T-072 — Review test and report Phase 9
             Depends on: T-065, T-068, T-071 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/9/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
             Final outcome: include `docs/dev/reports/IMPLEMENTATION-REPORT.md`, aggregate all unresolved eligible milestone/phase TODOs with options/provenance, and assess complete R1-R12 plus all four distributions without claiming future release publication.
+
+            Verification: Distinct independent wholePhase9 and wholeproject R1-R12 code/consumer reviews complete. FinalP9-F01/R6-F01 fixed to required complete versioned extensionlocalobject;4RED assertions then240 deterministic/bothTS, independentrecheck, repaired4extracted+4source cases and nativeFirefox temporaryload/cleanexit pass. Fullsource198/12scopeexclusions, extractedbrowser168/42 and Windowsrenderer168/42 pass; sourcefull precededextensiononlyrepair and affectedcasesrerun. Repairedcumulativeall6candidateverifiers pass with explicitdirty metadata/hashes inreport; finalcleanrelease pending. T001–071 initialclosings auditedunique; T072report/implementationreport/HANDOFF/parentchecks close together. Issues72–80/milestones28–30closed; T071CI41395272676success predateslastrepair. No unresolvedeligibleTODO. NativeWindows/fullChromium/visibleFirefoxsidebar exclusions remain explicit. Next completefinalaudit/hostedclosure, mainintegration and cleanv1release withallassets/hostedbytes.

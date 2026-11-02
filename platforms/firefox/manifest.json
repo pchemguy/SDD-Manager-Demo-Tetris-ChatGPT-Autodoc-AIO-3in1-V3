@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Tetris Sidebar",
+  "version": "1.0.0",
+  "description": "Keyboard Tetris with local settings, session leaderboard and portable saves.",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_title": "Open Tetris sidebar"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "icons": {
+    "16": "icons/tetris-16.png",
+    "32": "icons/tetris-32.png",
+    "48": "icons/tetris-48.png",
+    "128": "icons/tetris-128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; connect-src 'self'"
+  },
+  "sidebar_action": {
+    "default_panel": "sidebar.html",
+    "default_title": "Tetris"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tetris-demo-v3@pchemguy.github.io",
+      "strict_min_version": "115.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  }
+}

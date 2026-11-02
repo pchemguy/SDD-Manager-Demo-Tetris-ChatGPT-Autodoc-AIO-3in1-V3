@@ -16,7 +16,7 @@ export function mount(root:HTMLElement, controller:Controller, mode:'wide'|'side
     <p class="status" data-testid="status" role="status">idle</p>${panelLayout?'<p class="hint" data-testid="file-announcement" aria-live="polite" aria-atomic="true" hidden></p><p class="error" data-testid="global-error" role="alert" aria-atomic="true" hidden></p>':''}${panelLayout?'':`<p class="hint">← → move · ↑ / X rotate<br>Z rotate back · ↓ soft drop<br>${modern?'<span data-testid="modern-actions">Space hard drop · C hold</span><br>':''}${penetrator?'P activates penetrator (1 bonus)<br>':''}Esc pause / resume</p><p class="hint" data-testid="lock-info">Full grounding interval; pause freezes timers.</p>${penetrator?'<p class="hint">Four cleared lines earn one ⚡ (max 3). Hold is unavailable while active.</p>':''}`}
     <div class="game-actions"><button id="restart">Start</button><button id="pause">Start</button></div></section>
     <section class="board-wrap" aria-label="Tetris board"><canvas width="300" height="600" tabindex="0" aria-label="Game board. Use keyboard controls."></canvas><p class="board-caption">10 × 20 · PLAYFIELD</p></section></div>`;
-  const leaderboardPanel=capabilities.has('leaderboard')?createLeaderboardPanel():null;
+  const leaderboardPanel=capabilities.has('leaderboard')?createLeaderboardPanel(mode==='sidebar'):null;
   if(leaderboardPanel)root.querySelector('.game-layout')!.prepend(leaderboardPanel.element);
   const announceFile=panelLayout?(message:string)=>{const region=root.querySelector<HTMLElement>('[data-testid=file-announcement]')!;if(region.textContent!==message)region.textContent=message;region.hidden=!message;}:undefined;
   const settingsPanel=capabilities.has('settings')?createSettingsPanel(controller,announceFile):null;

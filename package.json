@@ -1,6 +1,6 @@
 {
   "name": "tetris-three-platforms",
-  "version": "0.8.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -22,9 +22,16 @@
     "build:desktop": "npm run build:assets && npm run build:schemas && node scripts/build-desktop.mjs",
     "package:windows": "npm run build:desktop && python scripts/package-windows.py",
     "verify:windows": "python scripts/verify-windows.py --extract dist/windows-smoke",
-    "package:all": "npm run build && npm run build:desktop && python scripts/release-packages.py",
+    "package:all": "npm run build && npm run build:desktop && npm run build:chromium && npm run build:firefox && python scripts/release-packages.py",
     "verify:all": "python scripts/release-packages.py --verify --extract",
-    "fetch:electron": "python scripts/fetch-electron.py"
+    "fetch:electron": "python scripts/fetch-electron.py",
+    "build:chromium": "npm run build:assets && npm run build:schemas && node scripts/build-extension.mjs chromium",
+    "package:chromium": "npm run build:chromium && python scripts/package-extension.py --platform chromium",
+    "verify:chromium": "python scripts/package-extension.py --platform chromium --verify --extract dist/chromium-smoke",
+    "build:firefox": "npm run build:assets && npm run build:schemas && node scripts/build-extension.mjs firefox",
+    "validate:firefox": "node scripts/validate-firefox.mjs",
+    "package:firefox": "npm run build:firefox && python scripts/package-extension.py --platform firefox",
+    "verify:firefox": "python scripts/package-extension.py --platform firefox --verify --extract dist/firefox-smoke"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",
@@ -34,7 +41,8 @@
     "electron": "45.2.1",
     "typescript": "7.0.2",
     "vite": "8.3.5",
-    "vitest": "5.0.5"
+    "vitest": "5.0.5",
+    "web-ext": "10.8.0"
   },
   "dependencies": {
     "sql.js": "1.15.2"

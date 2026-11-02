@@ -1,8 +1,8 @@
-"""Produce and verify the cumulative stable-name browser and Windows release inventory."""
+"""Produce and verify the cumulative stable-name four-platform release inventory."""
 from pathlib import Path
 import argparse,hashlib,json,subprocess,tempfile,shutil
 ROOT=Path(__file__).resolve().parents[1]
-NAMES={'tetris-browser.zip','tetris-windows-x64.zip','INSTALL.md','SHA256SUMS.txt'}
+NAMES={'tetris-browser.zip','tetris-windows-x64.zip','tetris-chromium.zip','tetris-firefox.zip','INSTALL.md','SHA256SUMS.txt'}
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def call(*args):subprocess.run(['python',*map(str,args)],cwd=ROOT,check=True)
 def verify(folder,clean=False,extract=False):
@@ -20,6 +20,8 @@ def verify(folder,clean=False,extract=False):
         (stage/'SHA256SUMS.txt').write_text(''.join(sums[n]+'  '+n+'\n' for n in sorted(['tetris-browser.zip','INSTALL.md'])))
         call('scripts/package-browser.py','--verify','--out',stage,*flags,*(['--extract',ROOT/'dist/package-smoke'] if extract else []))
     call('scripts/verify-windows.py','--archive',folder/'tetris-windows-x64.zip',*flags,*(['--extract',ROOT/'dist/windows-smoke'] if extract else []))
+    for platform in ['chromium','firefox']:
+        call('scripts/package-extension.py','--platform',platform,'--verify','--archive',folder/f'tetris-{platform}.zip',*flags,*(['--extract',ROOT/f'dist/{platform}-smoke'] if extract else []))
     print(json.dumps({'releaseInventory':sorted(NAMES),'verified':True,'sha256':sums}),flush=True)
 def package(folder):
     if folder.exists():shutil.rmtree(folder)
@@ -29,6 +31,8 @@ def package(folder):
         call('scripts/package-browser.py','--out',browser);call('scripts/package-windows.py','--out',windows)
         for name in ['tetris-browser.zip','INSTALL.md']:shutil.copyfile(browser/name,folder/name)
         shutil.copyfile(windows/'tetris-windows-x64.zip',folder/'tetris-windows-x64.zip')
+    for platform in ['chromium','firefox']:
+        call('scripts/package-extension.py','--platform',platform,'--out',folder)
     (folder/'SHA256SUMS.txt').write_text(''.join(sha(folder/n)+'  '+n+'\n' for n in sorted(NAMES-{'SHA256SUMS.txt'})))
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,default=ROOT/'dist/release');p.add_argument('--verify',action='store_true');p.add_argument('--clean-source',action='store_true');p.add_argument('--extract',action='store_true');a=p.parse_args()

@@ -55,9 +55,10 @@ export function createSettingsPanel(controller:Controller,onFileStatus?: (messag
 }
 
 /** Read-only session ranking; rebuild rows only when result content changes, never on every frame. */
-export function createLeaderboardPanel(){
+export function createLeaderboardPanel(windowSession=false){
  const element=document.createElement('section');element.className='leaderboard-panel';element.id='panel-leaderboard';element.setAttribute('aria-labelledby','leaderboard-title');
  element.innerHTML='<p class="eyebrow">THIS PAGE SESSION</p><h2 id="leaderboard-title">Session top ten</h2><p class="hint" data-empty>No completed games yet.</p><ol aria-label="Completed games"></ol><p class="hint">Restart keeps this list. Reload ends the session.</p>';
+ if(windowSession){element.querySelector('.eyebrow')!.textContent='THIS BROWSER WINDOW';element.querySelectorAll('.hint')[1]!.textContent='Restart and panel reopening keep this list. Closing this browser window ends the session.';}
  const list=element.querySelector('ol')!,empty=element.querySelector<HTMLElement>('[data-empty]')!;let signature='';
  return {element,render(view:GameView){
   const next=JSON.stringify(view.state.results);if(signature===next)return;signature=next;empty.hidden=view.state.results.length>0;
