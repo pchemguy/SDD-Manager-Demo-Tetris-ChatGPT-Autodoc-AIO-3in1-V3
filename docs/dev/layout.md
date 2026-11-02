@@ -17,12 +17,12 @@ This is the intended physical allocation of the components in [DECOMPOSITION](DE
 | C6 snapshot codecs | `src/files/json.ts`, `sqlite.ts`, `validation.ts`, `codec.worker.ts`, public `src/files/index.ts` | Worker protocol/client and both byte formats; database/runtime handles private |
 | C7 port contracts | `src/platform/ports.ts` | PlatformPorts and checkpoint message types reference canonical models; no concrete host imports |
 | Browser adapter | `src/platform/browser/index.ts`, `settings.ts`, `files.ts`, `lifecycle.ts` | Cookies/history, DOM downloads/input and clock/ID ports; common renderer behavior reusable by Electron |
-| Electron shell/adapter | `src/platform/electron/main.ts`, `origin.ts`, `index.ts` | Main-process Electron imports isolated from renderer bundles; local asset/session setup, no game loop or broad preload bridge |
+| Electron shell/adapter | `src/platform/electron/main.ts`, `origin.ts`, private `shell.ts`, renderer `index.ts`; `platforms/electron/runtime.json` | Main-process Electron imports isolated from renderer bundles; local asset/session setup, no game loop or broad preload bridge |
 | Shared extension adapter | `src/platform/extension/index.ts`, `session.ts`, `background.ts` | Settings-local/session-checkpoint adapter and generation/revision broker; no gameplay transitions in background |
 | Platform entries | `src/entry/browser.ts`, `desktop.ts`, `sidebar.ts` | Compose shared app/controller/UI and the selected adapter/capabilities |
 | Capability/version metadata | `src/capabilities.ts`, root `package.json` | Build-selected features and package version; not user configuration or an external plugin registry |
 
-Only component public entries and `src/models.ts`/`src/platform/ports.ts` cross component boundaries. Relative private imports remain inside an owner. Shared UI/application/domain must build without importing Electron main modules or extension globals; adapters provide those facilities. Platform-specific TypeScript configurations distinguish DOM/worker and Node/Electron ambient types.
+Only component public entries and `src/models.ts`/`src/platform/ports.ts` cross component boundaries. Relative private imports remain inside an owner. Shared UI/application/domain must build without importing Electron main modules or extension globals; adapters provide those facilities. Platform-specific TypeScript configurations distinguish DOM/worker and Node/Electron ambient types. `tsconfig.electron.json` checks only the Node shell without DOM globals; the existing shared/test configuration retains its browser/test owners.
 
 ## Formats, assets and assembly
 

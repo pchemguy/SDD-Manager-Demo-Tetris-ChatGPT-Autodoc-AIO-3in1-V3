@@ -364,41 +364,57 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
 ## Phase 8 — Windows desktop delivery
 
-- [ ] Phase 8 — Windows desktop delivery
-    - [ ] Milestone 8.1 — Local desktop runtime
-        - [ ] T-056 — Establish the isolated Electron local-origin shell
+- [x] Phase 8 — Windows desktop delivery
+    - [x] Milestone 8.1 — Local desktop runtime
+        - [x] T-056 — Establish the isolated Electron local-origin shell
             Scope: src/platform/electron main/origin and pinned Electron configuration. Contract: R10; C7.
             Depends on: T-055.
             Evidence: Pin Electron and register standard secure app origin on its persistent session before loading the shared renderer. Disable renderer Node integration, retain isolation/sandbox and restrict asset paths/navigation without a server.
             Phase entry: set the PLAN version/capabilities and verify the predecessor integration/release/closure gate (or initial preparation gate for Phase 1).
-        - [ ] T-057 — Integrate desktop renderer persistence and file assets
+            Verification: R10 C7:2new protocol/host-consumer suites observed RED on absent modules(no scenarios executed); after implementation7actual filesystem/Response/native-host-recorder cases pass. Final check(including Node-only/no-DOM config),205deterministic,build and18Chromium/Firefox shared play/render/JSON smoke cases pass. PinElectron45.2.1 confirmed npmstable/official non-prerelease runtime; exact Windowsx64 URL,size158187314/SHA7c342aee45d5b4ccafe5dfe9037028796b082735a576e21e2b4e2d8422ebb727 recorded. Secure standard app scheme registered beforeReady on actual persist:tetris session, verified immutable asset cache/GETHEAD/CSP/WASM MIME, traversal/foreign/unknown/unsafe-method/hash/symlink failures. Native recorder verifies sandbox/isolation/Node-disabled/no preload,popup/nav/network/permission denial,closequit and clear corrupt-asset failure. CI skips unrelated host-binary download,never weakens security. Phaseentry0.8/predecessorv0.7release430899527/hostedbytes/Actions41356702664/integration+closures and allPhase8issues65–71/milestones25–27 verified. No scopedTODO; desktop renderer/build/native-host acceptance and Windowsartifact remain assigned subsequenttasks.
+        - [x] T-057 — Integrate desktop renderer persistence and file assets
             Scope: src/entry/desktop.ts, Electron adapter/build and platform tests. Contract: R10/R6/R8; C7/C8.
             Depends on: T-056.
             Evidence: Load the same shared UI/controller and local codec worker/WASM. Exercise cookie/query settings and portable files through the packaged origin, with no preload filesystem bridge or external runtime dependency.
-        - [ ] T-058 — Verify desktop lifecycle and origin boundaries
+            Verification: New real-assembly test failed for the missing producer before implementation. Full deterministic suite passes206/206, both TypeScript checks and browser build pass. Generated desktop main is bundled with Electron external; renderer entry selection is enforced at build time. Production origin handler verifies and serves renderer scripts/CSS, codec worker, schema and WASM signature/MIME from the actual generated directory. Shared browser adapter is reused on the standard secure app origin. Native Electron/Windows launch is not claimed. Browser reprovisioning encountered a stale lock and is being recovered for the subsequent runtime task.
+
+        - [x] T-058 — Verify desktop lifecycle and origin boundaries
             Scope: tests/integration/platform and host-supported Electron smoke evidence. Contract: R10/R3; C7.
             Depends on: T-056, T-057.
             Evidence: Check blur pauses and explicit resume, close ends session, traversal/foreign-origin requests fail and local assets resolve. Separate actual host runtime evidence from unavailable native Windows behavior.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/8/8.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 8.2 — Windows portable delivery
-        - [ ] T-059 — Produce the unsigned Windows portable runtime
+            Verification: Milestone8.1 complete: independent whole-capability code review,206 deterministic checks,both TS configs and10 actual built-desktop-handler Firefox cases pass;2 source/nested-browser cases explicitly excluded. Real settings reload/query/cookies, synthetic blur pause/explicit resume, JSON/SQLite downloads/restores and failure/rollback/timeout paths pass under production CSP via labeled HTTP transport. Repaired portable test-server path and exact-count clock race. Native recorder/protocol checks7/7; no native Electron/Windows claim. Chromium provisioning CDN HTML/OCI config timeouts recorded. Report8/8.1.md and HANDOFF included; no scoped TODO.
+    - [x] Milestone 8.2 — Windows portable delivery
+
+
+        - [x] T-059 — Produce the unsigned Windows portable runtime
             Scope: scripts/package.mjs and Windows assembly inputs. Contract: R10/R12; C8.
             Depends on: T-058.
             Evidence: Build tetris-windows-x64.zip with the executable, Electron runtime, shared application/assets and license notices. Verify version/source agreement and no need for Node.js, server or developer files.
-        - [ ] T-060 — Verify the extracted Windows artifact and retained browser build
+            Verification: Pinned official Electron runtime downloaded via official GitHub asset API and matched158187314bytes/SHA7c342aee45d5b4ccafe5dfe9037028796b082735a576e21e2b4e2d8422ebb727. Actual candidate ZIP e6bef9027cde580890cf0c93b8cffe16e8b18cc3f13e921d28da544cc205f4aa has86members/158490616bytes; CRC, Tetris.exe, bundled application/worker/WASM/schema, runtime45.2.1/app0.8.0 and source18cc225 identity pass. Wrong runtime identity is rejected before assembly. Both TS configurations pass. Mechanical assembly uses actual artifact and negative input checks, no fabricated test-first claim. Candidate sourceDirty=true; final clean exact-source packaging follows integration. Native Windows launch untested; independent comprehensive artifact acceptance remains T-060.
+
+        - [x] T-060 — Verify the extracted Windows artifact and retained browser build
             Scope: scripts/verify-packages.mjs, tests/packages and package evidence. Contract: R10/R12; C8.
             Depends on: T-059.
             Evidence: Inspect archive paths/executable metadata/runtime/assets and exercise feasible shared-origin/runtime checks. Recheck the browser ZIP from the same source; report native Windows launch excluded when unavailable rather than passed.
-        - [ ] T-061 — Complete cumulative desktop installation and package guidance
+            Verification: Both TS configs and206 deterministic checks pass. Independent verifier checks actual86-member Windows ZIP4ebe5b6448edf9afa7a11732cdb88231d461270d67dfddb9ec12b0063aaa9bbd:CRC/safe paths/case duplicates/stable name,all pristine runtime bytes against pinned official ZIP,AMD64 PE32+ metadata,app/runtime/version/source,all renderer hashes and secret markers. Renamed and duplicate-member artifacts are rejected. Actual extracted Windows renderer over production-handler HTTP transport passes168 Chromium/Firefox cases with36 explicit exclusions; retained extracted browser ZIPd672282fa26023e3fba2558fc5305ea3dbd7a52eba032de9c87d5236abd09207 passes168 cases/36exclusions. Chromium recovered from official1.64.1-noble OCI manifestee15712262f017b8157421b212b12099146645f44b1bc5c0514cbbe6a229b1d0, verified configa0d7b2b49ffa0e99787a00b7ec2af46eca58020082713f002ca9f0f1cfd1a017, layercc493924999458dd1c4ebf0913b47f5f8df9ea92d1457ea7f54e4b590ac5e75a/316340916bytes; safe extraction293shell/ffmpeg files. Chromium156.0.8078.80 and Firefox157 each pass2input/Canvas/screenshot/teardown probes. Candidates sourceDirty=true; exact-source rebuild remains release gate. Native Windows launch excluded, not passed.
+
+            Forward correction M8.2-F01: Independent review found that matching local/archive inventories could jointly omit the main/notices or admit development files. A focused regression failed on missing-main acceptance before the closed inventory contract; full207 deterministic checks and both TS configurations pass after repair. Both real producer/verifier CLIs reject absent main and injected developer.ts; archive/local contracts separately require entries, notices, package main/type, worker/WASM/styles and reject undeclared files/dependencies. Reviewer rechecked the fix with1/1 focused test. The prior candidate correctly failed stale-source verification after its owning commit; rebuild/reverification uses the current source. No native evidence is inferred.
+
+        - [x] T-061 — Complete cumulative desktop installation and package guidance
             Scope: INSTALL.md, README, package/checksum candidates and packaging integration. Contract: R10/R12; C8.
             Depends on: T-059, T-060.
             Evidence: Document extraction/launch, unsigned development status, supported checks/limits and browser availability. Prepare both stable-name assets, checksums and release-note inputs; retain the post-integration exact-source publication gate.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/8/8.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
-    - [ ] Milestone 8.3 — Phase review
-        - [ ] T-062 — Review test and report Phase 8
+            Verification: Milestone8.2 code/consumer review passes after M8.2-F01 inventory repair/recheck. Cumulative browser/Windows four-asset builder and both strict verifiers pass; checksum/versioned-name negatives reject. Current candidate source288ad237/sourceDirty=true:browser4109cef8,Windows6418d191,INSTALLd385087f; exact hashes/report8/8.2.md.207 deterministic/bothTS checks pass; T060 full extractedWindows/browser each168cases/36exclusions retained, fresh cumulative4-case Chromium/Firefox game/settings/file smoke passes. Actual screenshot inspected. Inactive generated transfer copy was preserved outside release inventory after no open owner; strict gate unchanged and rechecked. CI YAML parses and desktop job uses same commands; new job not claimed run. INSTALL distinguishes unsigned portable/noNode/server from signed/store/native-tested packages. Report/HANDOFF included; TODO None.
+
+    - [x] Milestone 8.3 — Phase review
+        - [x] T-062 — Review test and report Phase 8
             Depends on: T-058, T-061 and verified completion/closure of every delivery milestone in this phase.
             Scope: whole-phase implementation/consumer code review, in-scope SPEC/PLAN exits, relevant cumulative regressions, candidate package checks, blocker repairs and `docs/dev/reports/phases/8/PHASE-REPORT.md` plus HANDOFF.
             Evidence: record actual commands/environments/results, delivered versus deferred scope, source/artifact identities, TODO dispositions and explicit native/full-browser limits. Commit the verified report and initial task/parent completion together, publish/read back and reconcile issue/milestone closures before phase integration.
+
+            Verification: Distinct independent whole-phase code/consumer review and six-task initial-closing-commit audit pass; two forward corrections explicitly distinguished and M8.2-F01 resolved. Clean exact dd91ad81659e25898697739e8873c0a584c7b0cd passes207 deterministic,bothTS configs,194source/168extractedWindows-renderer/168extracted-browser cases(10/36/36scope exclusions),both platform verifiers and four stable assets with sourceDirty=false; Actions41383953642 completed success. Clean /tmp candidate avoids mirrored-output transfer copies without weakening strict inventory. Phase report/HANDOFF include hashes, limits and remaining integration/release/Phase9. Native Electron/Windows not executed, not claimed. Optional v0.8 prerelease advisory emitted once; no separate campaign selected. TODO None.
 
 ## Phase 9 — Chromium and Firefox sidebars
 
