@@ -365,7 +365,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 ## Phase 8 — Windows desktop delivery
 
 - [ ] Phase 8 — Windows desktop delivery
-    - [ ] Milestone 8.1 — Local desktop runtime
+    - [x] Milestone 8.1 — Local desktop runtime
         - [x] T-056 — Establish the isolated Electron local-origin shell
             Scope: src/platform/electron main/origin and pinned Electron configuration. Contract: R10; C7.
             Depends on: T-055.
@@ -378,12 +378,14 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Load the same shared UI/controller and local codec worker/WASM. Exercise cookie/query settings and portable files through the packaged origin, with no preload filesystem bridge or external runtime dependency.
             Verification: New real-assembly test failed for the missing producer before implementation. Full deterministic suite passes206/206, both TypeScript checks and browser build pass. Generated desktop main is bundled with Electron external; renderer entry selection is enforced at build time. Production origin handler verifies and serves renderer scripts/CSS, codec worker, schema and WASM signature/MIME from the actual generated directory. Shared browser adapter is reused on the standard secure app origin. Native Electron/Windows launch is not claimed. Browser reprovisioning encountered a stale lock and is being recovered for the subsequent runtime task.
 
-        - [ ] T-058 — Verify desktop lifecycle and origin boundaries
+        - [x] T-058 — Verify desktop lifecycle and origin boundaries
             Scope: tests/integration/platform and host-supported Electron smoke evidence. Contract: R10/R3; C7.
             Depends on: T-056, T-057.
             Evidence: Check blur pauses and explicit resume, close ends session, traversal/foreign-origin requests fail and local assets resolve. Separate actual host runtime evidence from unavailable native Windows behavior.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/8/8.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
     - [ ] Milestone 8.2 — Windows portable delivery
+            Verification: Milestone8.1 complete: independent whole-capability code review,206 deterministic checks,both TS configs and10 actual built-desktop-handler Firefox cases pass;2 source/nested-browser cases explicitly excluded. Real settings reload/query/cookies, synthetic blur pause/explicit resume, JSON/SQLite downloads/restores and failure/rollback/timeout paths pass under production CSP via labeled HTTP transport. Repaired portable test-server path and exact-count clock race. Native recorder/protocol checks7/7; no native Electron/Windows claim. Chromium provisioning CDN HTML/OCI config timeouts recorded. Report8/8.1.md and HANDOFF included; no scoped TODO.
+
         - [ ] T-059 — Produce the unsigned Windows portable runtime
             Scope: scripts/package.mjs and Windows assembly inputs. Contract: R10/R12; C8.
             Depends on: T-058.

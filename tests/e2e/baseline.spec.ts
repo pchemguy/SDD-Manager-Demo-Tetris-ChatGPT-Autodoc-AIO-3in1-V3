@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 test('classic app is playable through keyboard, pause and restart', async ({ page }) => {
-  await page.clock.install();
+  await page.clock.install({time:new Date('2026-11-01T00:00:00Z')});
+  await page.clock.pauseAt(new Date('2026-11-01T00:00:01Z'));
   await page.goto('/');
   await expect(page.getByRole('heading', {name:'Game info and controls'})).toBeVisible();
   await expect(page.locator('.game-actions button')).toHaveCount(2);
