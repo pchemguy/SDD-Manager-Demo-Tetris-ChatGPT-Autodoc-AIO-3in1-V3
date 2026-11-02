@@ -384,7 +384,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Check blur pauses and explicit resume, close ends session, traversal/foreign-origin requests fail and local assets resolve. Separate actual host runtime evidence from unavailable native Windows behavior.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/8/8.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Milestone8.1 complete: independent whole-capability code review,206 deterministic checks,both TS configs and10 actual built-desktop-handler Firefox cases pass;2 source/nested-browser cases explicitly excluded. Real settings reload/query/cookies, synthetic blur pause/explicit resume, JSON/SQLite downloads/restores and failure/rollback/timeout paths pass under production CSP via labeled HTTP transport. Repaired portable test-server path and exact-count clock race. Native recorder/protocol checks7/7; no native Electron/Windows claim. Chromium provisioning CDN HTML/OCI config timeouts recorded. Report8/8.1.md and HANDOFF included; no scoped TODO.
-    - [ ] Milestone 8.2 — Windows portable delivery
+    - [x] Milestone 8.2 — Windows portable delivery
 
 
         - [x] T-059 — Produce the unsigned Windows portable runtime
@@ -401,11 +401,13 @@ Report paths below designate future evidence outputs, not existing files. Implem
 
             Forward correction M8.2-F01: Independent review found that matching local/archive inventories could jointly omit the main/notices or admit development files. A focused regression failed on missing-main acceptance before the closed inventory contract; full207 deterministic checks and both TS configurations pass after repair. Both real producer/verifier CLIs reject absent main and injected developer.ts; archive/local contracts separately require entries, notices, package main/type, worker/WASM/styles and reject undeclared files/dependencies. Reviewer rechecked the fix with1/1 focused test. The prior candidate correctly failed stale-source verification after its owning commit; rebuild/reverification uses the current source. No native evidence is inferred.
 
-        - [ ] T-061 — Complete cumulative desktop installation and package guidance
+        - [x] T-061 — Complete cumulative desktop installation and package guidance
             Scope: INSTALL.md, README, package/checksum candidates and packaging integration. Contract: R10/R12; C8.
             Depends on: T-059, T-060.
             Evidence: Document extraction/launch, unsigned development status, supported checks/limits and browser availability. Prepare both stable-name assets, checksums and release-note inputs; retain the post-integration exact-source publication gate.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/8/8.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Milestone8.2 code/consumer review passes after M8.2-F01 inventory repair/recheck. Cumulative browser/Windows four-asset builder and both strict verifiers pass; checksum/versioned-name negatives reject. Current candidate source288ad237/sourceDirty=true:browser4109cef8,Windows6418d191,INSTALLd385087f; exact hashes/report8/8.2.md.207 deterministic/bothTS checks pass; T060 full extractedWindows/browser each168cases/36exclusions retained, fresh cumulative4-case Chromium/Firefox game/settings/file smoke passes. Actual screenshot inspected. Inactive generated transfer copy was preserved outside release inventory after no open owner; strict gate unchanged and rechecked. CI YAML parses and desktop job uses same commands; new job not claimed run. INSTALL distinguishes unsigned portable/noNode/server from signed/store/native-tested packages. Report/HANDOFF included; TODO None.
+
     - [ ] Milestone 8.3 — Phase review
         - [ ] T-062 — Review test and report Phase 8
             Depends on: T-058, T-061 and verified completion/closure of every delivery milestone in this phase.

@@ -32,3 +32,32 @@ jobs:
         with:
           name: browser-candidate
           path: dist/release/*
+  desktop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.cache/ms-playwright
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: npm run fetch:electron
+      - run: npm run package:all
+      - run: npm run verify:all
+      - run: npx playwright install --with-deps chromium-headless-shell firefox
+      - run: npm run test:e2e
+        env:
+          TETRIS_DESKTOP_TEST: '1'
+          TETRIS_PACKAGED_TEST: '1'
+          TETRIS_DESKTOP_ROOT: ${{ github.workspace }}/dist/windows-smoke/resources/app/renderer
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cumulative-desktop-candidate
+          path: dist/release/*
