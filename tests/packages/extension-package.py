@@ -1,13 +1,14 @@
 """Exercise the real producer/verifier and hostile archive mutations."""
 from pathlib import Path
-import importlib.util,tempfile,zipfile,json
+import importlib.util,tempfile,zipfile,json,sys
 spec=importlib.util.spec_from_file_location('extension',Path('scripts/package-extension.py'))
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+platform=sys.argv[1] if len(sys.argv)>1 else 'chromium'
 with tempfile.TemporaryDirectory() as tmp:
-    folder=Path(tmp);archive=folder/'tetris-chromium.zip';m.package('chromium',folder);m.verify('chromium',archive,False,folder/'extracted')
+    folder=Path(tmp);archive=folder/f'tetris-{platform}.zip';m.package(platform,folder);m.verify(platform,archive,False,folder/'extracted')
     assert (folder/'extracted/sidebar.html').is_file()
-    renamed=folder/'tetris-chromium-v1.zip';renamed.write_bytes(archive.read_bytes())
-    try:m.verify('chromium',renamed)
+    renamed=folder/f'tetris-{platform}-v1.zip';renamed.write_bytes(archive.read_bytes())
+    try:m.verify(platform,renamed)
     except ValueError:pass
     else:raise AssertionError('accepted unstable archive basename')
     with zipfile.ZipFile(archive) as z:original={n:z.read(n) for n in z.namelist()}
@@ -16,7 +17,7 @@ with tempfile.TemporaryDirectory() as tmp:
         files={**original,**changes}
         with zipfile.ZipFile(archive,'w') as z:
             for n,v in files.items():z.writestr(n,v)
-        try:m.verify('chromium',archive)
+        try:m.verify(platform,archive)
         except (ValueError,KeyError):pass
         else:raise AssertionError('accepted invalid package '+str(changes.keys()))
     print(json.dumps({'validExtraction':True,'mutationsRejected':len(mutations)}))

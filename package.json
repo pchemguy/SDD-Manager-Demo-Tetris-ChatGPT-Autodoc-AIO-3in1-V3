@@ -22,14 +22,16 @@
     "build:desktop": "npm run build:assets && npm run build:schemas && node scripts/build-desktop.mjs",
     "package:windows": "npm run build:desktop && python scripts/package-windows.py",
     "verify:windows": "python scripts/verify-windows.py --extract dist/windows-smoke",
-    "package:all": "npm run build && npm run build:desktop && python scripts/release-packages.py",
+    "package:all": "npm run build && npm run build:desktop && npm run build:chromium && npm run build:firefox && python scripts/release-packages.py",
     "verify:all": "python scripts/release-packages.py --verify --extract",
     "fetch:electron": "python scripts/fetch-electron.py",
     "build:chromium": "npm run build:assets && npm run build:schemas && node scripts/build-extension.mjs chromium",
     "package:chromium": "npm run build:chromium && python scripts/package-extension.py --platform chromium",
     "verify:chromium": "python scripts/package-extension.py --platform chromium --verify --extract dist/chromium-smoke",
     "build:firefox": "npm run build:assets && npm run build:schemas && node scripts/build-extension.mjs firefox",
-    "validate:firefox": "node scripts/validate-firefox.mjs"
+    "validate:firefox": "node scripts/validate-firefox.mjs",
+    "package:firefox": "npm run build:firefox && python scripts/package-extension.py --platform firefox",
+    "verify:firefox": "python scripts/package-extension.py --platform firefox --verify --extract dist/firefox-smoke"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

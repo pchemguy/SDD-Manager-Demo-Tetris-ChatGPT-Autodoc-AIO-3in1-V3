@@ -460,7 +460,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/9/9.2.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
             Verification: Report/HANDOFF and milestone9.2 closure included. Both TS configurations/232 deterministic checks pass. Actual16member Chromium ZIP4d86ec53362dd4801a4e2ea381bf99716c532bc1b164e81bf80358b6c424afc1 extracted and its actualCSP/runtime passed2 Chromium/Firefox cases. Candidate source645f77e is explicitlydirty, final release rebuild remains required. Independent whole-capability review resolved stable-basename and test-server containment findings after RED regressions; package/extraction/six hostile mutations/renamedZIP/path recheck pass. No scoped TODO. Native full-browser sidebar load/action/open-close remains unavailable/excluded; extension platform release awaits Firefox.
 
-    - [ ] Milestone 9.3 — Firefox sidebar delivery
+    - [x] Milestone 9.3 — Firefox sidebar delivery
         - [x] T-069 — Wire the Firefox sidebar and background script
             Scope: platforms/firefox manifest and Firefox adapter/assembly entry. Contract: R11; C7/C8.
             Depends on: T-068.
@@ -473,11 +473,13 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Pin the validator and check manifest/CSP/version/assets, bundled worker/WASM and shared session/file behavior. State unsigned temporary installation limits and actual full-browser evidence/exclusions.
             Verification: Pinned web-ext10.8.0 and lockfile. Lint-gate regression observed RED before implementation;237 deterministic checks and both TS configurations pass. Actual bundled Firefox lint reports0errors/0notices with5 explicitly reviewed warnings:3 code-owned static-template assignments and2 no-data metadata compatibility notices for pre140/pre142; unsupported other warnings fail. Manifest declares no data collection and retains desktop115 API minimum. Bounded isolated managed Firefox157 temporary install acknowledged, then SDK runner exited successfully; no owned Firefox process remains. Earlier CLI timeout was replaced by clean owned SDK teardown. INSTALL/README distinguish unsigned temporary loading and native-load evidence from unverified visible sidebar action/open-close and minimum-version execution.
 
-        - [ ] T-071 — Package Firefox and verify all delivered distributions
+        - [x] T-071 — Package Firefox and verify all delivered distributions
             Scope: scripts packaging/verifier, tests/packages, all four candidate ZIPs and install/release inputs. Contract: R11/R12; C8.
             Depends on: T-069, T-070.
             Evidence: Verify Firefox ZIP extraction and feasible acceptance, then browser/Windows/Chromium cumulative asset/source/version checks. Prepare checksums and complete instructions with no standalone Node/server/remote-runtime requirement.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/9/9.3.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Milestone9.3 report/HANDOFF and parent closure included. Firefox package and sidebar lifetime regressions observed RED, then pass. Independent whole-capability/cumulative review has no blocker. Both TS configurations/238 deterministic checks,4source sidebar cases, all6candidate asset verifiers and12extracted runtime cases pass;3cumulative negative gates reject. Report records exact candidate hashes/sourceDirty:true, pinned Firefox lint reviewedwarnings and native temporary-install acknowledgement/clean teardown. Strict gate rejected obsolete mirrored chunk; fresh isolated extension outputs pass unchanged. CI/instructions cover all4platforms; no scoped TODO. Native Windows/fullChromium/visibleFirefoxsidebar integration excluded as specified. Final clean-source build/release remains afterT072/integration.
+
     - [ ] Milestone 9.4 — Phase review
         - [ ] T-072 — Review test and report Phase 9
             Depends on: T-065, T-068, T-071 and verified completion/closure of every delivery milestone in this phase.

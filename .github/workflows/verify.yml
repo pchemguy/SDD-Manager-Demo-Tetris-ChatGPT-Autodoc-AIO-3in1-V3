@@ -1,4 +1,4 @@
-name: Verify browser application
+name: Verify shared application and distributions
 on: [push, pull_request]
 permissions:
   contents: read
@@ -57,7 +57,16 @@ jobs:
           TETRIS_DESKTOP_TEST: '1'
           TETRIS_PACKAGED_TEST: '1'
           TETRIS_DESKTOP_ROOT: ${{ github.workspace }}/dist/windows-smoke/resources/app/renderer
+      - run: npm run test:e2e -- tests/e2e/extension-runtime.spec.ts
+        env:
+          TETRIS_EXTENSION_TEST: '1'
+          TETRIS_EXTENSION_ROOT: ${{ github.workspace }}/dist/chromium-smoke
+      - run: npm run test:e2e -- tests/e2e/extension-runtime.spec.ts
+        env:
+          TETRIS_EXTENSION_TEST: '1'
+          TETRIS_EXTENSION_ROOT: ${{ github.workspace }}/dist/firefox-smoke
+      - run: timeout --kill-after=5s 45s node scripts/probe-firefox-install.mjs "${{ github.workspace }}/.cache/ms-playwright/firefox-1555/firefox/firefox" "${{ github.workspace }}/dist/firefox-smoke"
       - uses: actions/upload-artifact@v4
         with:
-          name: cumulative-desktop-candidate
+          name: cumulative-four-platform-candidate
           path: dist/release/*
