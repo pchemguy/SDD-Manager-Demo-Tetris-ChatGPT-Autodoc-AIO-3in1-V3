@@ -28,7 +28,8 @@ export function validateState(value:unknown):Outcome<AppState>{
   // Top-out states can retain their colliding spawn; live poses must remain traversable.
   const candidate=structuredClone(value) as AppState;
   if((g.status==='running'||g.status==='paused')&&!canTraverse(candidate.game.board,candidate.game.active!))return invalid;
-  rankResults(candidate.results);return {ok:true,value:candidate};
+  if((g.status==='gameover'?value.completedRunId!==g.runId:value.completedRunId!==null)||rankResults(candidate.results).some((result,index)=>result.id!==candidate.results[index]?.id))return invalid;
+  return {ok:true,value:candidate};
  }catch{return invalid;}
 }
 export function validateCheckpoint(value:unknown,windowId:number,generation:number,revision:number):Outcome<Checkpoint>{

@@ -57,3 +57,7 @@ test('checkpoint contents own copies and browser restart starts an empty session
  const next=acquired(await c.handle({type:'acquire',windowId:7},sender));expect(next.checkpoint?.state.game.board[19]?.[0]).toBeNull();
  const fresh=setup();expect(acquired(await fresh.make().handle({type:'acquire',windowId:7},sender)).checkpoint).toBeNull();
 });
+test('corrupt completion marker and unordered leaderboard cannot suppress or misrank completed games',async()=>{
+ const a=setup(),c=a.make(),l=acquired(await c.handle({type:'acquire',windowId:7},sender));
+ for(const s of [{...state(),completedRunId:'run-1'},{...state(),results:[{id:'low',score:1,timestamp:'2026-11-01T00:00:00Z'},{id:'high',score:2,timestamp:'2026-11-01T00:00:00Z'}]}])expect(await c.handle({type:'checkpoint',windowId:7,generation:l.generation,revision:1,state:s},sender)).toHaveProperty('error.code','invalid-data');
+});

@@ -1,6 +1,6 @@
 # Project handoff
 
-Checkpoint: Phase 9 entry and T-063 session coordination. Browser/Windows v0.8.0 is published and verified. T-063 completion and publication are recorded by its owning TASKS entry and Git; reconcile subsequent hosted effects before advancing.
+Checkpoint: Milestone9.1 shared sidebar sessions verified; browser/Windows v0.8.0 remains published. T-065 and this milestone report close together; reconcile its later publication/issue74/milestone28 closure before advancing.
 
 ## Workflow and sources
 
@@ -22,6 +22,6 @@ Phase 9 label `sdd-phase-9-Chromium-and-Firefox-sidebars`, milestones 28–31 an
 
 ## Pending work and verification limits
 
-T-063 implements strict complete checkpoint validation, ordered acknowledged session writes, window-scoped generations/revisions, corrupt-state warning and paused recovery; background composition has no gameplay loop. T-064 supplies extension-local settings/file ports; T-065 integrates compact entry and command/timer checkpoint cadence with folded milestone review. Continue through Chromium, Firefox and T-072, then integrate and publish v1.0.0 with all four ZIPs plus installation/checksum assets. Do not claim extension delivery before package/runtime gates pass.
+T-063852ab67 and T-064f760cc0 are published and issues72/73 closed/read back. T-065 integrates compact entry, paused reopening and command/100ms timer checkpoint cadence. [Milestone9.1 report](reports/phases/9/9.1.md) records independent review, three resolved findings,227 deterministic checks, both TS configurations/browser build and198 source Chromium/Firefox cases with10 existing exclusions. An initial overlapping generator/browser run caused Vite reloads; isolated rerun passed. Background composition has no gameplay loop. Next: T-066 Chromium manifest/action shell. Continue through Chromium, Firefox and T-072, then integrate and publish v1.0.0 with all four ZIPs plus installation/checksum assets. Do not claim extension delivery before package/runtime gates pass.
 
 Linux Node 24 host; npm dependencies and isolated Playwright headless Chromium/Firefox are available. Full Chromium launch fails with diagnosed UNIX socket EPERM even with its effective sandbox configuration; native sidebar action/open/close checks are unavailable and excluded, not passed. Native Electron/Windows execution remains excluded. Continue feasible headless shared-page, adapter, manifest/CSP, extracted runtime and package verification. Keep runtime assets local. Firefox trusted local checks require the documented explicit workaround. Release candidates should use fresh temporary outputs because mirrored dist synchronization previously injected transient files; strict inventory gates must remain unchanged.

@@ -419,7 +419,7 @@ Report paths below designate future evidence outputs, not existing files. Implem
 ## Phase 9 — Chromium and Firefox sidebars
 
 - [ ] Phase 9 — Chromium and Firefox sidebars
-    - [ ] Milestone 9.1 — Shared sidebar sessions
+    - [x] Milestone 9.1 — Shared sidebar sessions
         - [x] T-063 — Implement versioned sidebar session coordination
             Scope: src/platform/extension/session.ts/background.ts and adapter tests. Contract: R11; C7.
             Depends on: T-062.
@@ -433,11 +433,13 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Evidence: Persist only six settings in storage.local, keep results/game in session storage and adapt Blob download/file input without host-page URL/cookie changes. Check acknowledgement, failures and coherent settings/restore commits.
             Verification: Three intended adapter failures observed before implementation. Six adapter checks now pass for per-key settings, no cookie/history access, empty startup preservation, complete Restore transactions, partial-write compensation, paused reopening, stale leases, malformed RPC replies, timeout and Blob download bytes/cleanup. Full 222 deterministic checks and both TypeScript configurations pass. Shared file picker/codec remain with C4/C6; extension adapter requests no download permission.
 
-        - [ ] T-065 — Integrate paused sidebar reopening and compact UI
+        - [x] T-065 — Integrate paused sidebar reopening and compact UI
             Scope: src/entry/sidebar.ts, shared lifecycle/UI and integration tests. Contract: R11/R9/R3; C3/C4/C7.
             Depends on: T-063, T-064.
             Evidence: Restore the last acknowledged game paused with remaining timers/results, clear pressed input and handle corrupt/stale checkpoints/storage failure. Exercise close/reopen/window/browser-session boundaries and resizing with no background game loop.
             Milestone exit: review the whole capability and consumers, run relevant tests/regressions, repair blockers, and include `docs/dev/reports/phases/9/9.1.md` plus HANDOFF with this task completion; report TODOs as None or evidence-backed eligible deferrals.
+            Verification: Milestone9.1 report/HANDOFF included. Two cadence/failure tests and recovery-warning regression observed RED before fixes. Independent whole-capability review resolved M9.1-F01–F03; final wrapper recheck4/4. Check passes both TS configurations;227 deterministic checks/browser build pass. Four actual shared-page sidebar checks and isolated whole source suite pass:198 Chromium/Firefox cases,10 explicit build/transport exclusions. Initial generator/HMR interference diagnosed and isolated rerun passed. Native sidebar/Windows execution remains explicitly excluded.
+
     - [ ] Milestone 9.2 — Chromium sidebar delivery
         - [ ] T-066 — Wire the Chromium MV3 sidebar shell
             Scope: platforms/chromium manifest, sidebar HTML and Chromium background/action wiring. Contract: R11; C7/C8.
