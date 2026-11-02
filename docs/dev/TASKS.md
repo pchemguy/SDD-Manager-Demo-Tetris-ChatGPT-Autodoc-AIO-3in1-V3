@@ -461,10 +461,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Verification: Report/HANDOFF and milestone9.2 closure included. Both TS configurations/232 deterministic checks pass. Actual16member Chromium ZIP4d86ec53362dd4801a4e2ea381bf99716c532bc1b164e81bf80358b6c424afc1 extracted and its actualCSP/runtime passed2 Chromium/Firefox cases. Candidate source645f77e is explicitlydirty, final release rebuild remains required. Independent whole-capability review resolved stable-basename and test-server containment findings after RED regressions; package/extraction/six hostile mutations/renamedZIP/path recheck pass. No scoped TODO. Native full-browser sidebar load/action/open-close remains unavailable/excluded; extension platform release awaits Firefox.
 
     - [ ] Milestone 9.3 — Firefox sidebar delivery
-        - [ ] T-069 — Wire the Firefox sidebar and background script
+        - [x] T-069 — Wire the Firefox sidebar and background script
             Scope: platforms/firefox manifest and Firefox adapter/assembly entry. Contract: R11; C7/C8.
             Depends on: T-068.
             Evidence: Use sidebar_action and a supported background script, keep shared application/session logic and confirm minimum API/tool compatibility. Verify platform-specific API differences without duplicating gameplay.
+            Verification: Two shell tests observed RED then pass;235 deterministic checks and both TypeScript configurations pass. Firefox-specific MV3 sidebar_action/background.scripts uses storage permission only, synchronous action.open and shared session/game/UI code. Actual Firefox assembly background executes under recorder without imports/game timers. Its actualCSP/shared runtime passes Chromium/Firefox2/2 JSON/SQLite/local-settings/paused-reopen cases. Official Mozilla MV3/background and Firefox115/storage.session compatibility checked. Native temporary installation and pinned validation remain T070; package/cumulative release remains T071.
+
         - [ ] T-070 — Validate Firefox runtime permissions and temporary installation
             Scope: Firefox validation tools/config, platform tests and INSTALL.md. Contract: R11/R8; C8.
             Depends on: T-069.

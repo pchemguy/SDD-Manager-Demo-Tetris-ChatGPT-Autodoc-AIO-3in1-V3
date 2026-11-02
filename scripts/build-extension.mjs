@@ -3,7 +3,7 @@ import {build} from 'vite';
 import {readFile,writeFile,rename,cp} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {join} from 'node:path';
-const platform=process.argv[2]??'chromium';if(platform!=='chromium')throw Error('Unsupported extension build target.');
+const platform=process.argv[2]??'chromium';if(!['chromium','firefox'].includes(platform))throw Error('Unsupported extension build target.');
 const root=fileURLToPath(new URL('../',import.meta.url)),out=join(root,'dist',platform);
 await build({root,mode:platform});await rename(join(out,'index.html'),join(out,'sidebar.html'));
 await build({root,configFile:false,logLevel:'warn',publicDir:false,build:{outDir:out,emptyOutDir:false,target:'es2020',minify:true,lib:{entry:join(root,`platforms/${platform}/background.ts`),name:'TetrisBackground',formats:['iife'],fileName:()=> 'background.js'}}});
