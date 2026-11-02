@@ -441,10 +441,12 @@ Report paths below designate future evidence outputs, not existing files. Implem
             Verification: Milestone9.1 report/HANDOFF included. Two cadence/failure tests and recovery-warning regression observed RED before fixes. Independent whole-capability review resolved M9.1-F01–F03; final wrapper recheck4/4. Check passes both TS configurations;227 deterministic checks/browser build pass. Four actual shared-page sidebar checks and isolated whole source suite pass:198 Chromium/Firefox cases,10 explicit build/transport exclusions. Initial generator/HMR interference diagnosed and isolated rerun passed. Native sidebar/Windows execution remains explicitly excluded.
 
     - [ ] Milestone 9.2 — Chromium sidebar delivery
-        - [ ] T-066 — Wire the Chromium MV3 sidebar shell
+        - [x] T-066 — Wire the Chromium MV3 sidebar shell
             Scope: platforms/chromium manifest, sidebar HTML and Chromium background/action wiring. Contract: R11; C7/C8.
             Depends on: T-065.
             Evidence: Declare side_panel, minimum API version and minimal permissions. Open from a user gesture and bind the shared page/session broker; verify no host-page content script, backend or gameplay service worker.
+            Verification: Two manifest/action checks observed RED then pass. Both TypeScript configurations and229 deterministic checks pass. Manifest uses local sidebar entry, Chrome116 minimum, storage/sidePanel permissions only and no host scripts/popup/backend. Shared background event composition and native action configuration are recorded separately from unavailable full-browser execution. Official Chrome sidePanel/CSP documentation checked; icon PNGs generated reproducibly and inspected. Extension icons remain in platform ownership to preserve strict browser/desktop inventories. Bundling/package acceptance follows T067/T068.
+
         - [ ] T-067 — Verify Chromium bundled assets and CSP
             Scope: Chromium build target, standalone validator/worker/WASM assets and manifest checks. Contract: R11/R8; C8.
             Depends on: T-066.
